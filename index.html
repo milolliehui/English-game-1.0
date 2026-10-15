@@ -3,66 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Milo's Story Crafter — ISA Writing Arena 1.0</title>
+  <title>Milo's Writing Crafter</title>
   <style>
-    /* =========================================================================
-       LAYER 1: VISUAL THEME LAYER (SWAPPABLE CSS DESIGN TOKENS)
-       ========================================================================= */
     :root {
-      --bg-primary: #141c15;
-      --bg-secondary: #1e2b20;
-      --bg-panel: #273729;
-      --bg-card: #1a241b;
-      --bg-input: #101711;
-      --border-main: #4a6b4e;
-      --border-highlight: #50c878;
-      --text-main: #f0f7f1;
-      --text-muted: #a9c2ad;
-      --accent-emerald: #2ecc71;
-      --accent-gold: #f1c40f;
-      --accent-diamond: #00e5ff;
-      --accent-inaccuracy: #f39c12;
-      --accent-blunder: #e74c3c;
-      --btn-primary: #27ae60;
-      --btn-primary-border: #1e8449;
-      --btn-secondary: #34495e;
-      --font-main: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-      --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-      --shadow-pixel: 0 4px 0 rgba(0, 0, 0, 0.45);
-    }
-
-    body.theme-space {
-      --bg-primary: #0b0f19;
-      --bg-secondary: #131b2e;
-      --bg-panel: #1b2642;
-      --bg-card: #101729;
-      --bg-input: #090d16;
-      --border-main: #3b5284;
-      --border-highlight: #38bdf8;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --accent-emerald: #38bdf8;
-      --accent-gold: #facc15;
-      --accent-diamond: #a855f7;
-      --btn-primary: #0284c7;
-      --btn-primary-border: #0369a1;
-    }
-
-    body.theme-castle {
-      --bg-primary: #1c1613;
-      --bg-secondary: #2b221e;
-      --bg-panel: #382c26;
-      --bg-card: #221b17;
-      --bg-input: #14100e;
-      --border-main: #6e5547;
-      --border-highlight: #f59e0b;
-      --text-main: #fef3c7;
-      --text-muted: #d6c3b5;
-      --accent-emerald: #10b981;
-      --accent-gold: #f59e0b;
-      --accent-diamond: #38bdf8;
-      --btn-primary: #d97706;
-      --btn-primary-border: #b45309;
+      --bg-page: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-soft: #f8fafc;
+      --bg-coach: #eff6ff;
+      --border-light: #cbd5e1;
+      --border-strong: #94a3b8;
+      --border-focus: #16a34a;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --emerald-main: #16a34a;
+      --emerald-dark: #15803d;
+      --emerald-bg: #dcfce7;
+      --gold-main: #d97706;
+      --gold-bg: #fef3c7;
+      --blue-main: #2563eb;
+      --blue-bg: #dbeafe;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     * {
@@ -72,205 +33,146 @@
     }
 
     body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: var(--font-main);
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
       min-height: 100vh;
-      padding: env(safe-area-inset-top, 12px) 16px env(safe-area-inset-bottom, 20px) 16px;
-      line-height: 1.5;
+      padding: env(safe-area-inset-top, 14px) 16px env(safe-area-inset-bottom, 24px) 16px;
+      line-height: 1.55;
     }
 
-    .app-container {
-      max-width: 1180px;
+    .app-shell {
+      max-width: 960px;
       margin: 0 auto;
     }
 
-    /* TOP HUD BAR */
-    .hud-bar {
+    /* TOP BAR — CLEAN & UNCLUTTERED */
+    .top-bar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      background: var(--bg-panel);
-      border: 3px solid var(--border-main);
-      border-radius: 12px;
-      padding: 12px 16px;
-      box-shadow: var(--shadow-pixel);
-      margin-bottom: 14px;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-light);
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
     }
 
-    .brand-block {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .brand-icon {
-      font-size: 1.9rem;
-      background: var(--bg-card);
-      border: 2px solid var(--border-highlight);
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
-      width: 46px;
-      height: 46px;
+      background: var(--emerald-bg);
+      border: 2px solid var(--emerald-main);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.5rem;
     }
 
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: 0.3px;
-      color: var(--text-main);
+      color: var(--text-primary);
     }
 
-    .brand-sub {
-      font-size: 0.78rem;
+    .brand-subtitle {
+      font-size: 0.82rem;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
-    .hud-controls {
+    .top-controls {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .hud-select, .hud-btn {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 2px solid var(--border-main);
-      border-radius: 8px;
-      padding: 7px 11px;
-      font-size: 0.86rem;
-      font-weight: 600;
+    .level-select {
+      background: var(--bg-soft);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: transform 0.1s, border-color 0.15s;
     }
 
-    .hud-select:hover, .hud-btn:hover {
-      border-color: var(--border-highlight);
-    }
-
-    .hud-stat-pill {
+    .stat-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
+      padding: 7px 13px;
       border-radius: 999px;
-      padding: 6px 12px;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .stat-pill.emerald {
+      background: var(--emerald-bg);
+      color: var(--emerald-dark);
+      border: 1.5px solid #86efac;
+    }
+
+    .stat-pill.wpm {
+      background: var(--blue-bg);
+      color: #1d4ed8;
+      border: 1.5px solid #93c5fd;
+    }
+
+    .btn-parent {
+      background: var(--bg-soft);
+      color: var(--text-secondary);
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      padding: 7px 12px;
       font-size: 0.85rem;
       font-weight: 700;
-    }
-
-    .hud-stat-pill.emerald {
-      border-color: var(--accent-emerald);
-      color: #a3f7bf;
-    }
-
-    .hud-stat-pill.wpm {
-      border-color: var(--accent-diamond);
-      color: #a5f3fc;
-    }
-
-    .hud-stat-pill.streak {
-      border-color: var(--accent-gold);
-      color: #fde047;
-    }
-
-    /* MODE TABS */
-    .mode-Filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .mode-tab {
-      flex: 1;
-      min-width: 200px;
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-main);
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 0.9rem;
       cursor: pointer;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.15s;
     }
 
-    .mode-tab.active {
-      background: var(--bg-panel);
-      border-color: var(--border-highlight);
-      color: var(--text-main);
-      box-shadow: 0 0 12px rgba(80, 200, 120, 0.25);
-    }
-
-    .mode-tab small {
-      display: block;
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* CHESS.COM-STYLE COACH BANNER */
-    .coach-banner {
+    /* COACH BANNER */
+    .coach-card {
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-secondary) 100%);
-      border: 3px solid var(--border-highlight);
+      background: var(--bg-coach);
+      border: 2px solid #93c5fd;
       border-radius: 14px;
-      padding: 14px 18px;
+      padding: 16px 18px;
       margin-bottom: 16px;
-      box-shadow: var(--shadow-pixel);
-      position: relative;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06);
     }
 
-    .coach-avatar-box {
-      flex-shrink: 0;
-      width: 64px;
-      height: 64px;
+    .coach-avatar {
+      width: 58px;
+      height: 58px;
       border-radius: 12px;
       background: var(--bg-card);
-      border: 3px solid var(--accent-gold);
+      border: 2px solid var(--blue-main);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      position: relative;
+      flex-shrink: 0;
     }
 
-    .coach-badge-tag {
-      font-size: 0.62rem;
-      background: var(--accent-gold);
-      color: #111;
-      font-weight: 800;
-      padding: 1px 5px;
-      border-radius: 4px;
-      margin-top: -4px;
-      text-transform: uppercase;
-    }
-
-    .coach-speech-bubble {
+    .coach-body {
       flex: 1;
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
-      border-radius: 12px;
-      padding: 12px 15px;
-      position: relative;
     }
 
-    .coach-header-row {
+    .coach-top-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -279,407 +181,329 @@
     }
 
     .coach-name {
+      font-size: 0.95rem;
       font-weight: 800;
-      font-size: 0.92rem;
-      color: var(--accent-gold);
+      color: #1e40af;
+    }
+
+    .coach-question {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .coach-tip {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.75);
+      padding: 6px 11px;
+      border-left: 3px solid var(--blue-main);
+      border-radius: 6px;
     }
 
     .move-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 3px 9px;
+      padding: 3px 10px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 800;
     }
 
     .move-badge.brilliant {
-      background: rgba(0, 229, 255, 0.18);
-      border: 1.5px solid var(--accent-diamond);
-      color: #67e8f9;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1.5px solid #38bdf8;
     }
 
     .move-badge.great {
-      background: rgba(46, 204, 113, 0.2);
-      border: 1.5px solid var(--accent-emerald);
-      color: #86efac;
+      background: var(--emerald-bg);
+      color: var(--emerald-dark);
+      border: 1.5px solid #4ade80;
     }
 
     .move-badge.inaccuracy {
-      background: rgba(243, 156, 18, 0.2);
-      border: 1.5px solid var(--accent-inaccuracy);
-      color: #fde047;
+      background: var(--gold-bg);
+      color: #b45309;
+      border: 1.5px solid #fbbf24;
     }
 
-    .coach-message {
-      font-size: 0.98rem;
-      color: var(--text-main);
-      line-height: 1.5;
-    }
-
-    .coach-hint-box {
-      margin-top: 8px;
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
-      padding: 6px 10px;
-      border-left: 3px solid var(--accent-gold);
-      border-radius: 4px;
-    }
-
-    /* MAIN 2-COLUMN WORKSPACE */
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.95fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .workspace-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .panel-card {
-      background: var(--bg-panel);
-      border: 3px solid var(--border-main);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: var(--shadow-pixel);
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--border-main);
-    }
-
-    .panel-title {
-      font-size: 1.02rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .genre-pill {
-      font-size: 0.76rem;
-      padding: 3px 9px;
-      border-radius: 6px;
+    /* MAIN WRITING WORKSPACE CARD */
+    .writing-card {
       background: var(--bg-card);
-      border: 1.5px solid var(--border-highlight);
-      color: var(--accent-emerald);
-      font-weight: 700;
+      border: 2px solid var(--border-light);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
     }
 
-    .prompt-scenario-box {
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 12px;
-      font-size: 0.94rem;
-    }
-
-    /* TYPE-IT-YOURSELF VOCAB & STARTER CHIPS */
-    .scaffold-section {
-      margin-bottom: 12px;
-    }
-
-    .scaffold-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .chip-container {
+    .mission-header {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
-    .vocab-chip {
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
-      color: var(--text-main);
-      padding: 5px 10px;
+    .mission-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .genre-tag {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
       border-radius: 8px;
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    .scenario-banner {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    /* STEP PROGRESS PILLS */
+    .steps-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .step-pill {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: var(--bg-soft);
+      border: 2px solid var(--border-light);
       font-size: 0.84rem;
       font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.15s;
-      user-select: none;
-    }
-
-    .vocab-chip:hover {
-      border-color: var(--accent-gold);
-    }
-
-    .vocab-chip.used {
-      background: rgba(46, 204, 113, 0.22);
-      border-color: var(--accent-emerald);
-      color: #86efac;
-    }
-
-    .starter-chip {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1.5px dashed var(--accent-diamond);
-      color: #bae6fd;
-      padding: 4px 9px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* STEP PROGRESS STEPS */
-    .steps-bar {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .step-node {
-      flex: 1;
-      padding: 7px 8px;
-      border-radius: 8px;
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-align: center;
       color: var(--text-muted);
+      text-align: center;
       cursor: pointer;
     }
 
-    .step-node.active {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-      background: rgba(241, 196, 15, 0.12);
+    .step-pill.active {
+      background: var(--blue-bg);
+      border-color: var(--blue-main);
+      color: #1e40af;
     }
 
-    .step-node.done {
-      border-color: var(--accent-emerald);
-      color: #86efac;
-      background: rgba(46, 204, 113, 0.14);
+    .step-pill.done {
+      background: var(--emerald-bg);
+      border-color: var(--emerald-main);
+      color: var(--emerald-dark);
     }
 
-    /* WRITING TEXTAREA (ISA EXAM SPELLCHECK OFF) */
-    .typing-area-wrap {
-      position: relative;
-      margin-bottom: 12px;
-    }
-
+    /* BIG, HIGH-CONTRAST WHITE ANSWER BOX */
     .writing-textarea {
       width: 100%;
-      min-height: 135px;
-      background: var(--bg-input);
-      color: var(--text-main);
-      border: 3px solid var(--border-main);
-      border-radius: 10px;
-      padding: 13px 15px;
-      font-family: var(--font-main);
-      font-size: 1.04rem;
-      line-height: 1.55;
+      min-height: 230px;
+      background: #ffffff;
+      color: #0f172a;
+      border: 2.5px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-family: var(--font-sans);
+      font-size: 1.16rem;
+      line-height: 1.65;
       resize: vertical;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .writing-textarea:focus {
-      border-color: var(--border-highlight);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
     }
 
-    .typing-metrics-footer {
+    .writing-textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .word-counter-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      margin-top: 6px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
+      gap: 10px;
+      margin-top: 8px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-weight: 600;
     }
 
-    .word-progress-track {
+    .progress-track {
       flex: 1;
-      min-width: 140px;
+      min-width: 160px;
       height: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-main);
+      background: #e2e8f0;
       border-radius: 999px;
       overflow: hidden;
     }
 
-    .word-progress-fill {
+    .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-emerald), var(--accent-diamond));
+      background: var(--emerald-main);
       width: 0%;
       transition: width 0.2s;
     }
 
-    /* BUTTONS */
-    .action-row {
+    /* ACTION BUTTONS */
+    .button-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
 
-    .btn-craft {
-      background: var(--btn-primary);
-      color: #fff;
+    .btn-primary {
+      background: var(--emerald-main);
+      color: #ffffff;
       border: none;
-      border-bottom: 4px solid var(--btn-primary-border);
-      border-radius: 9px;
-      padding: 11px 18px;
-      font-size: 0.95rem;
+      border-bottom: 4px solid var(--emerald-dark);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: transform 0.1s, filter 0.15s;
     }
 
-    .btn-craft:hover {
-      filter: brightness(1.08);
+    .btn-primary:hover {
+      background: #15803d;
     }
 
-    .btn-craft:active {
-      transform: translateY(2px);
-    }
-
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 2px solid var(--border-main);
-      border-radius: 9px;
-      padding: 9px 14px;
-      font-size: 0.88rem;
+    .btn-light {
+      background: var(--bg-soft);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .btn-secondary:hover {
-      border-color: var(--border-highlight);
+    .btn-light:hover {
+      border-color: var(--border-strong);
     }
 
-    /* RIGHT PANEL: COMPILED ESSAY SCROLL & VOCAB WATCHLIST */
-    .compiled-scroll {
+    /* COMPILED WRITING PREVIEW */
+    .story-preview-card {
       background: var(--bg-card);
-      border: 2px solid var(--border-main);
+      border: 2px solid var(--border-light);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+
+    .compiled-box {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border-light);
       border-radius: 10px;
-      padding: 14px;
-      min-height: 190px;
-      max-height: 360px;
-      overflow-y: auto;
-      font-size: 0.96rem;
+      padding: 14px 16px;
+      margin-top: 10px;
+      font-size: 1.04rem;
+      color: var(--text-primary);
       line-height: 1.65;
-      margin-bottom: 14px;
     }
 
     .compiled-part {
       margin-bottom: 10px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid var(--accent-emerald);
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .compiled-part:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .compiled-part-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      color: var(--accent-gold);
+      font-size: 0.76rem;
       font-weight: 800;
+      text-transform: uppercase;
+      color: var(--blue-main);
       margin-bottom: 3px;
     }
 
-    /* CHESS.COM-STYLE POST-GAME REVIEW PANEL */
-    .review-modal-card {
-      margin-top: 16px;
-      background: var(--bg-panel);
-      border: 3px solid var(--accent-gold);
+    /* POST-SESSION WRITING CHECK PANEL */
+    .review-card {
+      background: var(--bg-card);
+      border: 3px solid var(--gold-main);
       border-radius: 14px;
-      padding: 18px;
-      box-shadow: var(--shadow-pixel);
+      padding: 20px;
+      margin-bottom: 20px;
       display: none;
     }
 
-    .review-modal-card.visible {
+    .review-card.visible {
       display: block;
     }
 
-    .review-badges-summary {
+    .review-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin: 12px 0;
     }
 
-    .review-counter-box {
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
+    .review-stat-box {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border-light);
       border-radius: 10px;
       padding: 10px;
       text-align: center;
     }
 
-    .review-counter-num {
+    .review-stat-num {
       font-size: 1.5rem;
       font-weight: 900;
     }
 
-    .sentence-review-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin: 12px 0;
+    .sentence-item {
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border-light);
+      border-radius: 10px;
+      padding: 11px 14px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
     }
 
-    .sentence-review-item {
-      background: var(--bg-card);
-      border: 2px solid var(--border-main);
-      border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-    }
-
-    .retry-challenge-box {
-      background: rgba(243, 156, 18, 0.1);
-      border: 2px solid var(--accent-gold);
+    .retry-box {
+      background: var(--gold-bg);
+      border: 2px solid var(--gold-main);
       border-radius: 12px;
-      padding: 14px;
+      padding: 16px;
       margin-top: 14px;
     }
 
-    /* MODAL OVERLAY (PARENT HUB & CLOUD SETTINGS) */
+    /* PARENT MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(15, 23, 42, 0.6);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 999;
+      z-index: 1000;
       padding: 16px;
     }
 
@@ -688,15 +512,16 @@
     }
 
     .modal-box {
-      background: var(--bg-panel);
-      border: 3px solid var(--border-highlight);
-      border-radius: 14px;
-      max-width: 780px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 16px;
+      max-width: 760px;
       width: 100%;
       max-height: 88vh;
       overflow-y: auto;
-      padding: 20px;
-      box-shadow: var(--shadow-pixel);
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
     }
 
     .form-group {
@@ -705,53 +530,51 @@
 
     .form-group label {
       display: block;
-      font-size: 0.83rem;
+      font-size: 0.85rem;
       font-weight: 700;
       margin-bottom: 4px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .form-input {
       width: 100%;
       padding: 9px 12px;
       border-radius: 8px;
-      border: 2px solid var(--border-main);
-      background: var(--bg-input);
-      color: var(--text-main);
-      font-size: 0.9rem;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-primary);
+      font-size: 0.92rem;
     }
 
     .parent-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       margin-top: 10px;
     }
 
     .parent-table th, .parent-table td {
-      border: 1px solid var(--border-main);
-      padding: 6px 8px;
+      border: 1px solid var(--border-light);
+      padding: 7px 9px;
       text-align: left;
     }
 
     .parent-table th {
-      background: var(--bg-card);
-      color: var(--accent-gold);
+      background: var(--bg-soft);
+      color: var(--text-primary);
     }
 
-    /* TOAST */
     .toast-box {
       position: fixed;
       bottom: 22px;
       right: 22px;
-      background: var(--bg-panel);
-      border: 2px solid var(--border-highlight);
-      color: var(--text-main);
-      padding: 11px 16px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 18px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow: var(--shadow-pixel);
+      font-size: 0.92rem;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
       z-index: 1200;
       opacity: 0;
       transform: translateY(15px);
@@ -766,293 +589,213 @@
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- TOP HUD BAR -->
-    <header class="hud-bar">
-      <div class="brand-block">
-        <div class="brand-icon" id="brand-icon">⛏️</div>
+  <div class="app-shell">
+    <!-- CLEAN TOP BAR -->
+    <header class="top-bar">
+      <div class="brand-group">
+        <div class="brand-icon">✏️</div>
         <div>
-          <div class="brand-title">Milo's Story Crafter <span style="font-size:0.75rem;color:var(--accent-gold);">v1.0 ISA Prep</span></div>
-          <div class="brand-sub" id="hud-rank-label">Rank: Apprentice Chronicler • Target: ISA Writing Assessment</div>
+          <div class="brand-title">Milo's Writing Crafter</div>
+          <div class="brand-subtitle" id="hud-rank-label">Step-by-Step Writing Adventure</div>
         </div>
       </div>
 
-      <div class="hud-controls">
-        <select id="level-select" class="hud-select" aria-label="Select Mission"></select>
+      <div class="top-controls">
+        <select id="level-select" class="level-select" aria-label="Choose Level"></select>
 
-        <select id="theme-select" class="hud-select" aria-label="Select Visual Theme">
-          <option value="minecraft">⛏️ Theme: Minecraft Crafter</option>
-          <option value="space">🚀 Theme: Space Explorer</option>
-          <option value="castle">🏰 Theme: Grandmaster Castle</option>
-        </select>
-
-        <div class="hud-stat-pill wpm" title="Live Typing Speed (Words Per Minute)">
+        <div class="stat-pill wpm" title="Typing Speed">
           ⌨️ <span id="hud-wpm">0</span> WPM
         </div>
 
-        <div class="hud-stat-pill streak" title="Active Typing Flow Streak">
-          🔥 Streak: <span id="hud-streak">0</span>
+        <div class="stat-pill emerald" title="Emeralds Earned">
+          💎 <span id="hud-emeralds">20</span>
         </div>
 
-        <div class="hud-stat-pill emerald" title="Emeralds Earned">
-          💎 <span id="hud-emeralds">0</span>
-        </div>
-
-        <button class="hud-btn" id="btn-open-settings" title="Cloud Sync & Parent ISA Report">☁️ Parent & Cloud</button>
+        <button class="btn-parent" id="btn-open-settings">☁️ Parent</button>
       </div>
     </header>
 
-    <!-- 3-TIER PROGRESSION MODE FILTER TABS -->
-    <nav class="mode-Filter-bar" aria-label="Progression Modes">
-      <button class="mode-tab active" data-mode="all" onclick="window.GameEngine.filterByMode('all')">
-        <div>
-          🌟 All Missions (Auto-Latest)
-          <small>Sorted newest first ★</small>
-        </div>
-        <span>9</span>
-      </button>
-      <button class="mode-tab" data-mode="interview" onclick="window.GameEngine.filterByMode('interview')">
-        <div>
-          💬 Mode 1: Socratic Interview
-          <small>Sentence-by-Sentence Co-Writing</small>
-        </div>
-        <span>M01–M04</span>
-      </button>
-      <button class="mode-tab" data-mode="workshop" onclick="window.GameEngine.filterByMode('workshop')">
-        <div>
-          🛠️ Mode 2: Milestone Workshop
-          <small>3-Paragraph Guided Studio</small>
-        </div>
-        <span>M05–M07</span>
-      </button>
-      <button class="mode-tab" data-mode="boss" onclick="window.GameEngine.filterByMode('boss')">
-        <div>
-          🏆 Mode 3: ISA Boss Arena
-          <small>Full Exam Simulation</small>
-        </div>
-        <span>M08–M09</span>
-      </button>
-    </nav>
-
-    <!-- CHESS.COM-STYLE COACH SPEECH BUBBLE BANNER -->
-    <section class="coach-banner" aria-label="Socratic Writing Coach">
-      <div class="coach-avatar-box">
-        <span id="coach-avatar">🧙‍♂️</span>
-        <span class="coach-badge-tag">COACH</span>
-      </div>
-      <div class="coach-speech-bubble">
-        <div class="coach-header-row">
-          <span class="coach-name" id="coach-name">Master Villager Alistair</span>
+    <!-- FRIENDLY COACH SPEECH BUBBLE -->
+    <section class="coach-card" aria-label="Writing Coach">
+      <div class="coach-avatar" id="coach-avatar">🦉</div>
+      <div class="coach-body">
+        <div class="coach-top-row">
+          <span class="coach-name" id="coach-name">Coach Alex</span>
           <div style="display:flex;align-items:center;gap:8px;">
-            <span id="coach-move-badge" class="move-badge great">⭐ Ready to Craft!</span>
-            <button class="btn-secondary" style="padding:4px 9px;font-size:0.76rem;" onclick="window.GameEngine.speakCoachPrompt()">🔊 Read Aloud</button>
+            <span id="coach-move-badge" class="move-badge great">⭐ Ready to Write!</span>
+            <button class="btn-light" style="padding:4px 10px;font-size:0.8rem;" onclick="window.GameEngine.speakCoachPrompt()">🔊 Read to Me</button>
           </div>
         </div>
-        <div class="coach-message" id="coach-message">
-          Welcome back, Milo! Select your mission and type your first response below. Remember: use vivid words and check your spelling!
+        <div class="coach-question" id="coach-message"></div>
+        <div class="coach-tip" id="coach-hint"></div>
+      </div>
+    </section>
+
+    <!-- MAIN WRITING WORKSPACE -->
+    <main class="writing-card">
+      <div class="mission-header">
+        <div class="mission-title" id="mission-title">Level 1: A Rainy Morning on the Way to School</div>
+        <span class="genre-tag" id="mission-genre-badge">📖 Story Time • Easy</span>
+      </div>
+
+      <div class="scenario-banner" id="mission-scenario"></div>
+
+      <!-- SIMPLE PART PROGRESS BAR -->
+      <div class="steps-row" id="steps-bar"></div>
+
+      <!-- LARGE WHITE HIGH-CONTRAST ANSWER BOX -->
+      <textarea
+        id="writing-input"
+        class="writing-textarea"
+        spellcheck="false"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="off"
+        placeholder="Type your sentences here, Milo..."
+      ></textarea>
+
+      <div class="word-counter-row">
+        <div>
+          📝 Words in this part: <strong id="step-word-count">0</strong> (Goal: <span id="step-word-goal">10</span>+ words)
+          &nbsp;•&nbsp; Total Words: <strong id="total-word-count">0</strong> / <span id="mission-word-goal">45</span>
         </div>
-        <div class="coach-hint-box" id="coach-hint">
-          💡 Tip: Type any of the Power Vocabulary Chips below into your sentence to mine bonus Emeralds!
+        <div class="progress-track">
+          <div class="progress-fill" id="word-progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="button-bar">
+        <button class="btn-primary" id="btn-submit-step" onclick="window.GameEngine.submitCurrentStep()">
+          ✅ Save Part & Continue
+        </button>
+        <button class="btn-light" onclick="window.GameEngine.askHint()">
+          💡 Give Me a Hint
+        </button>
+        <button class="btn-light" onclick="window.GameEngine.runGameReview()">
+          🏁 Finish & Check My Writing
+        </button>
+      </div>
+    </main>
+
+    <!-- POST-SESSION WRITING CHECK & QUICK FIX CHALLENGE -->
+    <section class="review-card" id="review-panel">
+      <div class="mission-header">
+        <div class="mission-title">🌟 Coach's Writing Check</div>
+        <button class="btn-light" style="padding:5px 12px;font-size:0.82rem;" onclick="window.GameEngine.advanceToNextLevel()">
+          ➡️ Go to Next Level
+        </button>
+      </div>
+
+      <p id="review-coach-summary" style="font-size:0.98rem;color:var(--text-secondary);margin-bottom:10px;"></p>
+
+      <div class="review-grid">
+        <div class="review-stat-box">
+          <div class="review-stat-num" style="color:#0284c7;" id="rev-brilliant-count">0</div>
+          <div style="font-size:0.84rem;font-weight:800;">💎 Brilliant!!</div>
+          <div style="font-size:0.74rem;color:var(--text-muted);">Detailed & Vivid</div>
+        </div>
+        <div class="review-stat-box">
+          <div class="review-stat-num" style="color:#16a34a;" id="rev-great-count">0</div>
+          <div style="font-size:0.84rem;font-weight:800;">⭐ Great Sentence!</div>
+          <div style="font-size:0.74rem;color:var(--text-muted);">Clear Idea</div>
+        </div>
+        <div class="review-stat-box">
+          <div class="review-stat-num" style="color:#d97706;" id="rev-inaccuracy-count">0</div>
+          <div style="font-size:0.84rem;font-weight:800;">🔧 Quick Fix</div>
+          <div style="font-size:0.74rem;color:var(--text-muted);">Spelling or Word Upgrade</div>
+        </div>
+      </div>
+
+      <div id="sentence-review-list"></div>
+
+      <div class="retry-box" id="retry-challenge-box">
+        <div style="font-weight:800;color:#92400e;margin-bottom:6px;font-size:1rem;">
+          🎯 Quick Fix Bonus: Polish This Sentence for +10 💎!
+        </div>
+        <div id="retry-prompt-text" style="font-size:0.94rem;color:var(--text-primary);margin-bottom:10px;"></div>
+        <textarea
+          id="retry-input"
+          class="writing-textarea"
+          style="min-height:100px;margin-bottom:10px;"
+          spellcheck="false"
+          autocorrect="off"
+          placeholder="Type your improved sentence here..."
+        ></textarea>
+        <div class="button-bar">
+          <button class="btn-primary" onclick="window.GameEngine.submitRetryChallenge()">
+            🔓 Claim +10 💎 Bonus
+          </button>
+          <button class="btn-light" onclick="window.GameEngine.advanceToNextLevel()">
+            ➡️ Next Level
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- MAIN 2-COLUMN WORKSPACE -->
-    <main class="workspace-grid">
-      <!-- LEFT COLUMN: ACTIVE TYPING & SOCRATIC CRAFTING DECK -->
-      <section class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span id="mission-title">M01: The Whispering Redstone Cavern</span>
-          </div>
-          <span class="genre-pill" id="mission-genre-badge">⚔️ Story Quest (Narrative)</span>
+    <!-- MILO'S STORY SO FAR -->
+    <section class="story-preview-card">
+      <div class="mission-header" style="margin-bottom:4px;">
+        <div class="mission-title" style="font-size:1.02rem;">📜 Your Writing So Far</div>
+        <button class="btn-light" style="padding:5px 11px;font-size:0.8rem;" onclick="window.GameEngine.speakCompiledDraft()">
+          🔊 Read My Writing
+        </button>
+      </div>
+      <div class="compiled-box" id="compiled-scroll">
+        <div style="color:var(--text-muted);font-style:italic;">
+          As you finish each part above, your full story or opinion piece will appear here!
         </div>
-
-        <div class="prompt-scenario-box" id="mission-scenario"></div>
-
-        <!-- DYNAMIC STEP BAR (FOR INTERVIEW & WORKSHOP MODES) -->
-        <div class="steps-bar" id="steps-bar"></div>
-
-        <!-- TYPE-IT-YOURSELF POWER VOCABULARY CHIPS -->
-        <div class="scaffold-section">
-          <div class="scaffold-label">
-            <span>⚡ Power Vocabulary Chips (Type them in your text for +2 💎 each — tap to hear):</span>
-            <span id="vocab-used-counter">0 / 6 Crafted</span>
-          </div>
-          <div class="chip-container" id="vocab-chip-container"></div>
-        </div>
-
-        <!-- SENTENCE STARTERS -->
-        <div class="scaffold-section">
-          <div class="scaffold-label">
-            <span>🧭 Sentence Openers (Type one to start smoothly):</span>
-          </div>
-          <div class="chip-container" id="starter-chip-container"></div>
-        </div>
-
-        <!-- TYPING INPUT BOX (SPELLCHECK OFF LIKE REAL ISA EXAM) -->
-        <div class="typing-area-wrap">
-          <textarea
-            id="writing-input"
-            class="writing-textarea"
-            spellcheck="false"
-            autocorrect="off"
-            autocapitalize="off"
-            autocomplete="off"
-            placeholder="Start typing your response here, Milo... (Spellcheck is off just like the real ISA test!)"
-          ></textarea>
-
-          <div class="typing-metrics-footer">
-            <div>
-              📝 Step Words: <strong id="step-word-count">0</strong> / <span id="step-word-goal">12</span> min
-              &nbsp;|&nbsp; Total Draft Words: <strong id="total-word-count">0</strong> / <span id="mission-word-goal">50</span>
-            </div>
-            <div class="word-progress-track">
-              <div class="word-progress-fill" id="word-progress-fill"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="action-row">
-          <button class="btn-craft" id="btn-submit-step" onclick="window.GameEngine.submitCurrentStep()">
-            ⚒️ Craft & Submit Step
-          </button>
-          <button class="btn-secondary" id="btn-ask-mentor" onclick="window.GameEngine.askSocraticHint()">
-            💡 Ask Coach for a Socratic Clue
-          </button>
-          <button class="btn-secondary" id="btn-run-review" onclick="window.GameEngine.runGameReview()">
-            🔍 Run Chess.com Game Review
-          </button>
-        </div>
-
-        <!-- CHESS.COM-STYLE POST-SESSION GAME REVIEW & RETRY LOOP -->
-        <div class="review-modal-card" id="review-panel">
-          <div class="panel-header">
-            <div class="panel-title">📊 Coach's Writing Game Review (Milo's Move Breakdown)</div>
-            <span class="genre-pill" id="review-source-tag">⚡ Coach Engine</span>
-          </div>
-
-          <p id="review-coach-summary" style="font-size:0.94rem;margin-bottom:10px;"></p>
-
-          <div class="review-badges-summary">
-            <div class="review-counter-box">
-              <div class="review-counter-num" style="color:#67e8f9;" id="rev-brilliant-count">0</div>
-              <div style="font-size:0.8rem;font-weight:700;">💎 Brilliant!!</div>
-              <div style="font-size:0.7rem;color:var(--text-muted);">Power Vocab & Imagery</div>
-            </div>
-            <div class="review-counter-box">
-              <div class="review-counter-num" style="color:#86efac;" id="rev-great-count">0</div>
-              <div style="font-size:0.8rem;font-weight:700;">⭐ Great Move</div>
-              <div style="font-size:0.7rem;color:var(--text-muted);">Clear & Connected</div>
-            </div>
-            <div class="review-counter-box">
-              <div class="review-counter-num" style="color:#fde047;" id="rev-inaccuracy-count">0</div>
-              <div style="font-size:0.8rem;font-weight:700;">?! Inaccuracy</div>
-              <div style="font-size:0.7rem;color:var(--text-muted);">Spelling or Weak Word</div>
-            </div>
-          </div>
-
-          <div class="sentence-review-list" id="sentence-review-list"></div>
-
-          <!-- RETRY MISTAKE CHALLENGE -->
-          <div class="retry-challenge-box" id="retry-challenge-box">
-            <div style="font-weight:800;color:var(--accent-gold);margin-bottom:6px;" id="retry-title">
-              🎯 Retry Challenge: Upgrade This Move to Unlock the Final Emerald Chest (+10 💎)!
-            </div>
-            <div id="retry-prompt-text" style="font-size:0.9rem;margin-bottom:8px;"></div>
-            <textarea
-              id="retry-input"
-              class="writing-textarea"
-              style="min-height:76px;margin-bottom:8px;"
-              spellcheck="false"
-              autocorrect="off"
-              placeholder="Re-type and upgrade the sentence here..."
-            ></textarea>
-            <button class="btn-craft" onclick="window.GameEngine.submitRetryChallenge()">
-              🔓 Verify Upgrade & Open Emerald Chest (+10 💎)
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT COLUMN: LIVE COMPILED STORY/ESSAY SCROLL & WORD UPGRADE RADAR -->
-      <aside class="panel-card">
-        <div class="panel-header">
-          <div class="panel-title">📜 Milo's Compiled Scroll</div>
-          <button class="btn-secondary" style="padding:4px 10px;font-size:0.78rem;" onclick="window.GameEngine.speakCompiledDraft()">
-            🔊 Read My Draft
-          </button>
-        </div>
-
-        <div class="compiled-scroll" id="compiled-scroll">
-          <div style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">
-            Your crafted sentences and paragraphs will assemble here as you build your piece...
-          </div>
-        </div>
-
-        <!-- WORD UPGRADE RADAR (FROM MISTAKE & VOCAB WIKI) -->
-        <div class="panel-header" style="margin-top:8px;">
-          <div class="panel-title">🛡️ Word Upgrade Radar (Avoid Basic Words!)</div>
-        </div>
-        <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px;">
-          When the Coach spots a basic word like <em>went, said, good, bad</em> or a spelling slip, upgrade it for a <strong>💎 Brilliant!!</strong> badge:
-        </div>
-        <div id="vocab-wiki-list" style="display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto;"></div>
-      </aside>
-    </main>
+      </div>
+    </section>
   </div>
 
-  <!-- CLOUD & PARENT DASHBOARD MODAL -->
+  <!-- PARENT & CLOUD SETTINGS MODAL -->
   <div class="modal-overlay" id="settings-modal">
     <div class="modal-box">
-      <div class="panel-header">
-        <div class="panel-title">☁️ Cloud Sync & Parent ISA Analytics Hub</div>
-        <button class="btn-secondary" onclick="window.GameEngine.closeSettingsModal()">✕ Close</button>
+      <div class="mission-header" style="margin-bottom:14px;">
+        <div class="mission-title">☁️ Parent Settings & Hidden ISA Progress Report</div>
+        <button class="btn-light" onclick="window.GameEngine.closeSettingsModal()">✕ Close</button>
       </div>
 
       <div class="form-group">
-        <label for="input-webapp-url">Google Apps Script Web App URL (Syncs with Milo_ISA_Writing_Tracker Sheet & Gemini):</label>
+        <label for="input-webapp-url">Standalone Google Apps Script Web App URL:</label>
         <input type="text" id="input-webapp-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" />
       </div>
 
       <div class="form-group">
-        <label for="input-gcp-project" style="color:var(--accent-gold);">⚡ Option A (Recommended for Hong Kong): Google Cloud Project ID (Vertex AI):</label>
-        <input type="text" id="input-gcp-project" class="form-input" placeholder="e.g. my-milo-writing-project (From console.cloud.google.com — no VPN needed!)" />
+        <label for="input-gcp-project">Option A: Google Cloud Project ID (Vertex AI — No VPN Required in HK):</label>
+        <input type="text" id="input-gcp-project" class="form-input" placeholder="e.g. milo-writing-crafter" />
       </div>
 
       <div class="form-group" style="display:flex;gap:10px;">
         <div style="flex:1;">
           <label for="input-gcp-location">Vertex AI Region:</label>
-          <input type="text" id="input-gcp-location" class="form-input" placeholder="us-central1 (or asia-east2)" value="us-central1" />
+          <input type="text" id="input-gcp-location" class="form-input" value="us-central1" />
         </div>
         <div style="flex:1.2;">
-          <label for="input-gemini-key">Option B: AI Studio API Key (if using VPN):</label>
+          <label for="input-gemini-key">Option B: Gemini API Key (from Cloud Credentials):</label>
           <input type="password" id="input-gemini-key" class="form-input" placeholder="AIzaSy... (optional)" />
         </div>
       </div>
 
-      <div class="action-row" style="margin-bottom:18px;">
-        <button class="btn-craft" onclick="window.GameEngine.saveCloudSettings()">💾 Save & Sync Cloud</button>
-        <button class="btn-secondary" onclick="window.GameEngine.exportParentCsv()">📥 Export Parent ISA Report (CSV)</button>
+      <div class="button-bar" style="margin-bottom:18px;">
+        <button class="btn-primary" onclick="window.GameEngine.saveCloudSettings()">💾 Save Cloud Settings</button>
+        <button class="btn-light" onclick="window.GameEngine.exportParentCsv()">📥 Download Report (CSV)</button>
       </div>
 
-      <div class="panel-header">
-        <div class="panel-title">🔒 Parent-Only Silent ISA Rubric Tracker (Hidden from Milo's Main UI)</div>
+      <div class="mission-title" style="font-size:0.96rem;margin-bottom:6px;">
+        🔒 Parent-Only ISA Rubric Scores (Hidden from Milo's Screen)
       </div>
-      <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px;">
-        Below are the silent ISA 3-Pillar scores (<strong>Content & Ideas /10</strong>, <strong>Language & Expression /10</strong>, <strong>Spelling & Punctuation /10</strong>) and estimated ISA Grade Band recorded on this device and synced to your Google Sheet:
-      </p>
       <div style="overflow-x:auto;">
         <table class="parent-table">
           <thead>
             <tr>
               <th>Date</th>
-              <th>Mission</th>
+              <th>Level</th>
               <th>Words / WPM</th>
               <th>Content /10</th>
               <th>Language /10</th>
               <th>Spelling /10</th>
-              <th>ISA Total /30</th>
+              <th>Total /30</th>
               <th>Estimated Band</th>
             </tr>
           </thead>
@@ -1064,602 +807,361 @@
 
   <div class="toast-box" id="toast-box"></div>
 
-  <!-- =========================================================================
-       EMBEDDED DEFAULT CURRICULUM & VOCAB WIKI (OFFLINE-FIRST)
-       ========================================================================= -->
   <script>
     window.DEFAULT_BANKS = {
-  "gameTitle": "Milo's Story Crafter: ISA Writing Arena",
-  "version": "1.0.0",
-  "lastUpdated": "2026-10-14",
+  "gameTitle": "Milo's Writing Crafter",
+  "version": "1.1.0",
+  "lastUpdated": "2026-10-15",
   "child": "milo",
   "folderId": "1t6f9LKdc4g2WRIwSAt4b5cL-kgSa0VPm",
-  "spreadsheetId": "1umk16nCRFco_t5RMDq2xhpyzGSD2ydSxMEEeuDIax3E",
-  "vocabWiki": [
-    {
-      "id": "V01",
-      "weak": "went",
-      "type": "Overused Verb",
-      "upgrades": [
-        "ventured",
-        "sprinted",
-        "trudged",
-        "crept",
-        "scrambled"
-      ],
-      "tip": "Swap 'went' for a movement verb that shows HOW you moved!"
-    },
-    {
-      "id": "V02",
-      "weak": "said",
-      "type": "Overused Dialogue Tag",
-      "upgrades": [
-        "exclaimed",
-        "whispered",
-        "muttered",
-        "protested",
-        "announced"
-      ],
-      "tip": "Use a speaking verb that shows the character's emotion!"
-    },
-    {
-      "id": "V03",
-      "weak": "good",
-      "type": "Vague Adjective",
-      "upgrades": [
-        "exceptional",
-        "beneficial",
-        "thrilling",
-        "remarkable",
-        "vital"
-      ],
-      "tip": "Replace 'good' with a precise adjective that proves your point!"
-    },
-    {
-      "id": "V04",
-      "weak": "bad",
-      "type": "Vague Adjective",
-      "upgrades": [
-        "dreadful",
-        "counterproductive",
-        "harmful",
-        "severe",
-        "disastrous"
-      ],
-      "tip": "Replace 'bad' with a stronger impact word!"
-    },
-    {
-      "id": "V05",
-      "weak": "because",
-      "type": "Repetitive Connector",
-      "upgrades": [
-        "consequently",
-        "therefore",
-        "since",
-        "as a result",
-        "due to"
-      ],
-      "tip": "Vary your cause-and-effect connectors for higher ISA Language marks!"
-    },
-    {
-      "id": "V06",
-      "weak": "definately",
-      "type": "Spelling Slip",
-      "upgrades": [
-        "definitely"
-      ],
-      "tip": "Remember: there is 'finite' inside de-FINITE-ly!"
-    },
-    {
-      "id": "V07",
-      "weak": "seperate",
-      "type": "Spelling Slip",
-      "upgrades": [
-        "separate"
-      ],
-      "tip": "Remember: there is 'A RAT' inside sep-A-RAT-e!"
-    },
-    {
-      "id": "V08",
-      "weak": "alot",
-      "type": "Spelling Slip",
-      "upgrades": [
-        "a lot",
-        "numerous",
-        "countless"
-      ],
-      "tip": "'A lot' is always two words—or upgrade to 'numerous' or 'countless'!"
-    },
-    {
-      "id": "V09",
-      "weak": "very",
-      "type": "Weak Intensifier",
-      "upgrades": [
-        "exceedingly",
-        "remarkably",
-        "bitterly",
-        "fiercely",
-        "immensely"
-      ],
-      "tip": "Instead of 'very + basic word', use a single powerful adverb or adjective!"
-    },
-    {
-      "id": "V10",
-      "weak": "nice",
-      "type": "Vague Adjective",
-      "upgrades": [
-        "welcoming",
-        "delightful",
-        "picturesque",
-        "generous",
-        "refreshing"
-      ],
-      "tip": "Show what makes it nice—was it picturesque, welcoming, or refreshing?"
-    }
-  ],
   "missions": [
     {
-      "levelId": "M01",
-      "date": "2026-10-14",
-      "title": "The Whispering Redstone Cavern",
+      "levelId": "L01",
+      "order": 1,
+      "date": "2026-10-15",
+      "title": "Level 1: A Rainy Morning on the Way to School",
       "genre": "Narrative/Reflective",
-      "genreBadge": "⚔️ Story Quest (Narrative)",
+      "genreBadge": "📖 Story Time • Easy (Step-by-Step)",
       "mode": "interview",
-      "modeLabel": "Mode 1: Socratic Interview (Sentence-by-Sentence)",
-      "minWords": 50,
+      "minWords": 45,
       "emeraldReward": 15,
-      "coachName": "Master Villager Alistair",
-      "coachAvatar": "🧙‍♂️",
-      "promptScenario": "While mining deep underground, your pickaxe breaks through a mossy stone wall into a forgotten glowing cavern. Something stirs in the shadows. Let's build your story together sentence by sentence!",
-      "vocabChips": [
-        "echoing",
-        "ancient",
-        "cautiously",
-        "shimmering",
-        "trembled",
-        "ventured"
-      ],
-      "starterChips": [
-        "As the stone crumbled,",
-        "To my astonishment,",
-        "Deep within the shadows,",
-        "Without warning,"
-      ],
-      "socraticSteps": [
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "Think about a morning when it was pouring rain outside on your way to school. Let's write the story one small part at a time!",
+      "steps": [
         {
           "stepIndex": 1,
-          "role": "Setting & Sensory Hook",
-          "coachQuestion": "Step 1 (The Hook): Your pickaxe just broke through the rock wall! What is the very first thing you SEE and HEAR inside the hidden cavern? Try using a sensory word like 'shimmering' or 'echoing'.",
-          "hint": "Describe the light of the redstone crystals and the sound echoing in the dark.",
+          "role": "Part 1 of 4: Stepping Outside",
+          "coachQuestion": "Imagine you just opened the front door to head to school and it is pouring rain! What did the sky, the puddles, or the heavy rain look and sound like?",
+          "hint": "Write 1 or 2 sentences describing the rain, the wind, or your umbrella.",
           "minStepWords": 10
         },
         {
           "stepIndex": 2,
-          "role": "Movement & Discovery",
-          "coachQuestion": "Step 2 (Action): How do you step into the cavern, and what mysterious object or creature do you spot near the underground lake? (Challenge: Avoid using the basic word 'went'—try 'ventured' or 'crept'!)",
-          "hint": "Use an adverb like 'cautiously' and a strong verb like 'ventured' or 'crept'.",
+          "role": "Part 2 of 4: On the Way to School",
+          "coachQuestion": "What happened while you were walking or riding to school? Did water splash on your shoes, or did the wind blow your umbrella?",
+          "hint": "Tell what happened along the street or outside the school gate.",
           "minStepWords": 12
         },
         {
           "stepIndex": 3,
-          "role": "Suspense & Emotion",
-          "coachQuestion": "Step 3 (Rising Tension): Suddenly, the creature or object reacts to your footsteps! What happens next, and how does your body react? (Show your emotion instead of just saying 'I was scared'.)",
-          "hint": "Did your hands tremble? Did your heart pound against your ribs?",
-          "minStepWords": 14
+          "role": "Part 3 of 4: Arriving in the Classroom",
+          "coachQuestion": "When you finally got inside school, what did you and your classmates (or Ollie) do to dry off or get ready?",
+          "hint": "Describe what the classroom felt like compared to the wet weather outside.",
+          "minStepWords": 12
         },
         {
           "stepIndex": 4,
-          "role": "Resolution & Twist",
-          "coachQuestion": "Step 4 (The Ending): How do you resolve the encounter or escape, and what secret do you carry back to the surface?",
-          "hint": "Wrap up the scene with a memorable final thought or discovery.",
-          "minStepWords": 14
+          "role": "Part 4 of 4: How the Morning Ended",
+          "coachQuestion": "How did the rest of the morning go? Did the rainy start actually make the school day more fun or memorable?",
+          "hint": "Finish your story with 1 or 2 sentences wrapping up the morning.",
+          "minStepWords": 10
         }
       ]
     },
     {
-      "levelId": "M02",
-      "date": "2026-10-14",
-      "title": "Should Weekend Homework Be Banned?",
+      "levelId": "L02",
+      "order": 2,
+      "date": "2026-10-15",
+      "title": "Level 2: Picking the Best Weekend Family Lunch",
       "genre": "Exposition/Argument",
-      "genreBadge": "⚖️ Persuasion Lab (Exposition)",
+      "genreBadge": "🗣️ Share Your Opinion • Easy (Step-by-Step)",
       "mode": "interview",
-      "modeLabel": "Mode 1: Socratic Interview (Sentence-by-Sentence)",
+      "minWords": 50,
+      "emeraldReward": 15,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "It's Saturday and your family is deciding where to go (or what to eat) for a special weekend lunch. Convince your family to pick your favourite choice!",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Part 1 of 4: Your Top Pick",
+          "coachQuestion": "What is your #1 favourite meal or restaurant for weekend lunch, and why is it your favourite?",
+          "hint": "Start with: 'For our weekend lunch, I think we should eat...'",
+          "minStepWords": 10
+        },
+        {
+          "stepIndex": 2,
+          "role": "Part 2 of 4: The Best Dish",
+          "coachQuestion": "Describe the best food there! What does it look, smell, or taste like when it arrives at the table?",
+          "hint": "Is it crispy, warm, cheesy, sweet, or savory? Make the reader hungry!",
+          "minStepWords": 12
+        },
+        {
+          "stepIndex": 3,
+          "role": "Part 3 of 4: Convincing the Family",
+          "coachQuestion": "What if someone else in the family wants a different food? Why is your choice a great idea for everyone at the table?",
+          "hint": "Explain why your pick has something everyone (including Mum, Dad, and Ollie) will enjoy.",
+          "minStepWords": 14
+        },
+        {
+          "stepIndex": 4,
+          "role": "Part 4 of 4: Final Sentence",
+          "coachQuestion": "Write one strong final sentence telling your family why we should go there this weekend!",
+          "hint": "Sum up why this lunch will be a great family treat.",
+          "minStepWords": 10
+        }
+      ]
+    },
+    {
+      "levelId": "L03",
+      "order": 3,
+      "date": "2026-10-15",
+      "title": "Level 3: A Tricky Game of Chess (or Board Game)",
+      "genre": "Narrative/Reflective",
+      "genreBadge": "📖 Story Time • Easy (Step-by-Step)",
+      "mode": "interview",
       "minWords": 55,
       "emeraldReward": 15,
-      "coachName": "Grand Strategist Magnus",
+      "coachName": "Coach Alex",
       "coachAvatar": "🦉",
-      "promptScenario": "Your school principal is deciding whether to abolish all weekend homework. Let's build a rock-solid persuasive argument step-by-step to convince the school board!",
-      "vocabChips": [
-        "furthermore",
-        "consequently",
-        "beneficial",
-        "exhausted",
-        "balance",
-        "undoubtedly"
-      ],
-      "starterChips": [
-        "I firmly believe that",
-        "First and foremost,",
-        "Furthermore, research shows",
-        "Although some argue that"
-      ],
-      "socraticSteps": [
+      "promptScenario": "Think about an exciting game of chess (on Chess.com or over the board) or a board game you played at home. Tell the story of how the match went!",
+      "steps": [
         {
           "stepIndex": 1,
-          "role": "Bold Thesis Statement",
-          "coachQuestion": "Step 1 (Your Stance): State your opinion clearly! Should weekend homework be banned or kept, and what is your #1 strongest reason?",
-          "hint": "Start with 'I firmly believe that...' or 'Weekend homework should undoubtedly be...'",
+          "role": "Part 1 of 4: Starting the Match",
+          "coachQuestion": "Who were you playing against, where were you sitting, and how did the game start off?",
+          "hint": "Mention whether you had the white or black pieces (or how the game began).",
           "minStepWords": 12
         },
         {
           "stepIndex": 2,
-          "role": "Real-Life Evidence",
-          "coachQuestion": "Step 2 (Supporting Evidence): Give a concrete example! After five full days of school, how does weekend homework affect students' rest, family time, or sports/chess practice?",
-          "hint": "Use a transition word like 'Furthermore,' or 'Consequently,' to connect your idea.",
+          "role": "Part 2 of 4: A Surprising Move",
+          "coachQuestion": "Halfway through the game, something unexpected happened! Did your opponent set a trap, or did you spot a clever tactic?",
+          "hint": "Describe the turning point in the game.",
           "minStepWords": 14
         },
         {
           "stepIndex": 3,
-          "role": "Counter-Argument & Rebuttal",
-          "coachQuestion": "Step 3 (The Counter-Move): Like in Chess, anticipate your opponent's move! Some teachers say weekend homework helps students remember lessons. How do you politely disagree and prove them wrong?",
-          "hint": "Try: 'Although some teachers argue that..., in reality...'",
-          "minStepWords": 15
+          "role": "Part 3 of 4: Thinking Under Pressure",
+          "coachQuestion": "How did you feel while deciding your next move, and what did you choose to do?",
+          "hint": "Did you take a deep breath and check the whole board carefully?",
+          "minStepWords": 14
         },
         {
           "stepIndex": 4,
-          "role": "Call to Action Conclusion",
-          "coachQuestion": "Step 4 (Checkmate Conclusion): Sum up your argument with a powerful final sentence telling the principal what decision will create healthier, sharper students!",
-          "hint": "Start with 'Ultimately,' or 'For these reasons,'",
-          "minStepWords": 14
+          "role": "Part 4 of 4: The Result & Lesson",
+          "coachQuestion": "How did the match end, and what did you learn that will help you in your next game?",
+          "hint": "Wrap up with how you felt at the end of the match.",
+          "minStepWords": 12
         }
       ]
     },
     {
-      "levelId": "M03",
-      "date": "2026-10-13",
-      "title": "The Portal That Wouldn't Close",
-      "genre": "Narrative/Reflective",
-      "genreBadge": "⚔️ Story Quest (Narrative)",
+      "levelId": "L04",
+      "order": 4,
+      "date": "2026-10-15",
+      "title": "Level 4: Should School Recess Be Longer?",
+      "genre": "Exposition/Argument",
+      "genreBadge": "🗣️ Share Your Opinion • Easy (Step-by-Step)",
       "mode": "interview",
-      "modeLabel": "Mode 1: Socratic Interview (Sentence-by-Sentence)",
-      "minWords": 60,
+      "minWords": 55,
       "emeraldReward": 15,
-      "coachName": "Master Villager Alistair",
-      "coachAvatar": "🧙‍♂️",
-      "promptScenario": "You accidentally activate a swirling obsidian portal in your backyard, and a miniature clockwork creature steps out asking for your urgent help.",
-      "vocabChips": [
-        "mysterious",
-        "whirling",
-        "urgently",
-        "hesitated",
-        "miniature",
-        "astonished"
-      ],
-      "starterChips": [
-        "Sparks crackled as",
-        "Clutching a brass key,",
-        "Before I could speak,",
-        "With a determined nod,"
-      ],
-      "socraticSteps": [
-        {
-          "stepIndex": 1,
-          "role": "The Portal Awakens",
-          "coachQuestion": "Step 1 (The Awakening): Describe the moment the obsidian frame lights up! What colors, sounds, or wind gusts burst into your backyard?",
-          "hint": "Paint a vivid picture using words like 'whirling' or 'mysterious'.",
-          "minStepWords": 12
-        },
-        {
-          "stepIndex": 2,
-          "role": "The Clockwork Visitor",
-          "coachQuestion": "Step 2 (Character & Dialogue): A miniature clockwork creature scrambles out! What does it look like, and what urgent message does it speak to you? (Use quotation marks and upgrade 'said'!)",
-          "hint": "Example: '\"Please help us!\" the tiny brass owl exclaimed urgently.'",
-          "minStepWords": 15
-        },
-        {
-          "stepIndex": 3,
-          "role": "The Dilemma",
-          "coachQuestion": "Step 3 (Internal Decision): The portal starts shrinking rapidly! Why do you hesitate for a split second, and what convinces you to help?",
-          "hint": "Use 'hesitated' or 'astonished' to show your split-second decision.",
-          "minStepWords": 15
-        },
-        {
-          "stepIndex": 4,
-          "role": "Into the Unknown",
-          "coachQuestion": "Step 4 (Climax & Resolution): How do you solve the portal problem or what do you see as you cross the threshold together?",
-          "hint": "End with strong action and vivid imagery.",
-          "minStepWords": 15
-        }
-      ]
-    },
-    {
-      "levelId": "M04",
-      "date": "2026-10-12",
-      "title": "Every Classroom Needs a Class Pet",
-      "genre": "Exposition/Argument",
-      "genreBadge": "⚖️ Persuasion Lab (Exposition)",
-      "mode": "interview",
-      "modeLabel": "Mode 1: Socratic Interview (Sentence-by-Sentence)",
-      "minWords": 60,
-      "emeraldReward": 15,
-      "coachName": "Grand Strategist Magnus",
+      "coachName": "Coach Alex",
       "coachAvatar": "🦉",
-      "promptScenario": "Do you think having a classroom pet helps students learn empathy and responsibility, or is it too distracting? Build a persuasive case!",
-      "vocabChips": [
-        "responsibility",
-        "empathy",
-        "distraction",
-        "routines",
-        "thriving",
-        "however"
-      ],
-      "starterChips": [
-        "Having a classroom pet is",
-        "For instance, when students",
-        "However, critics might claim",
-        "In conclusion,"
-      ],
-      "socraticSteps": [
+      "promptScenario": "Imagine your school is thinking about adding 20 extra minutes to recess every day. Share your opinion on whether this is a good idea!",
+      "steps": [
         {
           "stepIndex": 1,
-          "role": "Thesis & Main Claim",
-          "coachQuestion": "Step 1 (Main Claim): Take your stand! Should every Upper Elementary classroom have a pet (like a tortoise, hamster, or fish), or not? State your position clearly.",
-          "hint": "Use 'responsibility' or 'empathy' in your opening claim.",
+          "role": "Part 1 of 4: Your Opinion",
+          "coachQuestion": "Do you think school recess should be 20 minutes longer? State your opinion and your main reason!",
+          "hint": "Start with: 'I believe school recess should be longer because...'",
           "minStepWords": 12
         },
         {
           "stepIndex": 2,
-          "role": "Psychological & Social Benefit",
-          "coachQuestion": "Step 2 (Evidence): How does caring for a living creature change the way students behave or feel during a stressful school day?",
-          "hint": "Give a specific classroom scenario.",
-          "minStepWords": 15
-        },
-        {
-          "stepIndex": 3,
-          "role": "Solving the Problem",
-          "coachQuestion": "Step 3 (Counter-Argument): What if someone says 'Pets are too noisy, smelly, or distracting'? How can the class set up smart routines to prevent that?",
-          "hint": "Use 'However,' and explain how a daily schedule solves the problem.",
-          "minStepWords": 15
-        },
-        {
-          "stepIndex": 4,
-          "role": "Persuasive Finale",
-          "coachQuestion": "Step 4 (Conclusion): Write a convincing closing sentence that leaves the reader nodding in agreement!",
-          "hint": "Tie back to how students grow into responsible leaders.",
+          "role": "Part 2 of 4: What Kids Do at Recess",
+          "coachQuestion": "What do you and your friends like to do during break time, and why is it hard to fit it into a short recess?",
+          "hint": "Give a real example from your school day.",
           "minStepWords": 14
+        },
+        {
+          "stepIndex": 3,
+          "role": "Part 3 of 4: Answering the Teachers",
+          "coachQuestion": "Some teachers worry that longer recess takes away time from classroom work. Why does having a proper break actually help students learn better afterwards?",
+          "hint": "Explain how moving around and getting fresh air helps your brain focus.",
+          "minStepWords": 15
+        },
+        {
+          "stepIndex": 4,
+          "role": "Part 4 of 4: Closing Message",
+          "coachQuestion": "Write a convincing final sentence to your school principal summing up why longer recess helps everyone!",
+          "hint": "Finish strong so the principal agrees with you.",
+          "minStepWords": 12
         }
       ]
     },
     {
-      "levelId": "M05",
-      "date": "2026-10-11",
-      "title": "Stranded on Skyblock Island",
+      "levelId": "L05",
+      "order": 5,
+      "date": "2026-10-15",
+      "title": "Level 5: A Weekend Run or Outdoor Outing",
       "genre": "Narrative/Reflective",
-      "genreBadge": "⚔️ Story Quest (Narrative)",
+      "genreBadge": "📖 Story Time • Medium (3 Short Paragraphs)",
       "mode": "workshop",
-      "modeLabel": "Mode 2: Milestone Workshop (Paragraph-by-Paragraph)",
-      "minWords": 110,
+      "minWords": 95,
       "emeraldReward": 25,
-      "coachName": "Master Villager Alistair",
-      "coachAvatar": "🧙‍♂️",
-      "promptScenario": "You wake up on a tiny floating island suspended high in the clouds with only one oak tree, a bucket of water, a lava source, and a distant ruined tower across the void. Write a 3-paragraph survival adventure!",
-      "vocabChips": [
-        "suspended",
-        "horizon",
-        "resourceful",
-        "precarious",
-        "determined",
-        "triumph"
-      ],
-      "starterChips": [
-        "Gazing over the dizzying edge,",
-        "With my heart pounding,",
-        "Piece by piece, I crafted",
-        "Finally, standing atop the"
-      ],
-      "workshopMilestones": [
-        {
-          "milestoneIndex": 1,
-          "title": "Paragraph 1: The Awakening & Setting the Scene",
-          "goal": "Describe waking up on the floating island. What does the endless sky look like? How does the wind feel? What is inside your starter chest, and what is your goal across the void?",
-          "minParagraphWords": 35
-        },
-        {
-          "milestoneIndex": 2,
-          "title": "Paragraph 2: The Precarious Bridge & Crisis",
-          "goal": "Explain how you resourcefully generate cobblestone and build a narrow bridge toward the distant tower. Halfway across, a sudden crisis happens! Describe the suspenseful moment.",
-          "minParagraphWords": 40
-        },
-        {
-          "milestoneIndex": 3,
-          "title": "Paragraph 3: Clever Solution & Triumph",
-          "goal": "How do you use quick thinking to survive the crisis, reach the ruined tower, and discover what awaits inside?",
-          "minParagraphWords": 35
-        }
-      ]
-    },
-    {
-      "levelId": "M06",
-      "date": "2026-10-10",
-      "title": "Screen Time vs. Outdoor Adventure Hour",
-      "genre": "Exposition/Argument",
-      "genreBadge": "⚖️ Persuasion Lab (Exposition)",
-      "mode": "workshop",
-      "modeLabel": "Mode 2: Milestone Workshop (Paragraph-by-Paragraph)",
-      "minWords": 120,
-      "emeraldReward": 25,
-      "coachName": "Grand Strategist Magnus",
+      "coachName": "Coach Alex",
       "coachAvatar": "🦉",
-      "promptScenario": "Many children spend hours on screens every day. Write a structured 3-paragraph persuasive essay arguing whether schools and families should guarantee a daily 60-minute Outdoor Adventure Hour.",
-      "vocabChips": [
-        "essential",
-        "physical",
-        "creativity",
-        "excessive",
-        "nevertheless",
-        "energized"
-      ],
-      "starterChips": [
-        "In today's digital world,",
-        "First of all, outdoor exploration",
-        "Nevertheless, some might argue",
-        "Ultimately, balancing technology with"
-      ],
-      "workshopMilestones": [
+      "promptScenario": "Write a 3-part story about going out for a run, a park visit, or an outdoor activity with your family on the weekend.",
+      "steps": [
         {
-          "milestoneIndex": 1,
-          "title": "Paragraph 1: Hook & Thesis Statement",
-          "goal": "Hook the reader with an observation about modern technology vs. nature, then state your clear thesis on why a daily Outdoor Adventure Hour is essential.",
-          "minParagraphWords": 35
+          "stepIndex": 1,
+          "role": "Paragraph 1: Getting Started",
+          "coachQuestion": "Paragraph 1 (The Start): Where did you go for your run or outing, who was with you (Mum, Dad, Ollie?), and what was the weather like when you started?",
+          "hint": "Write 3 to 4 sentences setting the scene.",
+          "minStepWords": 30
         },
         {
-          "milestoneIndex": 2,
-          "title": "Paragraph 2: Core Arguments & Real-World Evidence",
-          "goal": "Present two strong reasons (e.g., physical health/vision and sharper focus/creativity) backed by examples from running, sports, or exploring outdoors.",
-          "minParagraphWords": 45
+          "stepIndex": 2,
+          "role": "Paragraph 2: The Main Action",
+          "coachQuestion": "Paragraph 2 (The Challenge): What happened during the run or activity? Was there a fast sprint, a steep path, or a moment where you had to keep pushing even when your legs felt tired?",
+          "hint": "Write 3 to 4 sentences describing the most exciting or challenging moment.",
+          "minStepWords": 35
         },
         {
-          "milestoneIndex": 3,
-          "title": "Paragraph 3: Counterpoint & Powerful Conclusion",
-          "goal": "Acknowledge why kids enjoy digital games, explain why balance matters ('nevertheless'), and close with a memorable final recommendation.",
-          "minParagraphWords": 35
+          "stepIndex": 3,
+          "role": "Paragraph 3: Finishing Up",
+          "coachQuestion": "Paragraph 3 (The Finish): How did you feel when you finished, and what did you do afterwards to rest or celebrate?",
+          "hint": "Write 2 to 3 sentences to bring your story to a satisfying close.",
+          "minStepWords": 30
         }
       ]
     },
     {
-      "levelId": "M07",
-      "date": "2026-10-09",
-      "title": "The Night the Iron Golems Awoke",
-      "genre": "Narrative/Reflective",
-      "genreBadge": "⚔️ Story Quest (Narrative)",
-      "mode": "workshop",
-      "modeLabel": "Mode 2: Milestone Workshop (Paragraph-by-Paragraph)",
-      "minWords": 125,
-      "emeraldReward": 25,
-      "coachName": "Master Villager Alistair",
-      "coachAvatar": "🧙‍♂️",
-      "promptScenario": "During a fierce midnight thunderstorm, the moss-covered iron statues guarding your village suddenly come alive to warn you of an approaching danger.",
-      "vocabChips": [
-        "deafening",
-        "rumbled",
-        "guardian",
-        "urgent",
-        "courageous",
-        "silhouette"
-      ],
-      "starterChips": [
-        "Lightning sliced across the sky as",
-        "With a deep metallic groan,",
-        "Racing through the rain-soaked streets,",
-        "By dawn, the village stood"
-      ],
-      "workshopMilestones": [
-        {
-          "milestoneIndex": 1,
-          "title": "Paragraph 1: The Storm & The Awakening",
-          "goal": "Set a dramatic, stormy atmosphere using sound and sight. Describe the exact moment the giant iron guardian's eyes glow and it steps off its stone pedestal.",
-          "minParagraphWords": 40
-        },
-        {
-          "milestoneIndex": 2,
-          "title": "Paragraph 2: The Warning & The Defense Plan",
-          "goal": "What danger is approaching the village (a landslide, a flood, or shadow raiders)? Include dialogue and describe how you and the Golem prepare the defense.",
-          "minParagraphWords": 45
-        },
-        {
-          "milestoneIndex": 3,
-          "title": "Paragraph 3: The Climax & Morning After",
-          "goal": "Describe the height of the action, how your teamwork saves the village, and what you notice when the sun rises.",
-          "minParagraphWords": 40
-        }
-      ]
-    },
-    {
-      "levelId": "M08",
-      "date": "2026-10-08",
-      "title": "ISA Boss Arena: The Invention That Changed Everything",
+      "levelId": "L06",
+      "order": 6,
+      "date": "2026-10-15",
+      "title": "Level 6: Picking the Best Class Field Trip",
       "genre": "Exposition/Argument",
-      "genreBadge": "🏆 ISA Boss Arena (Exposition)",
-      "mode": "boss",
-      "modeLabel": "Mode 3: ISA Exam Simulation (Full Multi-Paragraph Essay)",
-      "minWords": 150,
-      "emeraldReward": 40,
-      "coachName": "ISA Chief Examiner Evelyn",
-      "coachAvatar": "👑",
-      "promptScenario": "ISA Writing Task B Simulation: Think about an invention that has transformed human life—or a brand-new invention the world urgently needs today. Write a complete, well-organized persuasive essay explaining what it is, how it works, and why it is so important.",
-      "vocabChips": [
-        "revolutionary",
-        "transformative",
-        "obstacle",
-        "society",
-        "ultimately",
-        "remarkable"
-      ],
-      "starterChips": [
-        "Throughout human history,",
-        "The most transformative aspect of",
-        "Furthermore, this innovation solves",
-        "Ultimately, without this invention,"
-      ],
-      "bossChecklist": [
-        "Introduction with an engaging hook and clear thesis statement",
-        "Body Paragraph 1: How the invention works & the problem it solves",
-        "Body Paragraph 2: Real-world impact & addressing potential drawbacks",
-        "Conclusion summarizing why it transforms society"
+      "genreBadge": "🗣️ Share Your Opinion • Medium (3 Short Paragraphs)",
+      "mode": "workshop",
+      "minWords": 100,
+      "emeraldReward": 25,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "Your teacher is letting the class vote on where to go for the next school outing (such as the Science Museum, Ocean Park, a nature reserve, or a sports camp). Write a 3-paragraph piece explaining where your class should go!",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Paragraph 1: Your Recommendation",
+          "coachQuestion": "Paragraph 1 (Introduction): Which place should your class visit for the field trip, and why would the whole class be excited to go there?",
+          "hint": "State your choice clearly and hook the reader in 3 sentences.",
+          "minStepWords": 30
+        },
+        {
+          "stepIndex": 2,
+          "role": "Paragraph 2: What You Will Do & Learn",
+          "coachQuestion": "Paragraph 2 (Reasons & Examples): Describe two specific things your class can see, try, or learn there that you cannot do inside a normal classroom.",
+          "hint": "Give concrete examples of activities at that place.",
+          "minStepWords": 40
+        },
+        {
+          "stepIndex": 3,
+          "role": "Paragraph 3: Why It's the Best Choice",
+          "coachQuestion": "Paragraph 3 (Conclusion): Sum up why this outing is both fun and educational, and why your classmates should vote for it!",
+          "hint": "Wrap up your argument in 2 to 3 clear sentences.",
+          "minStepWords": 30
+        }
       ]
     },
     {
-      "levelId": "M09",
-      "date": "2026-10-07",
-      "title": "ISA Boss Arena: The Map That Changed Its Ink",
+      "levelId": "L07",
+      "order": 7,
+      "date": "2026-10-15",
+      "title": "Level 7: The Day Something Went Missing at Home",
       "genre": "Narrative/Reflective",
-      "genreBadge": "🏆 ISA Boss Arena (Narrative)",
+      "genreBadge": "📖 Story Time • Medium (3 Short Paragraphs)",
+      "mode": "workshop",
+      "minWords": 105,
+      "emeraldReward": 25,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "Right before you need to leave the house, something important (like a school book, a running shoe, a water bottle, or a favourite toy) goes missing! Write a 3-paragraph story about the search.",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Paragraph 1: The Sudden Problem",
+          "coachQuestion": "Paragraph 1 (The Problem): Where were you getting ready to go, what item suddenly couldn't be found, and why was everyone in a hurry?",
+          "hint": "Show the rush and the surprise when you noticed it was gone.",
+          "minStepWords": 35
+        },
+        {
+          "stepIndex": 2,
+          "role": "Paragraph 2: Searching Everywhere",
+          "coachQuestion": "Paragraph 2 (The Search): Where did you look around the house, and who helped you search? Include at least one line of dialogue (what someone said)!",
+          "hint": "Remember to put quotation marks around what someone says.",
+          "minStepWords": 40
+        },
+        {
+          "stepIndex": 3,
+          "role": "Paragraph 3: Where It Turned Up",
+          "coachQuestion": "Paragraph 3 (The Discovery): Where did you finally find it, why was it in such an unexpected spot, and did you make it out the door on time?",
+          "hint": "Finish the story with relief or a funny ending.",
+          "minStepWords": 30
+        }
+      ]
+    },
+    {
+      "levelId": "L08",
+      "order": 8,
+      "date": "2026-10-15",
+      "title": "Level 8: A Memorable School Event or Sports Day",
+      "genre": "Narrative/Reflective",
+      "genreBadge": "📖 Story Time • Challenge (Full Story)",
       "mode": "boss",
-      "modeLabel": "Mode 3: ISA Exam Simulation (Full Multi-Paragraph Story)",
-      "minWords": 150,
+      "minWords": 130,
       "emeraldReward": 40,
-      "coachName": "ISA Chief Examiner Evelyn",
-      "coachAvatar": "👑",
-      "promptScenario": "ISA Writing Task A Simulation: Inside the hollow trunk of an ancient banyan tree, you find a weathered brass cylinder. When you unroll the parchment inside, the ink lines begin shifting to show where you are standing right now. Write a complete story about what happens next.",
-      "vocabChips": [
-        "weathered",
-        "intricate",
-        "vanished",
-        "relentless",
-        "astonishment",
-        "discovery"
-      ],
-      "starterChips": [
-        "Tucked deep inside the gnarled roots,",
-        "As my fingertips traced the parchment,",
-        "Heart hammering against my ribs,",
-        "Looking back, I realized that"
-      ],
-      "bossChecklist": [
-        "Vivid opening setting the scene and discovering the brass cylinder",
-        "Rising suspense as the map shifts and leads somewhere unexpected",
-        "Climax / obstacle that tests the main character's courage or wit",
-        "Satisfying resolution reflecting on the discovery"
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "Write a complete multi-paragraph story about a memorable school event—such as Sports Day, a school concert, a class project presentation, or a race—where you tried your hardest.",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Full Story (3 Paragraphs: Beginning, Middle, Ending)",
+          "coachQuestion": "Write your full story in the box below! Include: (1) How the day started and the atmosphere at the event, (2) The main challenge or exciting moment, and (3) How it ended and how you felt.",
+          "hint": "Press Enter twice between paragraphs so your story has a clear Beginning, Middle, and Ending.",
+          "minStepWords": 130
+        }
+      ]
+    },
+    {
+      "levelId": "L09",
+      "order": 9,
+      "date": "2026-10-15",
+      "title": "Level 9: Balancing Screen Time and Outdoor Play",
+      "genre": "Exposition/Argument",
+      "genreBadge": "🗣️ Share Your Opinion • Challenge (Full Essay)",
+      "mode": "boss",
+      "minWords": 130,
+      "emeraldReward": 40,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "promptScenario": "Games and iPads are fun, but outdoor activities, sports, and family time are important too. Write a complete multi-paragraph piece sharing your opinion on the fairest screen-time rules for kids on school days and weekends.",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Full Opinion Piece (3 Paragraphs: Opinion, Reasons, Conclusion)",
+          "coachQuestion": "Write your full opinion piece below! Include: (1) Your main opinion on what fair screen-time rules look like, (2) Why balancing screens with sports, sleep, and outdoor fun matters, and (3) A clear conclusion.",
+          "hint": "Press Enter twice to start each new paragraph.",
+          "minStepWords": 130
+        }
       ]
     }
   ]
 };
   </script>
 
-  <!-- =========================================================================
-       LAYER 2, 3 & 4: CORE ENGINE, SOCRATIC COACH & DATA ADAPTER
-       ========================================================================= -->
   <script>
     (function() {
       const STORAGE_KEYS = {
         EMERALDS: 'milo_isa_emeralds_v1',
+        CURRENT_LEVEL_IDX: 'milo_isa_current_level_idx_v1',
         WEBAPP_URL: 'milo_isa_webapp_url_v1',
         GCP_PROJECT: 'milo_isa_gcp_project_v1',
         GCP_LOCATION: 'milo_isa_gcp_location_v1',
         GEMINI_KEY: 'milo_isa_gemini_key_v1',
-        PARENT_LOGS: 'milo_isa_parent_logs_v1',
-        PROGRESS: 'milo_isa_progress_v1',
-        THEME: 'milo_isa_theme_v1'
+        PARENT_LOGS: 'milo_isa_parent_logs_v1'
       };
 
       const COMMON_MISSPELLINGS = {
@@ -1677,67 +1179,49 @@
         'occured': 'occurred',
         'tommorow': 'tomorrow',
         'begining': 'beginning',
-        'disappear': 'disappear',
         'dissapear': 'disappear',
         'suprise': 'surprise',
         'enviroment': 'environment',
-        'goverment': 'government',
         'intresting': 'interesting'
       };
 
       const WEAK_WORDS_MAP = {
-        'went': ['ventured', 'sprinted', 'crept', 'trudged', 'scrambled'],
-        'said': ['exclaimed', 'whispered', 'protested', 'muttered', 'announced'],
-        'good': ['beneficial', 'exceptional', 'remarkable', 'vital', 'thrilling'],
-        'bad': ['harmful', 'counterproductive', 'dreadful', 'severe', 'disastrous'],
-        'very': ['exceedingly', 'remarkably', 'bitterly', 'fiercely', 'immensely'],
-        'nice': ['picturesque', 'welcoming', 'refreshing', 'delightful', 'generous'],
-        'big': ['colossal', 'immense', 'towering', 'vast', 'monumental'],
-        'scared': ['petrified', 'trembling', 'alarmed', 'uneasy', 'terrified']
+        'went': ['walked quickly', 'rushed', 'stepped', 'headed'],
+        'said': ['called out', 'whispered', 'explained', 'asked'],
+        'good': ['great', 'enjoyable', 'helpful', 'exciting'],
+        'bad': ['unpleasant', 'difficult', 'frustrating', 'terrible'],
+        'nice': ['fun', 'wonderful', 'friendly', 'comfortable']
       };
 
       const GameEngine = {
         data: window.DEFAULT_BANKS,
         missions: [],
-        filteredMissions: [],
-        currentModeFilter: 'all',
+        currentMissionIndex: 0,
         currentMission: null,
         currentStepIndex: 0,
         stepDrafts: [],
-        emeralds: 0,
-        rewardedVocab: new Set(),
+        emeralds: 20,
         retryCompletedForMission: false,
 
-        // Typing telemetry
         typingStartTime: null,
         activeTypingSeconds: 0,
         lastKeystrokeTime: null,
-        keystrokeStreak: 0,
         currentWpm: 0,
 
         init() {
           this.emeralds = parseInt(localStorage.getItem(STORAGE_KEYS.EMERALDS) || '20', 10);
           this.updateEmeraldHud();
 
-          // Load saved theme
-          const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'minecraft';
-          this.setTheme(savedTheme);
-          document.getElementById('theme-select').value = savedTheme;
-
-          // Sort missions newest first (Rule 3: Automatic Latest Question Selection on Open)
+          // Sort missions from easiest (order 1 / L01) to hardest (order 9 / L09)
           this.loadMissions(this.data.missions || []);
-          this.renderVocabWiki();
 
-          // Bind listeners
           document.getElementById('level-select').addEventListener('change', (e) => {
             const idx = parseInt(e.target.value, 10);
-            if (!isNaN(idx) && this.filteredMissions[idx]) {
-              this.selectMission(this.filteredMissions[idx]);
+            if (!isNaN(idx) && this.missions[idx]) {
+              this.currentMissionIndex = idx;
+              localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(idx));
+              this.selectMission(this.missions[idx]);
             }
-          });
-
-          document.getElementById('theme-select').addEventListener('change', (e) => {
-            this.setTheme(e.target.value);
           });
 
           const inputEl = document.getElementById('writing-input');
@@ -1748,60 +1232,31 @@
             this.openSettingsModal();
           });
 
-          // Auto-sync cloud missions if WebApp URL is configured
           this.syncCloudMissions();
-        },
-
-        setTheme(themeKey) {
-          document.body.classList.remove('theme-space', 'theme-castle');
-          const iconEl = document.getElementById('brand-icon');
-          if (themeKey === 'space') {
-            document.body.classList.add('theme-space');
-            iconEl.textContent = '🚀';
-          } else if (themeKey === 'castle') {
-            document.body.classList.add('theme-castle');
-            iconEl.textContent = '🏰';
-          } else {
-            iconEl.textContent = '⛏️';
-          }
-          localStorage.setItem(STORAGE_KEYS.THEME, themeKey);
         },
 
         loadMissions(rawMissions) {
           this.missions = [...rawMissions].sort((a, b) => {
-            const dateA = a.date || '';
-            const dateB = b.date || '';
-            if (dateB !== dateA) return dateB.localeCompare(dateA);
-            return (a.levelId || '').localeCompare(b.levelId || '');
+            const ordA = a.order || parseInt((a.levelId || '0').replace(/\D/g, ''), 10) || 1;
+            const ordB = b.order || parseInt((b.levelId || '0').replace(/\D/g, ''), 10) || 1;
+            return ordA - ordB;
           });
-          this.filterByMode('all');
-        },
-
-        filterByMode(modeKey) {
-          this.currentModeFilter = modeKey;
-          document.querySelectorAll('.mode-tab').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-mode') === modeKey);
-          });
-
-          if (modeKey === 'all') {
-            this.filteredMissions = [...this.missions];
-          } else {
-            this.filteredMissions = this.missions.filter(m => m.mode === modeKey);
-          }
 
           const selectEl = document.getElementById('level-select');
           selectEl.innerHTML = '';
-          this.filteredMissions.forEach((m, idx) => {
+          this.missions.forEach((m, idx) => {
             const opt = document.createElement('option');
             opt.value = idx;
-            const latestTag = (idx === 0) ? ' ★ Latest' : '';
-            opt.textContent = `${m.levelId} (${m.date}) ${m.title}${latestTag}`;
+            opt.textContent = m.title;
             selectEl.appendChild(opt);
           });
 
-          if (this.filteredMissions.length > 0) {
-            selectEl.value = 0;
-            this.selectMission(this.filteredMissions[0]);
+          const savedIdx = parseInt(localStorage.getItem(STORAGE_KEYS.CURRENT_LEVEL_IDX) || '0', 10);
+          const startIdx = (savedIdx >= 0 && savedIdx < this.missions.length) ? savedIdx : 0;
+          this.currentMissionIndex = startIdx;
+          selectEl.value = startIdx;
+          if (this.missions[startIdx]) {
+            this.selectMission(this.missions[startIdx]);
           }
         },
 
@@ -1809,55 +1264,44 @@
           if ('speechSynthesis' in window) window.speechSynthesis.cancel();
           this.currentMission = mission;
           this.currentStepIndex = 0;
-          this.rewardedVocab.clear();
           this.retryCompletedForMission = false;
 
-          const stepsCount = this.getStepsArray(mission).length;
-          this.stepDrafts = new Array(stepsCount).fill('');
+          const steps = this.getStepsArray(mission);
+          this.stepDrafts = new Array(steps.length).fill('');
 
-          // Reset typing telemetry
           this.typingStartTime = null;
           this.activeTypingSeconds = 0;
           this.lastKeystrokeTime = null;
-          this.keystrokeStreak = 0;
 
-          document.getElementById('mission-title').textContent = `${mission.levelId}: ${mission.title}`;
-          document.getElementById('mission-genre-badge').textContent = `${mission.genreBadge} • ${mission.modeLabel.split('(')[0].trim()}`;
+          document.getElementById('mission-title').textContent = mission.title;
+          document.getElementById('mission-genre-badge').textContent = mission.genreBadge || '📖 Story Time';
           document.getElementById('mission-scenario').textContent = mission.promptScenario;
-          document.getElementById('coach-name').textContent = mission.coachName || 'Master Villager Alistair';
-          document.getElementById('coach-avatar').textContent = mission.coachAvatar || '🧙‍♂️';
-          document.getElementById('mission-word-goal').textContent = mission.minWords || 50;
+          document.getElementById('coach-name').textContent = mission.coachName || 'Coach Alex';
+          document.getElementById('coach-avatar').textContent = mission.coachAvatar || '🦉';
+          document.getElementById('mission-word-goal').textContent = mission.minWords || 45;
 
           document.getElementById('review-panel').classList.remove('visible');
 
           this.renderStepsBar();
-          this.renderScaffolds();
           this.loadStepIntoEditor(0);
           this.renderCompiledScroll();
         },
 
         getStepsArray(mission) {
-          if (mission.mode === 'interview' && mission.socraticSteps) {
-            return mission.socraticSteps.map(s => ({
-              label: `Step ${s.stepIndex}: ${s.role}`,
-              question: s.coachQuestion,
-              hint: s.hint,
-              minWords: s.minStepWords || 12
-            }));
-          }
-          if (mission.mode === 'workshop' && mission.workshopMilestones) {
-            return mission.workshopMilestones.map(w => ({
-              label: w.title,
-              question: w.goal,
-              hint: 'Remember to include a strong opener, vivid vocabulary, and clear punctuation.',
-              minWords: w.minParagraphWords || 35
+          const list = mission.steps || mission.socraticSteps || mission.workshopMilestones || [];
+          if (list.length > 0) {
+            return list.map((s, idx) => ({
+              label: s.role || s.title || `Part ${idx + 1}`,
+              question: s.coachQuestion || s.goal || mission.promptScenario,
+              hint: s.hint || 'Write clearly in complete sentences.',
+              minWords: s.minStepWords || s.minParagraphWords || 10
             }));
           }
           return [{
-            label: 'Full ISA Exam Response (Multi-Paragraph)',
+            label: 'Full Writing Piece',
             question: mission.promptScenario,
-            hint: (mission.bossChecklist || []).join(' • '),
-            minWords: mission.minWords || 150
+            hint: 'Divide your writing into Beginning, Middle, and Ending paragraphs.',
+            minWords: mission.minWords || 120
           }];
         },
 
@@ -1865,11 +1309,17 @@
           const steps = this.getStepsArray(this.currentMission);
           const bar = document.getElementById('steps-bar');
           bar.innerHTML = '';
+          if (steps.length <= 1) {
+            bar.style.display = 'none';
+            return;
+          }
+          bar.style.display = 'flex';
           steps.forEach((st, idx) => {
             const div = document.createElement('div');
-            const isDone = (this.stepDrafts[idx] || '').trim().split(/\s+/).filter(Boolean).length >= st.minWords;
-            div.className = 'step-node' + (idx === this.currentStepIndex ? ' active' : '') + (isDone ? ' done' : '');
-            div.textContent = isDone ? `✓ ${st.label.split(':')[0]}` : st.label;
+            const words = (this.stepDrafts[idx] || '').trim().split(/\s+/).filter(Boolean).length;
+            const isDone = words >= st.minWords;
+            div.className = 'step-pill' + (idx === this.currentStepIndex ? ' active' : '') + (isDone ? ' done' : '');
+            div.textContent = isDone ? `✓ Part ${idx + 1}` : st.label;
             div.onclick = () => {
               this.saveCurrentEditorToStep();
               this.loadStepIntoEditor(idx);
@@ -1883,8 +1333,7 @@
           this.currentStepIndex = idx;
           const st = steps[idx];
 
-          document.getElementById('coach-message').textContent = st.question;
-          document.getElementById('coach-hint').textContent = `💡 Coach Hint: ${st.hint}`;
+          this.setCoachFeedback('⭐ Ready to Write!', 'great', st.question, st.hint);
           document.getElementById('step-word-goal').textContent = st.minWords;
 
           const inputEl = document.getElementById('writing-input');
@@ -1898,35 +1347,6 @@
           this.stepDrafts[this.currentStepIndex] = val;
         },
 
-        renderScaffolds() {
-          const vBox = document.getElementById('vocab-chip-container');
-          vBox.innerHTML = '';
-          (this.currentMission.vocabChips || []).forEach(word => {
-            const chip = document.createElement('span');
-            chip.className = 'vocab-chip';
-            chip.setAttribute('data-word', word.toLowerCase());
-            chip.innerHTML = `<span>🔊</span> <span>${word}</span>`;
-            chip.onclick = () => {
-              this.speakText(word);
-              this.showToast(`🗣️ "${word}" — Type this word in your sentence for +2 💎!`);
-            };
-            vBox.appendChild(chip);
-          });
-
-          const sBox = document.getElementById('starter-chip-container');
-          sBox.innerHTML = '';
-          (this.currentMission.starterChips || []).forEach(phrase => {
-            const chip = document.createElement('span');
-            chip.className = 'starter-chip';
-            chip.textContent = `"${phrase}..."`;
-            chip.onclick = () => {
-              this.speakText(phrase);
-              this.showToast(`🧭 Type "${phrase}" to open your sentence!`);
-            };
-            sBox.appendChild(chip);
-          });
-        },
-
         handleKeyDown(e) {
           const now = Date.now();
           if (!this.typingStartTime) this.typingStartTime = now;
@@ -1934,16 +1354,6 @@
             this.activeTypingSeconds += (now - this.lastKeystrokeTime) / 1000;
           }
           this.lastKeystrokeTime = now;
-
-          if (e.key === 'Backspace') {
-            this.keystrokeStreak = Math.max(0, this.keystrokeStreak - 2);
-          } else if (e.key.length === 1) {
-            this.keystrokeStreak += 1;
-            if (this.keystrokeStreak > 0 && this.keystrokeStreak % 60 === 0) {
-              this.awardEmeralds(2, '🔥 60-Keystroke Typing Flow Streak! +2 💎');
-            }
-          }
-          document.getElementById('hud-streak').textContent = this.keystrokeStreak;
         },
 
         handleInputUpdate() {
@@ -1957,35 +1367,15 @@
           document.getElementById('step-word-count').textContent = stepWords;
           document.getElementById('total-word-count').textContent = totalWords;
 
-          const goal = this.currentMission.minWords || 50;
+          const goal = this.currentMission.minWords || 45;
           const pct = Math.min(100, Math.round((totalWords / goal) * 100));
           document.getElementById('word-progress-fill').style.width = `${pct}%`;
 
-          // Live WPM calculation
           const elapsedMin = Math.max(0.15, this.activeTypingSeconds / 60);
           if (totalWords > 2) {
             this.currentWpm = Math.min(95, Math.round(totalWords / elapsedMin));
             document.getElementById('hud-wpm').textContent = this.currentWpm;
           }
-
-          // Check Type-It-Yourself Power Vocab Chips
-          const lowerDraft = fullDraft.toLowerCase();
-          let usedCount = 0;
-          const chips = document.querySelectorAll('.vocab-chip');
-          chips.forEach(chip => {
-            const w = chip.getAttribute('data-word');
-            if (lowerDraft.includes(w)) {
-              usedCount++;
-              chip.classList.add('used');
-              if (!this.rewardedVocab.has(w)) {
-                this.rewardedVocab.add(w);
-                this.awardEmeralds(2, `💎 Power Word "${w}" crafted! +2 Emeralds!`);
-              }
-            } else {
-              chip.classList.remove('used');
-            }
-          });
-          document.getElementById('vocab-used-counter').textContent = `${usedCount} / ${chips.length} Crafted`;
 
           this.renderCompiledScroll();
         },
@@ -1999,7 +1389,7 @@
           const steps = this.getStepsArray(this.currentMission);
           const nonEmpty = this.stepDrafts.some(s => s.trim().length > 0);
           if (!nonEmpty) {
-            box.innerHTML = `<div style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">Your crafted sentences and paragraphs will assemble here as you build your piece...</div>`;
+            box.innerHTML = `<div style="color:var(--text-muted);font-style:italic;">As you finish each part above, your full story or opinion piece will appear here!</div>`;
             return;
           }
 
@@ -2023,25 +1413,23 @@
 
           if (wordCount < Math.max(5, st.minWords - 3)) {
             this.setCoachFeedback(
-              '?! Inaccuracy',
+              '🔧 Add a Little More',
               'inaccuracy',
-              `Hold on, Milo! Your response is only ${wordCount} words so far. Can you expand this part to at least ${st.minWords} words with a vivid detail or reason?`,
+              `Nice start, Milo! You have ${wordCount} words so far. Try adding one more detail so this part has at least ${st.minWords} words.`,
               st.hint
             );
             return;
           }
 
-          // Analyze step locally first (and optionally via Gemini WebApp if configured)
           const analysis = this.analyzeSentenceHeuristically(text);
-          this.awardEmeralds(4, `⚒️ Step Crafted! +4 💎`);
+          this.awardEmeralds(5, `✅ Part saved! +5 💎`);
 
-          // Try live Gemini Socratic response if WebApp or API key is set
-          const liveFeedback = await this.fetchLiveSocraticTurn(text, st);
+          const liveFeedback = await this.fetchLiveCoachTurn(text, st);
           if (liveFeedback) {
             const bType = (liveFeedback.moveBadge || '').includes('Brilliant') ? 'brilliant' :
                           (liveFeedback.moveBadge || '').includes('Inaccuracy') ? 'inaccuracy' : 'great';
             this.setCoachFeedback(
-              liveFeedback.moveBadge || '⭐ Great Move',
+              liveFeedback.moveBadge || '⭐ Great Sentence!',
               bType,
               liveFeedback.coachPraise || analysis.praise,
               liveFeedback.socraticHint || analysis.hint
@@ -2050,31 +1438,27 @@
             this.setCoachFeedback(analysis.badge, analysis.badgeClass, analysis.praise, analysis.hint);
           }
 
-          // Advance to next step if available, otherwise prompt Game Review
           if (this.currentStepIndex < steps.length - 1) {
             setTimeout(() => {
               this.loadStepIntoEditor(this.currentStepIndex + 1);
-              this.showToast(`✅ Step ${this.currentStepIndex} saved! Moving to Step ${this.currentStepIndex + 1}.`);
-            }, 1400);
+            }, 1100);
           } else {
-            this.showToast(`🎉 All steps drafted! Click "Run Chess.com Game Review" to inspect your moves!`);
+            this.showToast(`🎉 You finished all parts! Checking your writing now...`);
             this.runGameReview();
           }
         },
 
-        askSocraticHint() {
+        askHint() {
           const text = document.getElementById('writing-input').value.trim();
           const steps = this.getStepsArray(this.currentMission);
           const st = steps[this.currentStepIndex];
 
           if (!text) {
-            const starter = (this.currentMission.starterChips || [])[this.currentStepIndex] || (this.currentMission.starterChips || [])[0] || '';
-            const vocab = (this.currentMission.vocabChips || [])[this.currentStepIndex] || (this.currentMission.vocabChips || [])[0] || '';
             this.setCoachFeedback(
-              '💡 Coach Clue',
+              '💡 Coach Hint',
               'great',
-              `Stuck on how to start, Milo? Try opening your sentence with "${starter}..." and weave in the power word "${vocab}"!`,
-              st.hint
+              st.question,
+              `How to start: ${st.hint}`
             );
             return;
           }
@@ -2084,62 +1468,58 @@
         },
 
         analyzeSentenceHeuristically(text) {
-          const lower = text.toLowerCase();
           const words = text.split(/\s+/).filter(Boolean);
-          const usedTargetVocab = (this.currentMission.vocabChips || []).filter(v => lower.includes(v.toLowerCase()));
 
-          // Check spelling slips
           for (const [wrong, right] of Object.entries(COMMON_MISSPELLINGS)) {
             const regex = new RegExp(`\\b${wrong}\\b`, 'i');
             if (regex.test(text)) {
               return {
-                badge: '?! Inaccuracy',
+                badge: '🔧 Quick Fix',
                 badgeClass: 'inaccuracy',
-                praise: `Great idea, Milo! Watch out for a sneaky spelling slip: you typed "${wrong}".`,
-                hint: `Socratic Fix: Can you correct "${wrong}" to "${right}" before moving on?`,
+                praise: `Great idea, Milo! Watch out for one small spelling slip: "${wrong}".`,
+                hint: `Try changing "${wrong}" to "${right}".`,
                 issueWord: wrong,
                 fixWord: right
               };
             }
           }
 
-          // Check weak words
           for (const [weak, upgrades] of Object.entries(WEAK_WORDS_MAP)) {
             const regex = new RegExp(`\\b${weak}\\b`, 'i');
             if (regex.test(text)) {
               return {
-                badge: '?! Inaccuracy',
+                badge: '🔧 Quick Fix',
                 badgeClass: 'inaccuracy',
-                praise: `Solid thought! But I spotted the basic word "${weak}" hiding in your sentence.`,
-                hint: `Socratic Upgrade: What happens to your sentence if you swap "${weak}" for "${upgrades[0]}" or "${upgrades[1]}"?`,
+                praise: `Clear sentence! You used the everyday word "${weak}".`,
+                hint: `Try swapping "${weak}" for a more descriptive word like "${upgrades[0]}" or "${upgrades[1]}"!`,
                 issueWord: weak,
                 fixWord: upgrades[0]
               };
             }
           }
 
-          if (usedTargetVocab.length > 0 && words.length >= 12) {
+          if (words.length >= 14) {
             return {
               badge: '💎 Brilliant!!',
               badgeClass: 'brilliant',
-              praise: `Brilliant move, Milo!! Weaving in "${usedTargetVocab.join(', ')}" creates vivid, high-level ISA writing!`,
-              hint: `Keep that momentum going into your next thought!`
+              praise: `Brilliant writing, Milo!! That is a detailed, well-explained sentence (${words.length} words)!`,
+              hint: `Keep going—your story is really coming to life!`
             };
           }
 
           return {
-            badge: '⭐ Great Move',
+            badge: '⭐ Great Sentence!',
             badgeClass: 'great',
-            praise: `Strong sentence structure (${words.length} words)! Your idea comes across clearly.`,
-            hint: `To turn this into a 💎 Brilliant!! move, try including one more sensory adjective or transition phrase.`
+            praise: `Great job (${words.length} words)! Your idea is clear and easy to follow.`,
+            hint: `To make it a 💎 Brilliant!! move, add one extra detail about what you saw, heard, or felt.`
           };
         },
 
-        async runGameReview() {
+        runGameReview() {
           this.saveCurrentEditorToStep();
           const fullDraft = this.getCompiledDraftText();
-          if (!fullDraft || fullDraft.split(/\s+/).length < 15) {
-            this.showToast('⚠️ Please type at least a few sentences before running the Game Review!');
+          if (!fullDraft || fullDraft.split(/\s+/).length < 12) {
+            this.showToast('⚠️ Please write a few sentences first before checking your writing!');
             return;
           }
 
@@ -2161,8 +1541,7 @@
               inaccuracyCount++;
               retryCandidates.push({
                 original: sent,
-                prompt: res.hint,
-                fixWord: res.fixWord || ''
+                prompt: res.hint
               });
             } else {
               greatCount++;
@@ -2170,75 +1549,77 @@
             annotations.push({ sentence: sent, ...res });
           });
 
-          // Render Review Panel
           document.getElementById('rev-brilliant-count').textContent = brilliantCount;
           document.getElementById('rev-great-count').textContent = greatCount;
           document.getElementById('rev-inaccuracy-count').textContent = inaccuracyCount;
 
           document.getElementById('review-coach-summary').textContent =
-            `Awesome effort on "${this.currentMission.title}", Milo! You drafted ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 22} WPM. Check out your sentence badges below!`;
+            `Awesome work on "${this.currentMission.title}", Milo! You wrote ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 22} WPM.`;
 
           const listEl = document.getElementById('sentence-review-list');
           listEl.innerHTML = '';
           annotations.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'sentence-review-item';
+            div.className = 'sentence-item';
             div.innerHTML = `
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <div style="margin-bottom:4px;">
                 <span class="move-badge ${item.badgeClass}">${item.badge}</span>
               </div>
-              <div style="margin-bottom:4px;">"${this.escapeHtml(item.sentence)}"</div>
-              <div style="font-size:0.78rem;color:var(--text-muted);">${this.escapeHtml(item.praise)} ${this.escapeHtml(item.hint)}</div>
+              <div style="margin-bottom:4px;font-weight:600;">"${this.escapeHtml(item.sentence)}"</div>
+              <div style="font-size:0.84rem;color:var(--text-secondary);">${this.escapeHtml(item.praise)} ${this.escapeHtml(item.hint)}</div>
             `;
             listEl.appendChild(div);
           });
 
-          // Set up Retry Challenge
           const retryInput = document.getElementById('retry-input');
           const retryPromptEl = document.getElementById('retry-prompt-text');
           if (retryCandidates.length > 0) {
             const target = retryCandidates[0];
-            retryPromptEl.innerHTML = `<strong>Original Move:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Coach Challenge:</strong> ${this.escapeHtml(target.prompt)}`;
+            retryPromptEl.innerHTML = `<strong>Your Sentence:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Coach Tip:</strong> ${this.escapeHtml(target.prompt)}`;
             retryInput.value = target.original;
           } else {
             const firstSent = rawSentences[0] || '';
-            const unusedVocab = (this.currentMission.vocabChips || []).find(v => !fullDraft.toLowerCase().includes(v.toLowerCase())) || 'remarkably';
-            retryPromptEl.innerHTML = `Zero inaccuracies detected! For your <strong>Grandmaster Bonus Challenge</strong>, upgrade this sentence by weaving in the power word <strong>"${unusedVocab}"</strong>:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
+            retryPromptEl.innerHTML = `No spelling slips found! For your <strong>+10 💎 Bonus</strong>, add one extra descriptive word or detail to this sentence:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
             retryInput.value = firstSent;
           }
 
           document.getElementById('review-panel').classList.add('visible');
           document.getElementById('review-panel').scrollIntoView({ behavior: 'smooth' });
 
-          // Silently compute Parent-Only ISA 3-Pillar Scores & sync to Sheet/Storage
           this.recordSilentParentAnalytics(fullDraft, brilliantCount, greatCount, inaccuracyCount);
         },
 
         submitRetryChallenge() {
           if (this.retryCompletedForMission) {
-            this.showToast('✅ You already unlocked the Emerald Chest for this mission!');
+            this.showToast('✅ You already claimed the +10 💎 bonus for this level!');
             return;
           }
           const val = document.getElementById('retry-input').value.trim();
-          if (val.split(/\s+/).length < 6) {
-            this.showToast('⚠️ Make sure you type out the full upgraded sentence!');
+          if (val.split(/\s+/).length < 5) {
+            this.showToast('⚠️ Please type out the full sentence!');
             return;
           }
           this.retryCompletedForMission = true;
-          this.awardEmeralds(10, '🏆 Retry Challenge Mastered! Unlocked +10 Bonus Emeralds!');
-          this.setCoachFeedback(
-            '💎 Brilliant!!',
-            'brilliant',
-            `Phenomenal revision, Milo! Re-typing and upgrading your own sentences is the #1 secret to mastering the ISA Writing test!`,
-            `Select another mission from the top menu whenever you're ready for your next adventure.`
-          );
+          this.awardEmeralds(10, '🏆 Awesome revision! +10 Bonus Emeralds!');
+        },
+
+        advanceToNextLevel() {
+          if (this.currentMissionIndex < this.missions.length - 1) {
+            this.currentMissionIndex += 1;
+            localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(this.currentMissionIndex));
+            document.getElementById('level-select').value = this.currentMissionIndex;
+            this.selectMission(this.missions[this.currentMissionIndex]);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            this.showToast(`🚀 Unlocked ${this.missions[this.currentMissionIndex].title}!`);
+          } else {
+            this.showToast(`🎉 You completed all 9 levels! Pick any level at the top to play again.`);
+          }
         },
 
         recordSilentParentAnalytics(fullDraft, brilliantCount, greatCount, inaccuracyCount) {
           const words = fullDraft.split(/\s+/).filter(Boolean).length;
-          const goal = this.currentMission.minWords || 50;
+          const goal = this.currentMission.minWords || 45;
 
-          // Silent ISA 3-Pillar Estimation (/10 each)
           const contentScore = Math.min(9.5, Math.max(5.5, Number((6.5 + Math.min(2.0, (words / goal) * 1.5) + brilliantCount * 0.3).toFixed(1))));
           const languageScore = Math.min(9.5, Math.max(5.5, Number((6.2 + brilliantCount * 0.5 + greatCount * 0.2 - inaccuracyCount * 0.2).toFixed(1))));
           const spellingScore = Math.min(9.5, Math.max(5.5, Number((8.5 - inaccuracyCount * 0.5).toFixed(1))));
@@ -2252,7 +1633,7 @@
             missionId: this.currentMission.levelId,
             missionTitle: this.currentMission.title,
             genre: this.currentMission.genre,
-            modeLabel: this.currentMission.modeLabel,
+            modeLabel: this.currentMission.genreBadge,
             wordCount: words,
             wpm: this.currentWpm || 22,
             durationSec: Math.round(this.activeTypingSeconds || 120),
@@ -2273,7 +1654,6 @@
           existing.unshift(entry);
           localStorage.setItem(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(existing.slice(0, 50)));
 
-          // Sync to Google Apps Script if URL configured
           const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
           if (webAppUrl) {
             fetch(webAppUrl, {
@@ -2285,7 +1665,7 @@
           }
         },
 
-        async fetchLiveSocraticTurn(studentText, stepObj) {
+        async fetchLiveCoachTurn(studentText, stepObj) {
           const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
           const apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
           if (!webAppUrl) return null;
@@ -2302,7 +1682,6 @@
                 genre: this.currentMission.genre,
                 promptScenario: this.currentMission.promptScenario,
                 stepGoal: stepObj.question,
-                vocabChips: this.currentMission.vocabChips,
                 studentText
               })
             });
@@ -2323,28 +1702,10 @@
               if (res && res.status === 'ok' && res.data && res.data.missions) {
                 this.data = res.data;
                 this.loadMissions(res.data.missions);
-                this.renderVocabWiki();
-                this.showToast('☁️ Synced latest missions from Google Drive!');
+                this.showToast('☁️ Loaded latest levels from Google Drive!');
               }
             })
             .catch(() => {});
-        },
-
-        renderVocabWiki() {
-          const box = document.getElementById('vocab-wiki-list');
-          box.innerHTML = '';
-          (this.data.vocabWiki || []).forEach(v => {
-            const item = document.createElement('div');
-            item.style.cssText = 'background:var(--bg-card);border:1.5px solid var(--border-main);border-radius:8px;padding:7px 10px;font-size:0.8rem;';
-            item.innerHTML = `
-              <div style="display:flex;justify-content:space-between;">
-                <strong style="color:#fca5a5;">❌ "${v.weak}" (${v.type})</strong>
-                <span style="color:var(--accent-emerald);font-weight:700;">➔ ${v.upgrades.slice(0, 3).join(', ')}</span>
-              </div>
-              <div style="color:var(--text-muted);font-size:0.74rem;margin-top:2px;">${v.tip}</div>
-            `;
-            box.appendChild(item);
-          });
         },
 
         setCoachFeedback(badgeText, badgeClass, message, hint) {
@@ -2352,7 +1713,7 @@
           badgeEl.className = `move-badge ${badgeClass}`;
           badgeEl.textContent = badgeText;
           document.getElementById('coach-message').textContent = message;
-          document.getElementById('coach-hint').textContent = `💡 ${hint}`;
+          document.getElementById('coach-hint').textContent = `💡 Hint: ${hint}`;
         },
 
         awardEmeralds(amount, reasonText) {
@@ -2364,10 +1725,6 @@
 
         updateEmeraldHud() {
           document.getElementById('hud-emeralds').textContent = this.emeralds;
-          const rank = this.emeralds >= 120 ? 'Grandmaster Wordsmith 👑' :
-                       this.emeralds >= 60  ? 'Diamond Chronicler 💎' :
-                                              'Apprentice Chronicler ⛏️';
-          document.getElementById('hud-rank-label').textContent = `Rank: ${rank} • Target: ISA Writing Assessment`;
         },
 
         speakCoachPrompt() {
@@ -2378,7 +1735,7 @@
         speakCompiledDraft() {
           const txt = this.getCompiledDraftText();
           if (!txt) {
-            this.showToast('Type a sentence first so I can read it aloud!');
+            this.showToast('Write a sentence first so I can read it aloud!');
             return;
           }
           this.speakText(txt);
@@ -2423,7 +1780,7 @@
               body: JSON.stringify({ action: 'save_cloud_config', gcpProjectId: proj, gcpLocation: loc, apiKey: key })
             }).catch(() => {});
           }
-          this.showToast('☁️ Cloud & Parent Settings Saved!');
+          this.showToast('☁️ Cloud Settings Saved!');
           this.syncCloudMissions();
           this.closeSettingsModal();
         },
@@ -2432,13 +1789,13 @@
           const tbody = document.getElementById('parent-log-tbody');
           const logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENT_LOGS) || '[]');
           if (logs.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" style="color:var(--text-muted);text-align:center;">No completed sessions recorded on this device yet. Run a Game Review to log scores!</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" style="color:var(--text-muted);text-align:center;">No completed sessions recorded on this device yet.</td></tr>`;
             return;
           }
           tbody.innerHTML = logs.map(l => `
             <tr>
               <td>${l.timestamp}</td>
-              <td>${l.missionId}: ${this.escapeHtml(l.missionTitle)}</td>
+              <td>${this.escapeHtml(l.missionTitle)}</td>
               <td>${l.wordCount}w / ${l.wpm} WPM</td>
               <td>${l.isaContent10}</td>
               <td>${l.isaLanguage10}</td>
@@ -2451,7 +1808,7 @@
 
         exportParentCsv() {
           const logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENT_LOGS) || '[]');
-          const headers = ['Timestamp','Mission_ID','Mission_Title','Genre','Word_Count','WPM','Content_10','Language_10','Spelling_10','ISA_Total_30','ISA_Band','Compiled_Draft'];
+          const headers = ['Timestamp','Level_ID','Title','Genre','Word_Count','WPM','Content_10','Language_10','Spelling_10','ISA_Total_30','ISA_Band','Compiled_Draft'];
           const rows = logs.map(l => [
             l.timestamp, l.missionId, `"${(l.missionTitle||'').replace(/"/g,'""')}"`, l.genre,
             l.wordCount, l.wpm, l.isaContent10, l.isaLanguage10, l.isaSpelling10, l.isaTotal30,
@@ -2470,7 +1827,7 @@
           el.textContent = msg;
           el.classList.add('show');
           clearTimeout(this._toastTimer);
-          this._toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+          this._toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
         },
 
         escapeHtml(str) {
