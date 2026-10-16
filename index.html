@@ -37,139 +37,122 @@
       color: var(--text-primary);
       font-family: var(--font-sans);
       min-height: 100vh;
-      padding: env(safe-area-inset-top, 14px) 16px env(safe-area-inset-bottom, 24px) 16px;
-      line-height: 1.55;
+      padding: env(safe-area-inset-top, 8px) 14px env(safe-area-inset-bottom, 20px) 14px;
+      line-height: 1.5;
     }
 
     .app-shell {
-      max-width: 960px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
-    /* TOP BAR — CLEAN & UNCLUTTERED */
+    /* COMPACT SINGLE-LINE TOP BAR */
     .top-bar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 8px;
       background: var(--bg-card);
-      border: 2px solid var(--border-light);
-      border-radius: 14px;
-      padding: 12px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
-    }
-
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-icon {
-      width: 44px;
-      height: 44px;
+      border: 1.5px solid var(--border-light);
       border-radius: 10px;
-      background: var(--emerald-bg);
-      border: 2px solid var(--emerald-main);
+      padding: 6px 12px;
+      margin-bottom: 10px;
+    }
+
+    .top-left {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-
-    .brand-title {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--text-primary);
-    }
-
-    .brand-subtitle {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .top-controls {
-      display: flex;
-      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .brand-compact {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      white-space: nowrap;
     }
 
     .level-select {
       background: var(--bg-soft);
       color: var(--text-primary);
-      border: 2px solid var(--border-light);
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.92rem;
+      border: 1.5px solid var(--border-light);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .stat-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 13px;
+      gap: 4px;
+      padding: 4px 9px;
       border-radius: 999px;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       font-weight: 800;
     }
 
     .stat-pill.emerald {
       background: var(--emerald-bg);
       color: var(--emerald-dark);
-      border: 1.5px solid #86efac;
     }
 
     .stat-pill.wpm {
       background: var(--blue-bg);
       color: #1d4ed8;
-      border: 1.5px solid #93c5fd;
     }
 
     .btn-parent {
       background: var(--bg-soft);
       color: var(--text-secondary);
-      border: 2px solid var(--border-light);
-      border-radius: 10px;
-      padding: 7px 12px;
-      font-size: 0.85rem;
+      border: 1.5px solid var(--border-light);
+      border-radius: 8px;
+      padding: 4px 9px;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
     }
 
-    /* COACH BANNER */
+    /* SINGLE CONCISE COACH BUBBLE (NO DUPLICATE BANNERS) */
     .coach-card {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 12px;
       background: var(--bg-coach);
       border: 2px solid #93c5fd;
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
     }
 
     .coach-avatar {
-      width: 58px;
-      height: 58px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       background: var(--bg-card);
       border: 2px solid var(--blue-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 1.55rem;
       flex-shrink: 0;
     }
 
     .coach-body {
       flex: 1;
+      min-width: 0;
     }
 
     .coach-top-row {
@@ -177,121 +160,96 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
     }
 
     .coach-name {
-      font-size: 0.95rem;
+      font-size: 0.84rem;
       font-weight: 800;
       color: #1e40af;
     }
 
     .coach-question {
-      font-size: 1.08rem;
+      font-size: 1.04rem;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 6px;
     }
 
     .coach-tip {
-      font-size: 0.9rem;
+      margin-top: 6px;
+      font-size: 0.88rem;
       color: var(--text-secondary);
-      background: rgba(255, 255, 255, 0.75);
-      padding: 6px 11px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
       border-left: 3px solid var(--blue-main);
       border-radius: 6px;
+      display: none;
+    }
+
+    .coach-tip.visible {
+      display: block;
     }
 
     .move-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
     }
 
     .move-badge.brilliant {
       background: #e0f2fe;
       color: #0369a1;
-      border: 1.5px solid #38bdf8;
+      border: 1px solid #38bdf8;
     }
 
     .move-badge.great {
       background: var(--emerald-bg);
       color: var(--emerald-dark);
-      border: 1.5px solid #4ade80;
+      border: 1px solid #4ade80;
     }
 
     .move-badge.inaccuracy {
       background: var(--gold-bg);
       color: #b45309;
-      border: 1.5px solid #fbbf24;
+      border: 1px solid #fbbf24;
     }
 
-    /* MAIN WRITING WORKSPACE CARD */
+    /* MAIN WRITING CARD — ZERO REDUNDANT TEXT ABOVE THE BOX */
     .writing-card {
       background: var(--bg-card);
       border: 2px solid var(--border-light);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
     }
 
-    .mission-header {
+    /* SLIM INLINE PART TABS RIGHT ABOVE THE ANSWER BOX */
+    .steps-toolbar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .mission-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-primary);
-    }
-
-    .genre-tag {
-      font-size: 0.82rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: var(--bg-soft);
-      border: 1.5px solid var(--border-light);
-      color: var(--text-secondary);
-    }
-
-    .scenario-banner {
-      background: var(--bg-soft);
-      border: 1.5px solid var(--border-light);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.96rem;
-      color: var(--text-secondary);
-      margin-bottom: 14px;
-    }
-
-    /* STEP PROGRESS PILLS */
     .steps-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .step-pill {
-      flex: 1;
-      padding: 8px 10px;
-      border-radius: 9px;
+      padding: 4px 11px;
+      border-radius: 999px;
       background: var(--bg-soft);
-      border: 2px solid var(--border-light);
-      font-size: 0.84rem;
+      border: 1.5px solid var(--border-light);
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-muted);
-      text-align: center;
       cursor: pointer;
     }
 
@@ -307,17 +265,17 @@
       color: var(--emerald-dark);
     }
 
-    /* BIG, HIGH-CONTRAST WHITE ANSWER BOX */
+    /* SPACIOUS HIGH-CONTRAST WHITE ANSWER BOX */
     .writing-textarea {
       width: 100%;
-      min-height: 230px;
+      min-height: 250px;
       background: #ffffff;
       color: #0f172a;
       border: 2.5px solid var(--border-strong);
-      border-radius: 12px;
-      padding: 16px 18px;
+      border-radius: 10px;
+      padding: 14px 16px;
       font-family: var(--font-sans);
-      font-size: 1.16rem;
+      font-size: 1.18rem;
       line-height: 1.65;
       resize: vertical;
       outline: none;
@@ -326,63 +284,45 @@
 
     .writing-textarea:focus {
       border-color: var(--border-focus);
-      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
     }
 
     .writing-textarea::placeholder {
       color: #94a3b8;
     }
 
-    .word-counter-row {
+    .bottom-controls-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-top: 8px;
-      margin-bottom: 14px;
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      font-weight: 600;
+      margin-top: 10px;
     }
 
-    .progress-track {
-      flex: 1;
-      min-width: 160px;
-      height: 10px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--emerald-main);
-      width: 0%;
-      transition: width 0.2s;
-    }
-
-    /* ACTION BUTTONS */
     .button-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
+    }
+
+    .word-counter {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      font-weight: 600;
     }
 
     .btn-primary {
       background: var(--emerald-main);
       color: #ffffff;
       border: none;
-      border-bottom: 4px solid var(--emerald-dark);
-      border-radius: 10px;
-      padding: 12px 20px;
-      font-size: 1rem;
+      border-bottom: 3px solid var(--emerald-dark);
+      border-radius: 9px;
+      padding: 10px 18px;
+      font-size: 0.96rem;
       font-weight: 800;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .btn-primary:hover {
@@ -392,10 +332,10 @@
     .btn-light {
       background: var(--bg-soft);
       color: var(--text-primary);
-      border: 2px solid var(--border-light);
-      border-radius: 10px;
-      padding: 10px 15px;
-      font-size: 0.92rem;
+      border: 1.5px solid var(--border-light);
+      border-radius: 9px;
+      padding: 8px 13px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -407,26 +347,33 @@
     /* COMPILED WRITING PREVIEW */
     .story-preview-card {
       background: var(--bg-card);
-      border: 2px solid var(--border-light);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 16px;
+      border: 1.5px solid var(--border-light);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .compiled-box {
       background: var(--bg-soft);
-      border: 1.5px solid var(--border-light);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-top: 10px;
-      font-size: 1.04rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 11px 14px;
+      margin-top: 8px;
+      font-size: 1rem;
       color: var(--text-primary);
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     .compiled-part {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
       border-bottom: 1px dashed var(--border-light);
     }
 
@@ -436,21 +383,13 @@
       border-bottom: none;
     }
 
-    .compiled-part-label {
-      font-size: 0.76rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--blue-main);
-      margin-bottom: 3px;
-    }
-
     /* POST-SESSION WRITING CHECK PANEL */
     .review-card {
       background: var(--bg-card);
-      border: 3px solid var(--gold-main);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 20px;
+      border: 2.5px solid var(--gold-main);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
       display: none;
     }
 
@@ -461,38 +400,38 @@
     .review-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 12px 0;
+      gap: 8px;
+      margin: 10px 0;
     }
 
     .review-stat-box {
       background: var(--bg-soft);
-      border: 1.5px solid var(--border-light);
-      border-radius: 10px;
-      padding: 10px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 8px;
       text-align: center;
     }
 
     .review-stat-num {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 900;
     }
 
     .sentence-item {
       background: var(--bg-soft);
-      border: 1.5px solid var(--border-light);
-      border-radius: 10px;
-      padding: 11px 14px;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
     }
 
     .retry-box {
       background: var(--gold-bg);
       border: 2px solid var(--gold-main);
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 14px;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 12px;
     }
 
     /* PARENT MODAL */
@@ -515,71 +454,68 @@
       background: var(--bg-card);
       color: var(--text-primary);
       border: 2px solid var(--border-light);
-      border-radius: 16px;
+      border-radius: 14px;
       max-width: 760px;
       width: 100%;
       max-height: 88vh;
       overflow-y: auto;
-      padding: 22px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+      padding: 20px;
     }
 
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--text-secondary);
     }
 
     .form-input {
       width: 100%;
-      padding: 9px 12px;
+      padding: 8px 11px;
       border-radius: 8px;
       border: 1.5px solid var(--border-strong);
       background: #ffffff;
       color: var(--text-primary);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
     .parent-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.82rem;
-      margin-top: 10px;
+      font-size: 0.8rem;
+      margin-top: 8px;
     }
 
     .parent-table th, .parent-table td {
       border: 1px solid var(--border-light);
-      padding: 7px 9px;
+      padding: 6px 8px;
       text-align: left;
     }
 
     .parent-table th {
       background: var(--bg-soft);
-      color: var(--text-primary);
     }
 
     .toast-box {
       position: fixed;
-      bottom: 22px;
-      right: 22px;
+      bottom: 18px;
+      right: 18px;
       background: #0f172a;
       color: #ffffff;
-      padding: 12px 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 9px;
       font-weight: 700;
-      font-size: 0.92rem;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+      font-size: 0.88rem;
       z-index: 1200;
       opacity: 0;
-      transform: translateY(15px);
+      transform: translateY(12px);
       pointer-events: none;
-      transition: all 0.22s;
+      transition: all 0.2s;
     }
 
     .toast-box.show {
@@ -590,40 +526,33 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- CLEAN TOP BAR -->
+    <!-- ULTRA-COMPACT SINGLE-LINE TOP BAR -->
     <header class="top-bar">
-      <div class="brand-group">
-        <div class="brand-icon">✏️</div>
-        <div>
-          <div class="brand-title">Milo's Writing Crafter</div>
-          <div class="brand-subtitle" id="hud-rank-label">Step-by-Step Writing Adventure</div>
-        </div>
+      <div class="top-left">
+        <span class="brand-compact">✏️ Milo's Writing</span>
+        <select id="level-select" class="level-select" aria-label="Choose Level"></select>
       </div>
 
-      <div class="top-controls">
-        <select id="level-select" class="level-select" aria-label="Choose Level"></select>
-
+      <div class="top-right">
         <div class="stat-pill wpm" title="Typing Speed">
           ⌨️ <span id="hud-wpm">0</span> WPM
         </div>
-
-        <div class="stat-pill emerald" title="Emeralds Earned">
+        <div class="stat-pill emerald" title="Emeralds">
           💎 <span id="hud-emeralds">20</span>
         </div>
-
-        <button class="btn-parent" id="btn-open-settings">☁️ Parent</button>
+        <button class="btn-parent" id="btn-open-settings" title="Parent Settings">☁️</button>
       </div>
     </header>
 
-    <!-- FRIENDLY COACH SPEECH BUBBLE -->
+    <!-- SINGLE UNIFIED COACH BUBBLE (NO DUPLICATE SCENARIO OR HINT BOXES) -->
     <section class="coach-card" aria-label="Writing Coach">
       <div class="coach-avatar" id="coach-avatar">🦉</div>
       <div class="coach-body">
         <div class="coach-top-row">
           <span class="coach-name" id="coach-name">Coach Alex</span>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span id="coach-move-badge" class="move-badge great">⭐ Ready to Write!</span>
-            <button class="btn-light" style="padding:4px 10px;font-size:0.8rem;" onclick="window.GameEngine.speakCoachPrompt()">🔊 Read to Me</button>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span id="coach-move-badge" class="move-badge great">⭐ Let's Write</span>
+            <button class="btn-light" style="padding:3px 9px;font-size:0.76rem;" onclick="window.GameEngine.speakCoachPrompt()">🔊 Read</button>
           </div>
         </div>
         <div class="coach-question" id="coach-message"></div>
@@ -631,19 +560,16 @@
       </div>
     </section>
 
-    <!-- MAIN WRITING WORKSPACE -->
+    <!-- MAIN WRITING CARD — DIRECTLY INTO THE BIG WHITE TYPING BOX -->
     <main class="writing-card">
-      <div class="mission-header">
-        <div class="mission-title" id="mission-title">Level 1: A Rainy Morning on the Way to School</div>
-        <span class="genre-tag" id="mission-genre-badge">📖 Story Time • Easy</span>
+      <div class="steps-toolbar" id="steps-toolbar">
+        <div class="steps-row" id="steps-bar"></div>
+        <div class="word-counter">
+          Words: <strong id="step-word-count">0</strong> / <span id="step-word-goal">10</span>+
+          <span style="color:var(--text-muted);margin-left:6px;">(Total: <strong id="total-word-count">0</strong>)</span>
+        </div>
       </div>
 
-      <div class="scenario-banner" id="mission-scenario"></div>
-
-      <!-- SIMPLE PART PROGRESS BAR -->
-      <div class="steps-row" id="steps-bar"></div>
-
-      <!-- LARGE WHITE HIGH-CONTRAST ANSWER BOX -->
       <textarea
         id="writing-input"
         class="writing-textarea"
@@ -651,79 +577,68 @@
         autocorrect="off"
         autocapitalize="off"
         autocomplete="off"
-        placeholder="Type your sentences here, Milo..."
+        placeholder="Type here, Milo..."
       ></textarea>
 
-      <div class="word-counter-row">
-        <div>
-          📝 Words in this part: <strong id="step-word-count">0</strong> (Goal: <span id="step-word-goal">10</span>+ words)
-          &nbsp;•&nbsp; Total Words: <strong id="total-word-count">0</strong> / <span id="mission-word-goal">45</span>
+      <div class="bottom-controls-row">
+        <div class="button-bar">
+          <button class="btn-primary" id="btn-submit-step" onclick="window.GameEngine.submitCurrentStep()">
+            ✅ Next Part
+          </button>
+          <button class="btn-light" onclick="window.GameEngine.askHint()">
+            💡 Hint
+          </button>
+          <button class="btn-light" onclick="window.GameEngine.runGameReview()">
+            🏁 Finish & Check
+          </button>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="word-progress-fill"></div>
-        </div>
-      </div>
-
-      <div class="button-bar">
-        <button class="btn-primary" id="btn-submit-step" onclick="window.GameEngine.submitCurrentStep()">
-          ✅ Save Part & Continue
-        </button>
-        <button class="btn-light" onclick="window.GameEngine.askHint()">
-          💡 Give Me a Hint
-        </button>
-        <button class="btn-light" onclick="window.GameEngine.runGameReview()">
-          🏁 Finish & Check My Writing
-        </button>
       </div>
     </main>
 
-    <!-- POST-SESSION WRITING CHECK & QUICK FIX CHALLENGE -->
+    <!-- POST-SESSION WRITING CHECK -->
     <section class="review-card" id="review-panel">
-      <div class="mission-header">
-        <div class="mission-title">🌟 Coach's Writing Check</div>
-        <button class="btn-light" style="padding:5px 12px;font-size:0.82rem;" onclick="window.GameEngine.advanceToNextLevel()">
-          ➡️ Go to Next Level
+      <div class="preview-header" style="margin-bottom:8px;">
+        <strong style="font-size:1.02rem;">🌟 Coach's Writing Check</strong>
+        <button class="btn-light" style="padding:4px 10px;font-size:0.8rem;" onclick="window.GameEngine.advanceToNextLevel()">
+          ➡️ Next Level
         </button>
       </div>
 
-      <p id="review-coach-summary" style="font-size:0.98rem;color:var(--text-secondary);margin-bottom:10px;"></p>
+      <p id="review-coach-summary" style="font-size:0.92rem;color:var(--text-secondary);margin-bottom:8px;"></p>
 
       <div class="review-grid">
         <div class="review-stat-box">
           <div class="review-stat-num" style="color:#0284c7;" id="rev-brilliant-count">0</div>
-          <div style="font-size:0.84rem;font-weight:800;">💎 Brilliant!!</div>
-          <div style="font-size:0.74rem;color:var(--text-muted);">Detailed & Vivid</div>
+          <div style="font-size:0.78rem;font-weight:800;">💎 Brilliant!!</div>
         </div>
         <div class="review-stat-box">
           <div class="review-stat-num" style="color:#16a34a;" id="rev-great-count">0</div>
-          <div style="font-size:0.84rem;font-weight:800;">⭐ Great Sentence!</div>
-          <div style="font-size:0.74rem;color:var(--text-muted);">Clear Idea</div>
+          <div style="font-size:0.78rem;font-weight:800;">⭐ Great!</div>
         </div>
         <div class="review-stat-box">
           <div class="review-stat-num" style="color:#d97706;" id="rev-inaccuracy-count">0</div>
-          <div style="font-size:0.84rem;font-weight:800;">🔧 Quick Fix</div>
-          <div style="font-size:0.74rem;color:var(--text-muted);">Spelling or Word Upgrade</div>
+          <div style="font-size:0.78rem;font-weight:800;">🔧 Quick Fix</div>
         </div>
       </div>
 
       <div id="sentence-review-list"></div>
 
       <div class="retry-box" id="retry-challenge-box">
-        <div style="font-weight:800;color:#92400e;margin-bottom:6px;font-size:1rem;">
-          🎯 Quick Fix Bonus: Polish This Sentence for +10 💎!
+        <div style="font-weight:800;color:#92400e;margin-bottom:4px;font-size:0.94rem;">
+          🎯 Quick Fix Bonus (+10 💎)
         </div>
-        <div id="retry-prompt-text" style="font-size:0.94rem;color:var(--text-primary);margin-bottom:10px;"></div>
+        <div id="retry-prompt-text" style="font-size:0.9rem;color:var(--text-primary);margin-bottom:8px;"></div>
         <textarea
           id="retry-input"
           class="writing-textarea"
-          style="min-height:100px;margin-bottom:10px;"
+          style="min-height:85px;margin-bottom:8px;"
           spellcheck="false"
           autocorrect="off"
           placeholder="Type your improved sentence here..."
         ></textarea>
         <div class="button-bar">
           <button class="btn-primary" onclick="window.GameEngine.submitRetryChallenge()">
-            🔓 Claim +10 💎 Bonus
+            🔓 Claim +10 💎
           </button>
           <button class="btn-light" onclick="window.GameEngine.advanceToNextLevel()">
             ➡️ Next Level
@@ -734,15 +649,15 @@
 
     <!-- MILO'S STORY SO FAR -->
     <section class="story-preview-card">
-      <div class="mission-header" style="margin-bottom:4px;">
-        <div class="mission-title" style="font-size:1.02rem;">📜 Your Writing So Far</div>
-        <button class="btn-light" style="padding:5px 11px;font-size:0.8rem;" onclick="window.GameEngine.speakCompiledDraft()">
+      <div class="preview-header">
+        <strong style="font-size:0.92rem;color:var(--text-secondary);">📜 Your Writing So Far</strong>
+        <button class="btn-light" style="padding:3px 9px;font-size:0.76rem;" onclick="window.GameEngine.speakCompiledDraft()">
           🔊 Read My Writing
         </button>
       </div>
       <div class="compiled-box" id="compiled-scroll">
-        <div style="color:var(--text-muted);font-style:italic;">
-          As you finish each part above, your full story or opinion piece will appear here!
+        <div style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">
+          Your finished parts will appear here as you write.
         </div>
       </div>
     </section>
@@ -751,8 +666,8 @@
   <!-- PARENT & CLOUD SETTINGS MODAL -->
   <div class="modal-overlay" id="settings-modal">
     <div class="modal-box">
-      <div class="mission-header" style="margin-bottom:14px;">
-        <div class="mission-title">☁️ Parent Settings & Hidden ISA Progress Report</div>
+      <div class="preview-header" style="margin-bottom:12px;">
+        <strong style="font-size:1.05rem;">☁️ Parent Settings & Hidden ISA Progress Report</strong>
         <button class="btn-light" onclick="window.GameEngine.closeSettingsModal()">✕ Close</button>
       </div>
 
@@ -777,14 +692,14 @@
         </div>
       </div>
 
-      <div class="button-bar" style="margin-bottom:18px;">
+      <div class="button-bar" style="margin-bottom:14px;">
         <button class="btn-primary" onclick="window.GameEngine.saveCloudSettings()">💾 Save Cloud Settings</button>
         <button class="btn-light" onclick="window.GameEngine.exportParentCsv()">📥 Download Report (CSV)</button>
       </div>
 
-      <div class="mission-title" style="font-size:0.96rem;margin-bottom:6px;">
+      <strong style="font-size:0.9rem;display:block;margin-bottom:4px;">
         🔒 Parent-Only ISA Rubric Scores (Hidden from Milo's Screen)
-      </div>
+      </strong>
       <div style="overflow-x:auto;">
         <table class="parent-table">
           <thead>
@@ -1212,7 +1127,6 @@
           this.emeralds = parseInt(localStorage.getItem(STORAGE_KEYS.EMERALDS) || '20', 10);
           this.updateEmeraldHud();
 
-          // Sort missions from easiest (order 1 / L01) to hardest (order 9 / L09)
           this.loadMissions(this.data.missions || []);
 
           document.getElementById('level-select').addEventListener('change', (e) => {
@@ -1273,12 +1187,8 @@
           this.activeTypingSeconds = 0;
           this.lastKeystrokeTime = null;
 
-          document.getElementById('mission-title').textContent = mission.title;
-          document.getElementById('mission-genre-badge').textContent = mission.genreBadge || '📖 Story Time';
-          document.getElementById('mission-scenario').textContent = mission.promptScenario;
-          document.getElementById('coach-name').textContent = mission.coachName || 'Coach Alex';
+          document.getElementById('coach-name').textContent = `${mission.coachName || 'Coach Alex'} • ${mission.title}`;
           document.getElementById('coach-avatar').textContent = mission.coachAvatar || '🦉';
-          document.getElementById('mission-word-goal').textContent = mission.minWords || 45;
 
           document.getElementById('review-panel').classList.remove('visible');
 
@@ -1291,16 +1201,16 @@
           const list = mission.steps || mission.socraticSteps || mission.workshopMilestones || [];
           if (list.length > 0) {
             return list.map((s, idx) => ({
-              label: s.role || s.title || `Part ${idx + 1}`,
+              shortLabel: `Part ${idx + 1}`,
               question: s.coachQuestion || s.goal || mission.promptScenario,
-              hint: s.hint || 'Write clearly in complete sentences.',
+              hint: s.hint || '',
               minWords: s.minStepWords || s.minParagraphWords || 10
             }));
           }
           return [{
-            label: 'Full Writing Piece',
+            shortLabel: 'Full Piece',
             question: mission.promptScenario,
-            hint: 'Divide your writing into Beginning, Middle, and Ending paragraphs.',
+            hint: '',
             minWords: mission.minWords || 120
           }];
         },
@@ -1310,21 +1220,20 @@
           const bar = document.getElementById('steps-bar');
           bar.innerHTML = '';
           if (steps.length <= 1) {
-            bar.style.display = 'none';
+            bar.innerHTML = `<span class="step-pill active">Full Piece</span>`;
             return;
           }
-          bar.style.display = 'flex';
           steps.forEach((st, idx) => {
-            const div = document.createElement('div');
+            const span = document.createElement('span');
             const words = (this.stepDrafts[idx] || '').trim().split(/\s+/).filter(Boolean).length;
             const isDone = words >= st.minWords;
-            div.className = 'step-pill' + (idx === this.currentStepIndex ? ' active' : '') + (isDone ? ' done' : '');
-            div.textContent = isDone ? `✓ Part ${idx + 1}` : st.label;
-            div.onclick = () => {
+            span.className = 'step-pill' + (idx === this.currentStepIndex ? ' active' : '') + (isDone ? ' done' : '');
+            span.textContent = isDone ? `✓ ${st.shortLabel}` : st.shortLabel;
+            span.onclick = () => {
               this.saveCurrentEditorToStep();
               this.loadStepIntoEditor(idx);
             };
-            bar.appendChild(div);
+            bar.appendChild(span);
           });
         },
 
@@ -1333,8 +1242,12 @@
           this.currentStepIndex = idx;
           const st = steps[idx];
 
-          this.setCoachFeedback('⭐ Ready to Write!', 'great', st.question, st.hint);
+          // Show ONLY the coach question by default; hide the hint line unless Milo clicks Hint or gets feedback
+          this.setCoachFeedback('⭐ Let's Write', 'great', st.question, '');
           document.getElementById('step-word-goal').textContent = st.minWords;
+
+          const btnSubmit = document.getElementById('btn-submit-step');
+          btnSubmit.textContent = (idx < steps.length - 1) ? '✅ Next Part' : '✅ Save Final Part';
 
           const inputEl = document.getElementById('writing-input');
           inputEl.value = this.stepDrafts[idx] || '';
@@ -1367,10 +1280,6 @@
           document.getElementById('step-word-count').textContent = stepWords;
           document.getElementById('total-word-count').textContent = totalWords;
 
-          const goal = this.currentMission.minWords || 45;
-          const pct = Math.min(100, Math.round((totalWords / goal) * 100));
-          document.getElementById('word-progress-fill').style.width = `${pct}%`;
-
           const elapsedMin = Math.max(0.15, this.activeTypingSeconds / 60);
           if (totalWords > 2) {
             this.currentWpm = Math.min(95, Math.round(totalWords / elapsedMin));
@@ -1389,7 +1298,7 @@
           const steps = this.getStepsArray(this.currentMission);
           const nonEmpty = this.stepDrafts.some(s => s.trim().length > 0);
           if (!nonEmpty) {
-            box.innerHTML = `<div style="color:var(--text-muted);font-style:italic;">As you finish each part above, your full story or opinion piece will appear here!</div>`;
+            box.innerHTML = `<div style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">Your finished parts will appear here as you write.</div>`;
             return;
           }
 
@@ -1399,7 +1308,7 @@
             if (!txt) return;
             const part = document.createElement('div');
             part.className = 'compiled-part';
-            part.innerHTML = `<div class="compiled-part-label">${st.label}</div><div>${this.escapeHtml(txt)}</div>`;
+            part.innerHTML = `<div>${this.escapeHtml(txt)}</div>`;
             box.appendChild(part);
           });
         },
@@ -1415,7 +1324,7 @@
             this.setCoachFeedback(
               '🔧 Add a Little More',
               'inaccuracy',
-              `Nice start, Milo! You have ${wordCount} words so far. Try adding one more detail so this part has at least ${st.minWords} words.`,
+              `Nice start, Milo! You have ${wordCount} words so far—try adding one more detail to reach ${st.minWords} words.`,
               st.hint
             );
             return;
@@ -1432,18 +1341,17 @@
               liveFeedback.moveBadge || '⭐ Great Sentence!',
               bType,
               liveFeedback.coachPraise || analysis.praise,
-              liveFeedback.socraticHint || analysis.hint
+              liveFeedback.socraticHint || ''
             );
           } else {
-            this.setCoachFeedback(analysis.badge, analysis.badgeClass, analysis.praise, analysis.hint);
+            this.setCoachFeedback(analysis.badge, analysis.badgeClass, analysis.praise, '');
           }
 
           if (this.currentStepIndex < steps.length - 1) {
             setTimeout(() => {
               this.loadStepIntoEditor(this.currentStepIndex + 1);
-            }, 1100);
+            }, 950);
           } else {
-            this.showToast(`🎉 You finished all parts! Checking your writing now...`);
             this.runGameReview();
           }
         },
@@ -1454,17 +1362,12 @@
           const st = steps[this.currentStepIndex];
 
           if (!text) {
-            this.setCoachFeedback(
-              '💡 Coach Hint',
-              'great',
-              st.question,
-              `How to start: ${st.hint}`
-            );
+            this.setCoachFeedback('💡 Hint', 'great', st.question, st.hint);
             return;
           }
 
           const analysis = this.analyzeSentenceHeuristically(text);
-          this.setCoachFeedback(analysis.badge, analysis.badgeClass, analysis.praise, analysis.hint);
+          this.setCoachFeedback(analysis.badge, analysis.badgeClass, st.question, `${analysis.praise} ${analysis.hint}`);
         },
 
         analyzeSentenceHeuristically(text) {
@@ -1476,10 +1379,8 @@
               return {
                 badge: '🔧 Quick Fix',
                 badgeClass: 'inaccuracy',
-                praise: `Great idea, Milo! Watch out for one small spelling slip: "${wrong}".`,
-                hint: `Try changing "${wrong}" to "${right}".`,
-                issueWord: wrong,
-                fixWord: right
+                praise: `Great idea! Watch out for one small spelling slip: "${wrong}".`,
+                hint: `Try changing "${wrong}" to "${right}".`
               };
             }
           }
@@ -1490,10 +1391,8 @@
               return {
                 badge: '🔧 Quick Fix',
                 badgeClass: 'inaccuracy',
-                praise: `Clear sentence! You used the everyday word "${weak}".`,
-                hint: `Try swapping "${weak}" for a more descriptive word like "${upgrades[0]}" or "${upgrades[1]}"!`,
-                issueWord: weak,
-                fixWord: upgrades[0]
+                praise: `Clear sentence! You used "${weak}".`,
+                hint: `Try swapping "${weak}" for "${upgrades[0]}" or "${upgrades[1]}".`
               };
             }
           }
@@ -1503,23 +1402,23 @@
               badge: '💎 Brilliant!!',
               badgeClass: 'brilliant',
               praise: `Brilliant writing, Milo!! That is a detailed, well-explained sentence (${words.length} words)!`,
-              hint: `Keep going—your story is really coming to life!`
+              hint: `Keep going!`
             };
           }
 
           return {
-            badge: '⭐ Great Sentence!',
+            badge: '⭐ Great!',
             badgeClass: 'great',
-            praise: `Great job (${words.length} words)! Your idea is clear and easy to follow.`,
-            hint: `To make it a 💎 Brilliant!! move, add one extra detail about what you saw, heard, or felt.`
+            praise: `Great job (${words.length} words)!`,
+            hint: `Add one extra detail about what you saw, heard, or felt to make it a 💎 Brilliant!! move.`
           };
         },
 
         runGameReview() {
           this.saveCurrentEditorToStep();
           const fullDraft = this.getCompiledDraftText();
-          if (!fullDraft || fullDraft.split(/\s+/).length < 12) {
-            this.showToast('⚠️ Please write a few sentences first before checking your writing!');
+          if (!fullDraft || fullDraft.split(/\s+/).length < 10) {
+            this.showToast('⚠️ Please write a few sentences first!');
             return;
           }
 
@@ -1554,7 +1453,7 @@
           document.getElementById('rev-inaccuracy-count').textContent = inaccuracyCount;
 
           document.getElementById('review-coach-summary').textContent =
-            `Awesome work on "${this.currentMission.title}", Milo! You wrote ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 22} WPM.`;
+            `Great work, Milo! You wrote ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 22} WPM.`;
 
           const listEl = document.getElementById('sentence-review-list');
           listEl.innerHTML = '';
@@ -1562,11 +1461,9 @@
             const div = document.createElement('div');
             div.className = 'sentence-item';
             div.innerHTML = `
-              <div style="margin-bottom:4px;">
-                <span class="move-badge ${item.badgeClass}">${item.badge}</span>
-              </div>
-              <div style="margin-bottom:4px;font-weight:600;">"${this.escapeHtml(item.sentence)}"</div>
-              <div style="font-size:0.84rem;color:var(--text-secondary);">${this.escapeHtml(item.praise)} ${this.escapeHtml(item.hint)}</div>
+              <span class="move-badge ${item.badgeClass}" style="margin-right:6px;">${item.badge}</span>
+              <strong>"${this.escapeHtml(item.sentence)}"</strong>
+              <div style="font-size:0.82rem;color:var(--text-secondary);margin-top:3px;">${this.escapeHtml(item.praise)} ${this.escapeHtml(item.hint)}</div>
             `;
             listEl.appendChild(div);
           });
@@ -1575,11 +1472,11 @@
           const retryPromptEl = document.getElementById('retry-prompt-text');
           if (retryCandidates.length > 0) {
             const target = retryCandidates[0];
-            retryPromptEl.innerHTML = `<strong>Your Sentence:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Coach Tip:</strong> ${this.escapeHtml(target.prompt)}`;
+            retryPromptEl.innerHTML = `<strong>Sentence:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Tip:</strong> ${this.escapeHtml(target.prompt)}`;
             retryInput.value = target.original;
           } else {
             const firstSent = rawSentences[0] || '';
-            retryPromptEl.innerHTML = `No spelling slips found! For your <strong>+10 💎 Bonus</strong>, add one extra descriptive word or detail to this sentence:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
+            retryPromptEl.innerHTML = `Add one extra descriptive detail to this sentence for +10 💎:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
             retryInput.value = firstSent;
           }
 
@@ -1591,7 +1488,7 @@
 
         submitRetryChallenge() {
           if (this.retryCompletedForMission) {
-            this.showToast('✅ You already claimed the +10 💎 bonus for this level!');
+            this.showToast('✅ Bonus already claimed for this level!');
             return;
           }
           const val = document.getElementById('retry-input').value.trim();
@@ -1600,7 +1497,7 @@
             return;
           }
           this.retryCompletedForMission = true;
-          this.awardEmeralds(10, '🏆 Awesome revision! +10 Bonus Emeralds!');
+          this.awardEmeralds(10, '🏆 +10 Bonus Emeralds!');
         },
 
         advanceToNextLevel() {
@@ -1610,9 +1507,9 @@
             document.getElementById('level-select').value = this.currentMissionIndex;
             this.selectMission(this.missions[this.currentMissionIndex]);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            this.showToast(`🚀 Unlocked ${this.missions[this.currentMissionIndex].title}!`);
+            this.showToast(`🚀 ${this.missions[this.currentMissionIndex].title}`);
           } else {
-            this.showToast(`🎉 You completed all 9 levels! Pick any level at the top to play again.`);
+            this.showToast(`🎉 All 9 levels completed!`);
           }
         },
 
@@ -1702,7 +1599,6 @@
               if (res && res.status === 'ok' && res.data && res.data.missions) {
                 this.data = res.data;
                 this.loadMissions(res.data.missions);
-                this.showToast('☁️ Loaded latest levels from Google Drive!');
               }
             })
             .catch(() => {});
@@ -1713,7 +1609,15 @@
           badgeEl.className = `move-badge ${badgeClass}`;
           badgeEl.textContent = badgeText;
           document.getElementById('coach-message').textContent = message;
-          document.getElementById('coach-hint').textContent = `💡 Hint: ${hint}`;
+
+          const hintEl = document.getElementById('coach-hint');
+          if (hint && hint.trim().length > 0) {
+            hintEl.textContent = `💡 ${hint}`;
+            hintEl.classList.add('visible');
+          } else {
+            hintEl.textContent = '';
+            hintEl.classList.remove('visible');
+          }
         },
 
         awardEmeralds(amount, reasonText) {
@@ -1827,7 +1731,7 @@
           el.textContent = msg;
           el.classList.add('show');
           clearTimeout(this._toastTimer);
-          this._toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+          this._toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
         },
 
         escapeHtml(str) {
