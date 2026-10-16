@@ -556,6 +556,7 @@
         <div class="stat-pill emerald" title="Emeralds">
           💎 <span id="hud-emeralds">20</span>
         </div>
+        <button class="btn-parent" id="btn-sync-cloud" title="Sync Latest Questions from Cloud" onclick="window.GameEngine.syncCloudMissions(true)">🔄</button>
         <button class="btn-parent" id="btn-open-settings" title="Parent Settings">☁️</button>
       </div>
     </header>
@@ -713,6 +714,7 @@
       <div class="button-bar" style="margin-bottom:14px;">
         <button class="btn-primary" onclick="window.GameEngine.saveCloudSettings()">💾 Save Cloud Settings</button>
         <button class="btn-light" onclick="window.GameEngine.exportParentCsv()">📥 Download Report (CSV)</button>
+        <button class="btn-light" onclick="window.GameEngine.resetAllProgress()">🗑️ Reset Progress & Logs</button>
       </div>
 
       <strong style="font-size:0.9rem;display:block;margin-bottom:4px;">
@@ -744,15 +746,15 @@
     window.DEFAULT_BANKS = {
   "gameTitle": "Milo's Writing Crafter",
   "version": "1.1.0",
-  "lastUpdated": "2026-10-15",
+  "lastUpdated": "2026-10-16",
   "child": "milo",
   "folderId": "1t6f9LKdc4g2WRIwSAt4b5cL-kgSa0VPm",
   "missions": [
     {
       "levelId": "L01",
       "order": 1,
-      "date": "2026-10-15",
-      "title": "Level 1: A Rainy Morning on the Way to School",
+      "date": "2026-10-16",
+      "title": "Level 1: Trying On Our New Harry Potter Costumes",
       "genre": "Narrative/Reflective",
       "genreBadge": "📖 Story Time • Easy (Step-by-Step)",
       "mode": "interview",
@@ -760,34 +762,34 @@
       "emeraldReward": 15,
       "coachName": "Coach Alex",
       "coachAvatar": "🦉",
-      "promptScenario": "Think about a morning when it was pouring rain outside on your way to school. Let's write the story one small part at a time!",
+      "promptScenario": "You and Ollie just got brand-new Harry Potter costumes! Let's write a fun story about trying them on and casting your first spells together.",
       "steps": [
         {
           "stepIndex": 1,
-          "role": "Part 1 of 4: Stepping Outside",
-          "coachQuestion": "Imagine you just opened the front door to head to school and it is pouring rain! What did the sky, the puddles, or the heavy rain look and sound like?",
-          "hint": "Write 1 or 2 sentences describing the rain, the wind, or your umbrella.",
+          "role": "Part 1 of 4: Putting On the Costumes",
+          "coachQuestion": "You and Ollie just got your brand-new Harry Potter costumes! When you put yours on, what does it look and feel like (the wizard robe, the house colours, the glasses, or the wand)?",
+          "hint": "Write 1 or 2 sentences describing what you and Ollie are wearing and holding.",
           "minStepWords": 10
         },
         {
           "stepIndex": 2,
-          "role": "Part 2 of 4: On the Way to School",
-          "coachQuestion": "What happened while you were walking or riding to school? Did water splash on your shoes, or did the wind blow your umbrella?",
-          "hint": "Tell what happened along the street or outside the school gate.",
+          "role": "Part 2 of 4: Casting Your First Spells",
+          "coachQuestion": "Once you and Ollie are dressed up as wizards, what is the very first spell or magical game you try together at home?",
+          "hint": "Tell what spell you shouted or how you and Ollie acted out a wizard adventure in the living room.",
           "minStepWords": 12
         },
         {
           "stepIndex": 3,
-          "role": "Part 3 of 4: Arriving in the Classroom",
-          "coachQuestion": "When you finally got inside school, what did you and your classmates (or Ollie) do to dry off or get ready?",
-          "hint": "Describe what the classroom felt like compared to the wet weather outside.",
+          "role": "Part 3 of 4: A Funny Magical Moment",
+          "coachQuestion": "While you and Ollie are waving your wands, something funny or exciting happens! What did Ollie do, or how did Mum and Dad react when they saw you both?",
+          "hint": "Describe a funny moment—or include something you or Ollie shouted out loud!",
           "minStepWords": 12
         },
         {
           "stepIndex": 4,
-          "role": "Part 4 of 4: How the Morning Ended",
-          "coachQuestion": "How did the rest of the morning go? Did the rainy start actually make the school day more fun or memorable?",
-          "hint": "Finish your story with 1 or 2 sentences wrapping up the morning.",
+          "role": "Part 4 of 4: Ready for the Next Adventure",
+          "coachQuestion": "How did your wizard game finish, and where are you most excited to wear your Harry Potter costume next?",
+          "hint": "Finish your story with 1 or 2 sentences about why you love your new costume.",
           "minStepWords": 10
         }
       ]
@@ -1087,14 +1089,17 @@
 
   <script>
     (function() {
+      const DEFAULT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbybiCtU66T4LDJin1zAkt9ie9mEoU4IMgM-Z839occrAocptze4WOkigu21hvkgqegL/exec';
+      const DEFAULT_GCP_PROJECT = 'milo-writing-crafter';
+
       const STORAGE_KEYS = {
-        EMERALDS: 'milo_isa_emeralds_v1',
-        CURRENT_LEVEL_IDX: 'milo_isa_current_level_idx_v1',
+        EMERALDS: 'milo_isa_emeralds_v2_fresh',
+        CURRENT_LEVEL_IDX: 'milo_isa_current_level_idx_v2_fresh',
         WEBAPP_URL: 'milo_isa_webapp_url_v1',
         GCP_PROJECT: 'milo_isa_gcp_project_v1',
         GCP_LOCATION: 'milo_isa_gcp_location_v1',
         GEMINI_KEY: 'milo_isa_gemini_key_v1',
-        PARENT_LOGS: 'milo_isa_parent_logs_v1'
+        PARENT_LOGS: 'milo_isa_parent_logs_v2_fresh'
       };
 
       const COMMON_MISSPELLINGS = {
@@ -1720,7 +1725,7 @@
           existing.unshift(entry);
           localStorage.setItem(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(existing.slice(0, 50)));
 
-          const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
+          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
           if (webAppUrl) {
             fetch(webAppUrl, {
               method: 'POST',
@@ -1732,7 +1737,7 @@
         },
 
         async fetchLiveCoachTurn(studentText, stepObj, nextStepObj) {
-          const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
+          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
           const apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
           if (!webAppUrl) return null;
 
@@ -1742,7 +1747,7 @@
               headers: { 'Content-Type': 'text/plain;charset=utf-8' },
               body: JSON.stringify({
                 action: 'socratic_turn',
-                gcpProjectId: localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || '',
+                gcpProjectId: (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT),
                 gcpLocation: localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1',
                 apiKey,
                 genre: this.currentMission.genre,
@@ -1764,7 +1769,7 @@
         },
 
         async fetchLiveContextualHint(studentText, currentQuestion) {
-          const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
+          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
           const apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
           if (!webAppUrl) return null;
 
@@ -1774,7 +1779,7 @@
               headers: { 'Content-Type': 'text/plain;charset=utf-8' },
               body: JSON.stringify({
                 action: 'contextual_hint',
-                gcpProjectId: localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || '',
+                gcpProjectId: (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT),
                 gcpLocation: localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1',
                 apiKey,
                 promptScenario: this.currentMission.promptScenario,
@@ -1792,18 +1797,55 @@
           return null;
         },
 
-        syncCloudMissions() {
-          const webAppUrl = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
-          if (!webAppUrl) return;
-          fetch(`${webAppUrl}?child=milo`)
+        syncCloudMissions(manual = false) {
+          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL).trim();
+          if (!webAppUrl) {
+            if (manual) this.showToast('⚠️ Tap ☁️ first to paste your Apps Script Web App URL!');
+            return;
+          }
+          if (manual) this.showToast('🔄 Syncing latest questions from Google Drive...');
+          const sep = webAppUrl.includes('?') ? '&' : '?';
+          const url = `${webAppUrl}${sep}child=milo&t=${Date.now()}`;
+
+          fetch(url, { redirect: 'follow' })
             .then(r => r.json())
             .then(res => {
               if (res && res.status === 'ok' && res.data && res.data.missions) {
                 this.data = res.data;
                 this.loadMissions(res.data.missions);
+                this.showToast('☁️ Loaded latest questions from Google Drive!');
+              } else {
+                this.syncViaJsonp(webAppUrl, manual);
               }
             })
-            .catch(() => {});
+            .catch(() => {
+              // Resilient JSONP fallback for iPad/iPhone Safari cross-origin redirects
+              this.syncViaJsonp(webAppUrl, manual);
+            });
+        },
+
+        syncViaJsonp(webAppUrl, manual) {
+          const cbName = '__miloJsonpCb_' + Date.now();
+          const sep = webAppUrl.includes('?') ? '&' : '?';
+          const script = document.createElement('script');
+          window[cbName] = (res) => {
+            delete window[cbName];
+            script.remove();
+            if (res && res.status === 'ok' && res.data && res.data.missions) {
+              this.data = res.data;
+              this.loadMissions(res.data.missions);
+              this.showToast('☁️ Loaded latest questions from Google Drive!');
+            } else if (manual) {
+              this.showToast('⚠️ Connected to script, but no questions file found.');
+            }
+          };
+          script.onerror = () => {
+            delete window[cbName];
+            script.remove();
+            if (manual) this.showToast('⚠️ Could not reach Web App URL. Check ☁️ settings.');
+          };
+          script.src = `${webAppUrl}${sep}child=milo&callback=${cbName}&t=${Date.now()}`;
+          document.body.appendChild(script);
         },
 
         setCoachFeedback(badgeText, badgeClass, message, hint) {
@@ -1857,8 +1899,8 @@
         },
 
         openSettingsModal() {
-          document.getElementById('input-webapp-url').value = localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || '';
-          document.getElementById('input-gcp-project').value = localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || '';
+          document.getElementById('input-webapp-url').value = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
+          document.getElementById('input-gcp-project').value = (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT);
           document.getElementById('input-gcp-location').value = localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1';
           document.getElementById('input-gemini-key').value = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
           this.renderParentLogsTable();
@@ -1910,6 +1952,28 @@
               <td>${l.isaBand}</td>
             </tr>
           `).join('');
+        },
+
+        resetAllProgress() {
+          localStorage.setItem(STORAGE_KEYS.EMERALDS, '20');
+          localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, '0');
+          localStorage.setItem(STORAGE_KEYS.PARENT_LOGS, '[]');
+          this.emeralds = 20;
+          this.updateEmeraldHud();
+          this.currentMissionIndex = 0;
+          document.getElementById('level-select').value = 0;
+          if (this.missions[0]) this.selectMission(this.missions[0]);
+          this.renderParentLogsTable();
+          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
+          if (webAppUrl) {
+            fetch(webAppUrl, {
+              method: 'POST',
+              mode: 'no-cors',
+              body: JSON.stringify({ action: 'clear_records' })
+            }).catch(() => {});
+          }
+          this.showToast('✨ Progress and logs cleared! Ready for a fresh start at Level 1.');
+          this.closeSettingsModal();
         },
 
         exportParentCsv() {
