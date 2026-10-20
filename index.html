@@ -187,9 +187,10 @@
     }
 
     .coach-question {
-      font-size: 1.04rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--text-primary);
+      white-space: pre-line;
     }
 
     .coach-tip {
@@ -233,6 +234,291 @@
       background: var(--gold-bg);
       color: #b45309;
       border: 1px solid #fbbf24;
+    }
+
+    /* TWO-HAND TYPING WARM-UP CARD (MINIMALIST BIG-LETTER DISPLAY) */
+    .warmup-card {
+      background: var(--bg-card);
+      border: 2.5px solid var(--blue-main);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .warmup-card.visible {
+      display: block;
+    }
+
+    .writing-card.locked-by-warmup {
+      display: none;
+    }
+
+    .warmup-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .warmup-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .warmup-round-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      background: var(--blue-bg);
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    .warmup-round-badge.round-two {
+      background: var(--emerald-bg);
+      color: var(--emerald-dark);
+      border-color: #86efac;
+    }
+
+    .warmup-progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .warmup-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #16a34a);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .warmup-instruction {
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      color: #1e3a8a;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .warmup-instruction.warn {
+      background: var(--gold-bg);
+      border-color: #fbbf24;
+      color: #92400e;
+    }
+
+    .warmup-instruction.success {
+      background: var(--emerald-bg);
+      border-color: #4ade80;
+      color: #14532d;
+    }
+
+    .warmup-arena {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: stretch;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .warmup-arena {
+        grid-template-columns: 1fr;
+      }
+      .warmup-divider {
+        display: none;
+      }
+    }
+
+    .warmup-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-muted);
+      padding: 0 4px;
+    }
+
+    .hand-card {
+      background: var(--bg-soft);
+      border: 2.5px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 16px 14px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hand-card.anchor-waiting {
+      border-style: dashed;
+      border-color: #64748b;
+    }
+
+    .hand-card.anchor-active {
+      background: #dcfce7;
+      border-style: solid;
+      border-color: #16a34a;
+      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+    }
+
+    .hand-card.target-waiting {
+      opacity: 0.78;
+    }
+
+    .hand-card.target-ready {
+      opacity: 1;
+      background: #eff6ff;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+    }
+
+    .hand-label {
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .hand-role-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      background: #e2e8f0;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .hand-card.anchor-active .hand-role-pill {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .hand-card.target-ready .hand-role-pill {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .big-key-cap {
+      width: 112px;
+      height: 112px;
+      margin: 6px auto 10px auto;
+      border-radius: 18px;
+      background: #ffffff;
+      border: 3px solid #475569;
+      border-bottom-width: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.1rem;
+      font-weight: 900;
+      color: #0f172a;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+      transition: all 0.1s ease;
+    }
+
+    .hand-card.anchor-active .big-key-cap {
+      background: #16a34a;
+      color: #ffffff;
+      border-color: #15803d;
+      border-bottom-width: 3px;
+      transform: translateY(5px);
+    }
+
+    .hand-card.target-ready .big-key-cap {
+      border-color: #2563eb;
+      color: #1d4ed8;
+    }
+
+    .hand-card.pop-hit .big-key-cap {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #1e40af;
+      transform: scale(1.12);
+    }
+
+    @keyframes warmupShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .hand-card.shake-warn {
+      animation: warmupShake 0.28s ease;
+      border-color: #d97706;
+      background: #fef3c7;
+    }
+
+    .hand-status-sub {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      min-height: 1.4em;
+    }
+
+    .warmup-seq-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .seq-key-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      border: 1.5px solid var(--border-light);
+      background: var(--bg-soft);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .seq-key-dot.done {
+      background: var(--emerald-bg);
+      border-color: var(--emerald-main);
+      color: var(--emerald-dark);
+    }
+
+    .seq-key-dot.current {
+      background: var(--blue-bg);
+      border-color: var(--blue-main);
+      color: #1e40af;
+      transform: scale(1.1);
+      font-weight: 900;
     }
 
     /* MAIN WRITING CARD */
@@ -556,6 +842,7 @@
         <div class="stat-pill emerald" title="Emeralds">
           💎 <span id="hud-emeralds">20</span>
         </div>
+        <button class="btn-parent" id="btn-open-warmup" title="Two-Hand Typing Warm-Up (+5 Emeralds)" onclick="window.GameEngine.startWarmup(true)">✋ Warm-Up</button>
         <button class="btn-parent" id="btn-sync-cloud" title="Sync Latest Questions from Cloud" onclick="window.GameEngine.syncCloudMissions(true)">🔄</button>
         <button class="btn-parent" id="btn-open-settings" title="Parent Settings">☁️</button>
       </div>
@@ -579,8 +866,63 @@
       </div>
     </section>
 
+    <!-- TWO-HAND TYPING WARM-UP CARD (MINIMALIST BIG-LETTER DISPLAY) -->
+    <section class="warmup-card" id="typing-warmup-card" aria-label="Two-Hand Typing Warm-Up">
+      <div class="warmup-top-bar">
+        <div class="warmup-title-group">
+          <strong style="font-size:1rem;">⚡ Two-Hand Finger Warm-Up (+5 💎)</strong>
+          <span class="warmup-round-badge" id="warmup-round-badge">Round 1 of 2 • Right-Hand Tap</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:0.84rem;font-weight:800;color:var(--text-secondary);">
+            Tap <strong id="warmup-tap-count">0</strong> / 20
+          </span>
+          <button class="btn-light" id="btn-warmup-sound" style="padding:4px 9px;font-size:0.78rem;" onclick="window.GameEngine.toggleWarmupSound()">
+            🔊 Sound On
+          </button>
+          <button class="btn-light" id="btn-warmup-skip" style="padding:4px 9px;font-size:0.78rem;color:var(--text-muted);" onclick="window.GameEngine.skipWarmup()">
+            Skip ➔
+          </button>
+        </div>
+      </div>
+
+      <div class="warmup-progress-track" aria-hidden="true">
+        <div class="warmup-progress-fill" id="warmup-progress-fill"></div>
+      </div>
+
+      <div class="warmup-instruction" id="warmup-instruction">
+        ✋ Hold down [ F ] with your LEFT hand, then tap [ J ] with your RIGHT hand!
+      </div>
+
+      <div class="warmup-arena">
+        <!-- LEFT HAND CARD (Always on the left side of the screen) -->
+        <div class="hand-card anchor-waiting" id="warmup-left-card" onclick="window.GameEngine.handleWarmupCardClick('left')" role="button" tabindex="0" aria-label="Left Hand Key Card">
+          <div>
+            <div class="hand-label">✋ Left Hand</div>
+            <span class="hand-role-pill" id="warmup-left-role">HOLD DOWN ANCHOR</span>
+          </div>
+          <div class="big-key-cap" id="warmup-left-key">F</div>
+          <div class="hand-status-sub" id="warmup-left-status">Press &amp; hold [ F ] on keyboard</div>
+        </div>
+
+        <div class="warmup-divider" aria-hidden="true">⇄</div>
+
+        <!-- RIGHT HAND CARD (Always on the right side of the screen) -->
+        <div class="hand-card target-waiting" id="warmup-right-card" onclick="window.GameEngine.handleWarmupCardClick('right')" role="button" tabindex="0" aria-label="Right Hand Key Card">
+          <div>
+            <div class="hand-label">🤚 Right Hand</div>
+            <span class="hand-role-pill" id="warmup-right-role">TAP TARGET KEY</span>
+          </div>
+          <div class="big-key-cap" id="warmup-right-key">J</div>
+          <div class="hand-status-sub" id="warmup-right-status">Hold [ F ] first, then tap [ J ]</div>
+        </div>
+      </div>
+
+      <div class="warmup-seq-row" id="warmup-seq-row" aria-label="Round Key Sequence"></div>
+    </section>
+
     <!-- MAIN WRITING CARD -->
-    <main class="writing-card">
+    <main class="writing-card" id="main-writing-card">
       <div class="steps-toolbar" id="steps-toolbar">
         <div class="steps-row" id="steps-bar"></div>
         <div class="word-counter">
@@ -746,7 +1088,7 @@
     window.DEFAULT_BANKS = {
   "gameTitle": "Milo's Writing Crafter",
   "version": "1.1.0",
-  "lastUpdated": "2026-10-16",
+  "lastUpdated": "2026-10-18",
   "child": "milo",
   "folderId": "1t6f9LKdc4g2WRIwSAt4b5cL-kgSa0VPm",
   "missions": [
@@ -767,8 +1109,8 @@
         {
           "stepIndex": 1,
           "role": "Part 1 of 4: Putting On the Costumes",
-          "coachQuestion": "You and Ollie just got your brand-new Harry Potter costumes! When you put yours on, what does it look and feel like (the wizard robe, the house colours, the glasses, or the wand)?",
-          "hint": "Write 1 or 2 sentences describing what you and Ollie are wearing and holding.",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 4-part story about your new Harry Potter costumes — (1) putting on your robe and wand, (2) casting your first spells with Ollie, (3) a funny moment at home, and (4) where you want to wear them next!\n\n👉 Part 1 of 4: When you and Ollie first put on your new Harry Potter costumes, what do they look and feel like (the wizard robe, house colours, glasses, or wand)?",
+          "hint": "🗺️ Overall Story Idea: Start by describing how cool the costumes look, then build up to a fun spell-casting game with Ollie and a funny ending! 👉 For Part 1: Write 1 or 2 sentences describing what you and Ollie are wearing and holding.",
           "minStepWords": 10
         },
         {
@@ -792,13 +1134,14 @@
           "hint": "Finish your story with 1 or 2 sentences about why you love your new costume.",
           "minStepWords": 10
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 4-part story about your new Harry Potter costumes — (1) putting on your robe and wand, (2) casting your first spells with Ollie, (3) a funny moment at home, and (4) where you want to wear them next!"
     },
     {
       "levelId": "L02",
       "order": 2,
-      "date": "2026-10-15",
-      "title": "Level 2: Picking the Best Weekend Family Lunch",
+      "date": "2026-10-18",
+      "title": "Level 2: Why Ollie and I Should Watch Cartoons in the Car",
       "genre": "Exposition/Argument",
       "genreBadge": "🗣️ Share Your Opinion • Easy (Step-by-Step)",
       "mode": "interview",
@@ -806,34 +1149,35 @@
       "emeraldReward": 15,
       "coachName": "Coach Alex",
       "coachAvatar": "🦉",
-      "promptScenario": "It's Saturday and your family is deciding where to go (or what to eat) for a special weekend lunch. Convince your family to pick your favourite choice!",
+      "promptScenario": "You and Ollie want to watch cartoons during car rides, and you are discussing with Mum and Dad why it should be allowed. Build your most convincing argument step by step!",
+      "passageOverview": "🗺️ Whole Passage Plan: Today we will write a 4-part opinion piece to convince Mum and Dad to let you and Ollie watch cartoons in the car — (1) your main opinion and #1 reason, (2) how cartoons help during long car rides or traffic, (3) fair rules you and Ollie will follow so it isn't bad for your eyes, and (4) your final promise!",
       "steps": [
         {
           "stepIndex": 1,
-          "role": "Part 1 of 4: Your Top Pick",
-          "coachQuestion": "What is your #1 favourite meal or restaurant for weekend lunch, and why is it your favourite?",
-          "hint": "Start with: 'For our weekend lunch, I think we should eat...'",
+          "role": "Part 1 of 4: Your Main Reason",
+          "coachQuestion": "🗺️ Whole Passage Plan: Today we will write a 4-part opinion piece to convince Mum and Dad to let you and Ollie watch cartoons in the car — (1) your main opinion and #1 reason, (2) how cartoons help during long car rides or traffic, (3) fair rules you and Ollie will follow so it isn't bad for your eyes, and (4) your final promise!\n\n👉 Part 1 of 4: Why do you think you and Ollie should be allowed to watch cartoons in the car? State your opinion and your #1 strongest reason!",
+          "hint": "🗺️ Overall Passage Idea: Start with your main reason, explain how cartoons keep the back seat happy and quiet, suggest a fair time limit to answer Mum and Dad's worries, and finish with a promise! 👉 For Part 1: Start with \"I think Ollie and I should be allowed to watch cartoons in the car because...\"",
           "minStepWords": 10
         },
         {
           "stepIndex": 2,
-          "role": "Part 2 of 4: The Best Dish",
-          "coachQuestion": "Describe the best food there! What does it look, smell, or taste like when it arrives at the table?",
-          "hint": "Is it crispy, warm, cheesy, sweet, or savory? Make the reader hungry!",
+          "role": "Part 2 of 4: How It Helps on Car Rides",
+          "coachQuestion": "👉 Part 2 of 4: What happens during a long car ride or heavy traffic when there is nothing to do in the back seat, and how does watching a cartoon help you, Ollie, and the person driving?",
+          "hint": "Explain how watching a cartoon together keeps you and Ollie calm and quiet so Mum or Dad can focus on driving safely.",
           "minStepWords": 12
         },
         {
           "stepIndex": 3,
-          "role": "Part 3 of 4: Convincing the Family",
-          "coachQuestion": "What if someone else in the family wants a different food? Why is your choice a great idea for everyone at the table?",
-          "hint": "Explain why your pick has something everyone (including Mum, Dad, and Ollie) will enjoy.",
+          "role": "Part 3 of 4: Fair Rules for the Car",
+          "coachQuestion": "👉 Part 3 of 4: Parents sometimes worry that watching screens in a moving car hurts your eyes, causes car sickness, or stops you from chatting with the family. What fair rule or time limit could you and Ollie agree to?",
+          "hint": "Suggest a smart compromise—like only watching on trips longer than 20 minutes, or turning it off right away without arguing when the car arrives!",
           "minStepWords": 14
         },
         {
           "stepIndex": 4,
-          "role": "Part 4 of 4: Final Sentence",
-          "coachQuestion": "Write one strong final sentence telling your family why we should go there this weekend!",
-          "hint": "Sum up why this lunch will be a great family treat.",
+          "role": "Part 4 of 4: Your Final Promise",
+          "coachQuestion": "👉 Part 4 of 4: Write a convincing final sentence or promise to Mum and Dad summing up why letting you and Ollie watch cartoons in the car is a great idea!",
+          "hint": "Finish strong by promising that you and Ollie will stick to the car-screen rules every time.",
           "minStepWords": 10
         }
       ]
@@ -855,8 +1199,8 @@
         {
           "stepIndex": 1,
           "role": "Part 1 of 4: Starting the Match",
-          "coachQuestion": "Who were you playing against, where were you sitting, and how did the game start off?",
-          "hint": "Mention whether you had the white or black pieces (or how the game began).",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!\n\n👉 Part 1 of 4: Who were you playing against, where were you sitting, and how did the match start off?",
+          "hint": "🗺️ Overall Story Idea: Set the scene of the match first, build excitement around a tricky move in the middle, and finish with the result! 👉 For Part 1: Mention who your opponent was and how the opening moves went.",
           "minStepWords": 12
         },
         {
@@ -880,7 +1224,8 @@
           "hint": "Wrap up with how you felt at the end of the match.",
           "minStepWords": 12
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!"
     },
     {
       "levelId": "L04",
@@ -899,8 +1244,8 @@
         {
           "stepIndex": 1,
           "role": "Part 1 of 4: Your Opinion",
-          "coachQuestion": "Do you think school recess should be 20 minutes longer? State your opinion and your main reason!",
-          "hint": "Start with: 'I believe school recess should be longer because...'",
+          "coachQuestion": "🗺️ Whole Passage Plan: Today we will write a 4-part opinion piece on school recess — (1) your main opinion, (2) what you and your friends play at break time, (3) why a break helps your brain focus in class, and (4) a final message to the principal!\n\n👉 Part 1 of 4: Do you think school recess should be 20 minutes longer? State your opinion and your main reason!",
+          "hint": "🗺️ Overall Passage Idea: Open with a clear opinion, give real playground examples, answer teachers' worries about lesson time, and finish strong! 👉 For Part 1: Start with \"I believe school recess should be longer because...\"",
           "minStepWords": 12
         },
         {
@@ -924,7 +1269,8 @@
           "hint": "Finish strong so the principal agrees with you.",
           "minStepWords": 12
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Passage Plan: Today we will write a 4-part opinion piece on school recess — (1) your main opinion, (2) what you and your friends play at break time, (3) why a break helps your brain focus in class, and (4) a final message to the principal!"
     },
     {
       "levelId": "L05",
@@ -943,8 +1289,8 @@
         {
           "stepIndex": 1,
           "role": "Paragraph 1: Getting Started",
-          "coachQuestion": "Paragraph 1 (The Start): Where did you go for your run or outing, who was with you (Mum, Dad, Ollie?), and what was the weather like when you started?",
-          "hint": "Write 3 to 4 sentences setting the scene.",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about a weekend run or outdoor outing — Paragraph 1: Setting off with the family; Paragraph 2: The hardest or fastest part of the run; Paragraph 3: Celebrating at the finish!\n\n👉 Paragraph 1 (The Start): Where did you go for your run or outing, who was with you (Mum, Dad, Ollie?), and what was the weather like when you started?",
+          "hint": "🗺️ Overall Story Idea: Paragraph 1 sets the outdoor scene, Paragraph 2 describes the main action or race challenge, and Paragraph 3 wraps up how you felt at the finish! 👉 For Paragraph 1: Write 3 to 4 sentences setting the scene.",
           "minStepWords": 30
         },
         {
@@ -961,7 +1307,8 @@
           "hint": "Write 2 to 3 sentences to bring your story to a satisfying close.",
           "minStepWords": 30
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about a weekend run or outdoor outing — Paragraph 1: Setting off with the family; Paragraph 2: The hardest or fastest part of the run; Paragraph 3: Celebrating at the finish!"
     },
     {
       "levelId": "L06",
@@ -980,8 +1327,8 @@
         {
           "stepIndex": 1,
           "role": "Paragraph 1: Your Recommendation",
-          "coachQuestion": "Paragraph 1 (Introduction): Which place should your class visit for the field trip, and why would the whole class be excited to go there?",
-          "hint": "State your choice clearly and hook the reader in 3 sentences.",
+          "coachQuestion": "🗺️ Whole Passage Plan: Today we will write a 3-paragraph recommendation for your next class field trip — Paragraph 1: Your chosen destination; Paragraph 2: Two fun things the class will do and learn there; Paragraph 3: Why everyone should vote for it!\n\n👉 Paragraph 1 (Introduction): Which place should your class visit for the field trip, and why would the whole class be excited to go there?",
+          "hint": "🗺️ Overall Passage Idea: Paragraph 1 introduces your chosen trip spot, Paragraph 2 explains what you will see and do there, and Paragraph 3 convinces the class to vote for it! 👉 For Paragraph 1: Name the place and hook the reader in 3 sentences.",
           "minStepWords": 30
         },
         {
@@ -998,7 +1345,8 @@
           "hint": "Wrap up your argument in 2 to 3 clear sentences.",
           "minStepWords": 30
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Passage Plan: Today we will write a 3-paragraph recommendation for your next class field trip — Paragraph 1: Your chosen destination; Paragraph 2: Two fun things the class will do and learn there; Paragraph 3: Why everyone should vote for it!"
     },
     {
       "levelId": "L07",
@@ -1017,8 +1365,8 @@
         {
           "stepIndex": 1,
           "role": "Paragraph 1: The Sudden Problem",
-          "coachQuestion": "Paragraph 1 (The Problem): Where were you getting ready to go, what item suddenly couldn't be found, and why was everyone in a hurry?",
-          "hint": "Show the rush and the surprise when you noticed it was gone.",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about something going missing at home — Paragraph 1: Discovering it is missing right before leaving; Paragraph 2: Searching the house with the family; Paragraph 3: Finding it in a funny spot!\n\n👉 Paragraph 1 (The Problem): Where were you getting ready to go, what item suddenly couldn't be found, and why was everyone in a hurry?",
+          "hint": "🗺️ Overall Story Idea: Paragraph 1 sets up the urgent problem, Paragraph 2 shows the search around the house, and Paragraph 3 reveals the surprising discovery! 👉 For Paragraph 1: Show the rush when you noticed it was gone.",
           "minStepWords": 35
         },
         {
@@ -1035,7 +1383,8 @@
           "hint": "Finish the story with relief or a funny ending.",
           "minStepWords": 30
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about something going missing at home — Paragraph 1: Discovering it is missing right before leaving; Paragraph 2: Searching the house with the family; Paragraph 3: Finding it in a funny spot!"
     },
     {
       "levelId": "L08",
@@ -1054,11 +1403,12 @@
         {
           "stepIndex": 1,
           "role": "Full Story (3 Paragraphs: Beginning, Middle, Ending)",
-          "coachQuestion": "Write your full story in the box below! Include: (1) How the day started and the atmosphere at the event, (2) The main challenge or exciting moment, and (3) How it ended and how you felt.",
-          "hint": "Press Enter twice between paragraphs so your story has a clear Beginning, Middle, and Ending.",
+          "coachQuestion": "🗺️ Whole Story Plan: Write a 3-paragraph story about a memorable school event or Sports Day — Paragraph 1: The atmosphere at the start; Paragraph 2: The main challenge or exciting race/moment; Paragraph 3: How it ended and how you felt.\n\n👉 Write your 3-paragraph story below! Press Enter twice between paragraphs to separate your Beginning, Middle, and Ending.",
+          "hint": "🗺️ Overall Story Idea: Paragraph 1 sets the scene at school, Paragraph 2 zooms in on the most exciting moment where you tried your hardest, and Paragraph 3 reflects on how the event ended.",
           "minStepWords": 130
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Story Plan: Write a 3-paragraph story about a memorable school event or Sports Day — Paragraph 1: The atmosphere at the start; Paragraph 2: The main challenge or exciting race/moment; Paragraph 3: How it ended and how you felt."
     },
     {
       "levelId": "L09",
@@ -1077,11 +1427,12 @@
         {
           "stepIndex": 1,
           "role": "Full Opinion Piece (3 Paragraphs: Opinion, Reasons, Conclusion)",
-          "coachQuestion": "Write your full opinion piece below! Include: (1) Your main opinion on what fair screen-time rules look like, (2) Why balancing screens with sports, sleep, and outdoor fun matters, and (3) A clear conclusion.",
-          "hint": "Press Enter twice to start each new paragraph.",
+          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules; Paragraph 2: Why sports, sleep, and outdoor fun matter; Paragraph 3: Your conclusion.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice to start each new paragraph.",
+          "hint": "🗺️ Overall Passage Idea: Paragraph 1 states what fair weekday and weekend rules look like, Paragraph 2 explains how outdoor play and rest help kids thrive, and Paragraph 3 wraps up your argument.",
           "minStepWords": 130
         }
-      ]
+      ],
+      "passageOverview": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules; Paragraph 2: Why sports, sleep, and outdoor fun matter; Paragraph 3: Your conclusion."
     }
   ]
 };
@@ -1099,14 +1450,50 @@
         GCP_PROJECT: 'milo_isa_gcp_project_v1',
         GCP_LOCATION: 'milo_isa_gcp_location_v1',
         GEMINI_KEY: 'milo_isa_gemini_key_v1',
-        PARENT_LOGS: 'milo_isa_parent_logs_v2_fresh'
+        PARENT_LOGS: 'milo_isa_parent_logs_v2_fresh',
+        WARMUP_DONE: 'milo_isa_warmup_done_v1',
+        SOUND_MUTED: 'milo_isa_sound_muted_v1'
       };
 
+      const memoryStorageFallback = {};
+      function safeGetStorage(key, defaultVal = '') {
+        try {
+          const val = window.localStorage.getItem(key);
+          return val !== null ? val : defaultVal;
+        } catch (e) {
+          return Object.prototype.hasOwnProperty.call(memoryStorageFallback, key)
+            ? memoryStorageFallback[key]
+            : defaultVal;
+        }
+      }
+
+      function safeSetStorage(key, val) {
+        try {
+          window.localStorage.setItem(key, String(val));
+        } catch (e) {
+          memoryStorageFallback[key] = String(val);
+        }
+      }
+
       const COMMON_MISSPELLINGS = {
+        'restruant': 'restaurant',
+        'restaraunt': 'restaurant',
+        'resturant': 'restaurant',
+        'suace': 'sauce',
+        'becuase': 'because',
+        'beacuse': 'because',
+        'ourself': 'ourselves',
+        'instaneous': 'instantaneous',
+        'haloween': 'Halloween',
+        'dont': "don't",
+        'cant': "can't",
+        'wont': "won't",
+        'didnt': "didn't",
+        'wasnt': "wasn't",
+        'im': "I'm",
         'definately': 'definitely',
         'seperate': 'separate',
         'alot': 'a lot',
-        'becuase': 'because',
         'recieve': 'receive',
         'untill': 'until',
         'wich': 'which',
@@ -1157,8 +1544,39 @@
         lastKeystrokeTime: null,
         currentWpm: 0,
 
+        // Two-Way Anchor Switch Typing Warm-Up State
+        warmupActive: false,
+        warmupStepIndex: 0,
+        warmupAnchorHeld: false,
+        warmupSoundMuted: false,
+        warmupAudioCtx: null,
+        warmupPlan: [
+          // Round 1 (Steps 0..9): Left hand holds [F], Right hand taps J, K, L, U, I (2x)
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'J' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'K' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'L' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'U' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'I' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'J' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'K' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'L' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'U' },
+          { round: 1, anchorHand: 'left', anchorKey: 'F', tapHand: 'right', tapKey: 'I' },
+          // Round 2 (Steps 10..19): Right hand holds [J], Left hand taps F, D, S, R, E (2x)
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'F' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'D' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'S' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'R' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'E' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'F' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'D' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'S' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'R' },
+          { round: 2, anchorHand: 'right', anchorKey: 'J', tapHand: 'left', tapKey: 'E' }
+        ],
+
         init() {
-          this.emeralds = parseInt(localStorage.getItem(STORAGE_KEYS.EMERALDS) || '20', 10);
+          this.emeralds = parseInt(safeGetStorage(STORAGE_KEYS.EMERALDS, '20'), 10);
           this.updateEmeraldHud();
 
           this.loadMissions(this.data.missions || []);
@@ -1167,7 +1585,7 @@
             const idx = parseInt(e.target.value, 10);
             if (!isNaN(idx) && this.missions[idx]) {
               this.currentMissionIndex = idx;
-              localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(idx));
+              safeSetStorage(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(idx));
               this.selectMission(this.missions[idx]);
             }
           });
@@ -1178,6 +1596,18 @@
 
           document.getElementById('btn-open-settings').addEventListener('click', () => {
             this.openSettingsModal();
+          });
+
+          this.warmupSoundMuted = safeGetStorage(STORAGE_KEYS.SOUND_MUTED, 'false') === 'true';
+          this.updateWarmupSoundBtn();
+
+          window.addEventListener('keydown', (e) => this.handleWarmupWindowKeyDown(e));
+          window.addEventListener('keyup', (e) => this.handleWarmupWindowKeyUp(e));
+          window.addEventListener('blur', () => {
+            if (this.warmupActive && this.warmupAnchorHeld) {
+              this.warmupAnchorHeld = false;
+              this.renderWarmupState();
+            }
           });
 
           this.syncCloudMissions();
@@ -1199,7 +1629,7 @@
             selectEl.appendChild(opt);
           });
 
-          const savedIdx = parseInt(localStorage.getItem(STORAGE_KEYS.CURRENT_LEVEL_IDX) || '0', 10);
+          const savedIdx = parseInt(safeGetStorage(STORAGE_KEYS.CURRENT_LEVEL_IDX, '2'), 10);
           const startIdx = (savedIdx >= 0 && savedIdx < this.missions.length) ? savedIdx : 0;
           this.currentMissionIndex = startIdx;
           selectEl.value = startIdx;
@@ -1233,6 +1663,417 @@
           this.renderStepsBar();
           this.loadStepIntoEditor(0);
           this.renderCompiledScroll();
+
+          if (!this.isWarmupDoneForMission(mission.levelId)) {
+            this.startWarmup(false);
+          } else {
+            this.hideWarmupCard();
+          }
+        },
+
+        isWarmupDoneForMission(levelId) {
+          try {
+            const map = JSON.parse(safeGetStorage(STORAGE_KEYS.WARMUP_DONE, '{}'));
+            return Boolean(map && map[levelId]);
+          } catch (e) {
+            return false;
+          }
+        },
+
+        markWarmupDoneForMission(levelId) {
+          try {
+            const map = JSON.parse(safeGetStorage(STORAGE_KEYS.WARMUP_DONE, '{}')) || {};
+            map[levelId] = true;
+            safeSetStorage(STORAGE_KEYS.WARMUP_DONE, JSON.stringify(map));
+          } catch (e) {}
+        },
+
+        startWarmup(manualReplay = false) {
+          this.warmupActive = true;
+          this.warmupStepIndex = 0;
+          this.warmupAnchorHeld = false;
+
+          const warmupCard = document.getElementById('typing-warmup-card');
+          const writingCard = document.getElementById('main-writing-card');
+          warmupCard.classList.add('visible');
+          writingCard.classList.add('locked-by-warmup');
+
+          this.setCoachFeedback(
+            '✋ Two-Hand Warm-Up',
+            'great',
+            `Before we start "${this.currentMission ? this.currentMission.title : 'today\'s story'}", let's wake up BOTH hands with a quick 20-tap finger warm-up (+5 💎)!`,
+            'Round 1 trains your right hand while your left hand holds [ F ]. Round 2 switches hands so your right hand holds [ J ] while your left hand taps!'
+          );
+
+          this.renderWarmupState();
+          if (manualReplay) {
+            warmupCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        },
+
+        hideWarmupCard() {
+          this.warmupActive = false;
+          this.warmupAnchorHeld = false;
+          document.getElementById('typing-warmup-card').classList.remove('visible');
+          document.getElementById('main-writing-card').classList.remove('locked-by-warmup');
+        },
+
+        skipWarmup() {
+          this.hideWarmupCard();
+          this.loadStepIntoEditor(this.currentStepIndex);
+          const inputEl = document.getElementById('writing-input');
+          if (inputEl) inputEl.focus();
+          this.showToast('⏭️ Warm-up skipped — ready to write!');
+        },
+
+        toggleWarmupSound() {
+          this.warmupSoundMuted = !this.warmupSoundMuted;
+          safeSetStorage(STORAGE_KEYS.SOUND_MUTED, String(this.warmupSoundMuted));
+          this.updateWarmupSoundBtn();
+          if (!this.warmupSoundMuted) {
+            this.playWarmupTone('hold');
+          }
+        },
+
+        updateWarmupSoundBtn() {
+          const btn = document.getElementById('btn-warmup-sound');
+          if (btn) {
+            btn.textContent = this.warmupSoundMuted ? '🔇 Muted' : '🔊 Sound On';
+          }
+        },
+
+        playWarmupTone(type, stepIdx = 0) {
+          if (this.warmupSoundMuted) return;
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            if (!this.warmupAudioCtx) {
+              this.warmupAudioCtx = new AudioCtx();
+            }
+            if (this.warmupAudioCtx.state === 'suspended') {
+              this.warmupAudioCtx.resume();
+            }
+            const ctx = this.warmupAudioCtx;
+            const now = ctx.currentTime;
+
+            if (type === 'hold') {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(330, now);
+              gain.gain.setValueAtTime(0.08, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.14);
+            } else if (type === 'hit') {
+              const scale = [523.25, 587.33, 659.25, 783.99, 880.0];
+              const freq = scale[stepIdx % scale.length];
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(freq, now);
+              osc.frequency.exponentialRampToValueAtTime(freq * 1.15, now + 0.11);
+              gain.gain.setValueAtTime(0.14, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.14);
+            } else if (type === 'round') {
+              [587.33, 880.0].forEach((freq, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + i * 0.11);
+                gain.gain.setValueAtTime(0.15, now + i * 0.11);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.11 + 0.2);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now + i * 0.11);
+                osc.stop(now + i * 0.11 + 0.2);
+              });
+            } else if (type === 'win') {
+              [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + i * 0.09);
+                gain.gain.setValueAtTime(0.16, now + i * 0.09);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.24);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now + i * 0.09);
+                osc.stop(now + i * 0.09 + 0.24);
+              });
+            } else if (type === 'remind') {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(210, now);
+              gain.gain.setValueAtTime(0.1, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.18);
+            }
+          } catch (e) {}
+        },
+
+        extractKeyLetter(e) {
+          if (!e) return '';
+          if (e.code && /^Key[A-Z]$/.test(e.code)) {
+            return e.code.slice(3).toUpperCase();
+          }
+          if (e.key && e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+            return e.key.toUpperCase();
+          }
+          return '';
+        },
+
+        handleWarmupWindowKeyDown(e) {
+          if (!this.warmupActive) return;
+          if (e.metaKey || e.ctrlKey || e.altKey) return;
+          const activeTag = document.activeElement ? document.activeElement.tagName : '';
+          if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT') return;
+
+          const letter = this.extractKeyLetter(e);
+          if (!letter) return;
+
+          e.preventDefault();
+          const item = this.warmupPlan[this.warmupStepIndex];
+          if (!item) return;
+
+          if (letter === item.anchorKey) {
+            if (!this.warmupAnchorHeld) {
+              this.warmupAnchorHeld = true;
+              this.playWarmupTone('hold');
+              this.renderWarmupState();
+            }
+            return;
+          }
+
+          if (e.repeat) return;
+
+          if (letter === item.tapKey) {
+            this.processWarmupTapAttempt();
+          } else {
+            this.playWarmupTone('remind');
+            const instrEl = document.getElementById('warmup-instruction');
+            if (instrEl) {
+              instrEl.className = 'warmup-instruction warn';
+              if (!this.warmupAnchorHeld) {
+                instrEl.textContent = `✋ Hold down [ ${item.anchorKey} ] with your ${item.anchorHand.toUpperCase()} hand first, then tap [ ${item.tapKey} ]!`;
+              } else {
+                instrEl.textContent = `Almost! You pressed [ ${letter} ] — tap [ ${item.tapKey} ] with your ${item.tapHand.toUpperCase()} hand!`;
+              }
+            }
+          }
+        },
+
+        handleWarmupWindowKeyUp(e) {
+          if (!this.warmupActive) return;
+          const letter = this.extractKeyLetter(e);
+          if (!letter) return;
+          const item = this.warmupPlan[this.warmupStepIndex];
+          if (item && letter === item.anchorKey) {
+            this.warmupAnchorHeld = false;
+            this.renderWarmupState();
+          }
+        },
+
+        handleWarmupCardClick(side) {
+          if (!this.warmupActive) return;
+          const item = this.warmupPlan[this.warmupStepIndex];
+          if (!item) return;
+
+          if (side === item.anchorHand) {
+            this.warmupAnchorHeld = !this.warmupAnchorHeld;
+            if (this.warmupAnchorHeld) this.playWarmupTone('hold');
+            this.renderWarmupState();
+          } else if (side === item.tapHand) {
+            this.processWarmupTapAttempt();
+          }
+        },
+
+        processWarmupTapAttempt() {
+          const item = this.warmupPlan[this.warmupStepIndex];
+          if (!item) return;
+
+          if (!this.warmupAnchorHeld) {
+            this.playWarmupTone('remind');
+            const anchorCardId = item.anchorHand === 'left' ? 'warmup-left-card' : 'warmup-right-card';
+            const anchorCard = document.getElementById(anchorCardId);
+            if (anchorCard) {
+              anchorCard.classList.remove('shake-warn');
+              void anchorCard.offsetWidth;
+              anchorCard.classList.add('shake-warn');
+            }
+            const instrEl = document.getElementById('warmup-instruction');
+            if (instrEl) {
+              instrEl.className = 'warmup-instruction warn';
+              instrEl.textContent = `✋ Hold down [ ${item.anchorKey} ] with your ${item.anchorHand.toUpperCase()} hand first, and keep holding it while your ${item.tapHand.toUpperCase()} hand taps [ ${item.tapKey} ]!`;
+            }
+            return;
+          }
+
+          // Valid bilateral hit!
+          const tapCardId = item.tapHand === 'left' ? 'warmup-left-card' : 'warmup-right-card';
+          const tapCard = document.getElementById(tapCardId);
+          if (tapCard) {
+            tapCard.classList.add('pop-hit');
+            setTimeout(() => tapCard.classList.remove('pop-hit'), 150);
+          }
+
+          this.warmupStepIndex += 1;
+
+          if (this.warmupStepIndex === 10) {
+            // Switch from Round 1 (Left holds F, Right taps) to Round 2 (Right holds J, Left taps)
+            this.warmupAnchorHeld = false;
+            this.playWarmupTone('round');
+            this.setCoachFeedback(
+              '🔄 Switch Hands!',
+              'brilliant',
+              'Awesome right-hand tapping, Milo! Now Round 2: Hold down [ J ] with your RIGHT hand and tap with your LEFT hand!',
+              'Press and hold [ J ] with your right index finger so your left hand can tap F, D, S, R, E.'
+            );
+            this.renderWarmupState(true);
+            return;
+          }
+
+          if (this.warmupStepIndex >= this.warmupPlan.length) {
+            this.completeWarmup();
+            return;
+          }
+
+          this.playWarmupTone('hit', this.warmupStepIndex);
+          this.renderWarmupState();
+        },
+
+        renderWarmupState(justSwitchedRound = false) {
+          const item = this.warmupPlan[this.warmupStepIndex];
+          if (!item) return;
+
+          const total = this.warmupPlan.length;
+          const pct = Math.round((this.warmupStepIndex / total) * 100);
+          document.getElementById('warmup-tap-count').textContent = this.warmupStepIndex;
+          document.getElementById('warmup-progress-fill').style.width = `${pct}%`;
+
+          const roundBadge = document.getElementById('warmup-round-badge');
+          if (item.round === 1) {
+            roundBadge.className = 'warmup-round-badge';
+            roundBadge.textContent = 'Round 1 of 2 • Right-Hand Tap';
+          } else {
+            roundBadge.className = 'warmup-round-badge round-two';
+            roundBadge.textContent = 'Round 2 of 2 • Left-Hand Tap';
+          }
+
+          const leftCard = document.getElementById('warmup-left-card');
+          const rightCard = document.getElementById('warmup-right-card');
+          const leftRole = document.getElementById('warmup-left-role');
+          const rightRole = document.getElementById('warmup-right-role');
+          const leftKey = document.getElementById('warmup-left-key');
+          const rightKey = document.getElementById('warmup-right-key');
+          const leftStatus = document.getElementById('warmup-left-status');
+          const rightStatus = document.getElementById('warmup-right-status');
+          const instrEl = document.getElementById('warmup-instruction');
+
+          if (item.round === 1) {
+            // Left hand holds [F], Right hand taps [J, K, L, U, I]
+            leftKey.textContent = item.anchorKey;
+            rightKey.textContent = item.tapKey;
+
+            if (this.warmupAnchorHeld) {
+              leftCard.className = 'hand-card anchor-active';
+              leftRole.textContent = '✓ HOLDING [ F ]';
+              leftStatus.textContent = 'Great! Keep holding [ F ] down!';
+
+              rightCard.className = 'hand-card target-ready';
+              rightRole.textContent = '👉 TAP NOW!';
+              rightStatus.textContent = `Tap [ ${item.tapKey} ] with your right hand!`;
+
+              instrEl.className = 'warmup-instruction success';
+              instrEl.textContent = `✓ Left hand holding [ F ]! Now tap [ ${item.tapKey} ] with your RIGHT hand!`;
+            } else {
+              leftCard.className = 'hand-card anchor-waiting';
+              leftRole.textContent = 'STEP 1: HOLD DOWN';
+              leftStatus.textContent = 'Press & hold [ F ] with left hand';
+
+              rightCard.className = 'hand-card target-waiting';
+              rightRole.textContent = 'STEP 2: TAP KEY';
+              rightStatus.textContent = `Hold [ F ] first, then tap [ ${item.tapKey} ]`;
+
+              instrEl.className = 'warmup-instruction';
+              instrEl.textContent = `✋ Hold down [ F ] with your LEFT hand ➔ Tap [ ${item.tapKey} ] with your RIGHT hand!`;
+            }
+          } else {
+            // Round 2: Right hand holds [J], Left hand taps [F, D, S, R, E]
+            leftKey.textContent = item.tapKey;
+            rightKey.textContent = item.anchorKey;
+
+            if (this.warmupAnchorHeld) {
+              rightCard.className = 'hand-card anchor-active';
+              rightRole.textContent = '✓ HOLDING [ J ]';
+              rightStatus.textContent = 'Great! Keep holding [ J ] down!';
+
+              leftCard.className = 'hand-card target-ready';
+              leftRole.textContent = '👉 TAP NOW!';
+              leftStatus.textContent = `Tap [ ${item.tapKey} ] with your left hand!`;
+
+              instrEl.className = 'warmup-instruction success';
+              instrEl.textContent = `✓ Right hand holding [ J ]! Now tap [ ${item.tapKey} ] with your LEFT hand!`;
+            } else {
+              rightCard.className = 'hand-card anchor-waiting';
+              rightRole.textContent = 'STEP 1: HOLD DOWN';
+              rightStatus.textContent = 'Press & hold [ J ] with right hand';
+
+              leftCard.className = 'hand-card target-waiting';
+              leftRole.textContent = 'STEP 2: TAP KEY';
+              leftStatus.textContent = `Hold [ J ] first, then tap [ ${item.tapKey} ]`;
+
+              instrEl.className = justSwitchedRound ? 'warmup-instruction success' : 'warmup-instruction';
+              instrEl.textContent = justSwitchedRound
+                ? `🔄 Switch hands! Hold down [ J ] with your RIGHT hand ➔ Tap [ ${item.tapKey} ] with your LEFT hand!`
+                : `🤚 Hold down [ J ] with your RIGHT hand ➔ Tap [ ${item.tapKey} ] with your LEFT hand!`;
+            }
+          }
+
+          // Render sequence dots for current round (10 taps per round)
+          const seqRow = document.getElementById('warmup-seq-row');
+          const roundStart = item.round === 1 ? 0 : 10;
+          const roundSlice = this.warmupPlan.slice(roundStart, roundStart + 10);
+          seqRow.innerHTML = roundSlice.map((stepObj, i) => {
+            const globalIdx = roundStart + i;
+            const cls = globalIdx < this.warmupStepIndex
+              ? 'seq-key-dot done'
+              : globalIdx === this.warmupStepIndex
+                ? 'seq-key-dot current'
+                : 'seq-key-dot';
+            return `<span class="${cls}">${stepObj.tapKey}</span>`;
+          }).join('');
+        },
+
+        completeWarmup() {
+          this.playWarmupTone('win');
+          document.getElementById('warmup-tap-count').textContent = '20';
+          document.getElementById('warmup-progress-fill').style.width = '100%';
+          const instrEl = document.getElementById('warmup-instruction');
+          instrEl.className = 'warmup-instruction success';
+          instrEl.textContent = '🎉 Both hands warmed up! +5 💎 Emeralds earned — unlocking Part 1!';
+
+          if (this.currentMission && this.currentMission.levelId) {
+            this.markWarmupDoneForMission(this.currentMission.levelId);
+          }
+          this.awardEmeralds(5, '⚡ Two-Hand Warm-Up Complete! +5 💎');
+
+          setTimeout(() => {
+            this.hideWarmupCard();
+            this.loadStepIntoEditor(this.currentStepIndex);
+            const inputEl = document.getElementById('writing-input');
+            if (inputEl) inputEl.focus();
+          }, 850);
         },
 
         getStepsArray(mission) {
@@ -1287,7 +2128,6 @@
             return { question: baseStep.question, hint: baseStep.hint };
           }
 
-          // If Gemini already generated a dynamic question/hint for this step, use it!
           if (this.dynamicQuestions[idx] || this.dynamicHints[idx]) {
             return {
               question: this.dynamicQuestions[idx] || baseStep.question,
@@ -1295,29 +2135,73 @@
             };
           }
 
-          // Otherwise, weave Milo's earlier writing and previous hints into this step
           const priorParts = this.stepDrafts.slice(0, idx).map(s => s.trim()).filter(Boolean);
           if (priorParts.length === 0) {
             return { question: baseStep.question, hint: baseStep.hint };
           }
 
+          const allPriorText = priorParts.join(' ');
+          const lowerPrior = allPriorText.toLowerCase();
           const latestPriorText = priorParts[priorParts.length - 1];
           const snippet = this.extractKeyPhrase(latestPriorText);
-          const prevHintRecord = this.coachHistory.length > 0 ? this.coachHistory[this.coachHistory.length - 1] : null;
+          const lowerBaseQ = baseStep.question.toLowerCase();
 
-          const contextualQ = snippet
-            ? `In Part ${idx}, you wrote about "${snippet}". Now for Part ${idx + 1}: ${baseStep.question}`
-            : baseStep.question;
-
-          let contextualH = baseStep.hint;
-          if (snippet) {
-            contextualH = `Connect this part to what you wrote earlier ("${snippet}")! ${baseStep.hint}`;
+          // Smart Anti-Redundancy Check: Detect if Milo ALREADY answered the upcoming question in an earlier part!
+                    // Case 0: Cartoons in the Car — check if Milo already mentioned boredom/long rides/quiet driving in Part 1
+          if (lowerBaseQ.includes('long car ride') && /(boring|bored|long|traffic|quiet|calm|drive|driving|argue|fighting)/i.test(allPriorText)) {
+            return {
+              question: `👉 Part ${idx + 1}: You already mentioned how car rides can feel ${RegExp.$1.toLowerCase()}! What kind of cartoons would you and Ollie watch together in the back seat, and how does sharing a show help the person driving?`,
+              hint: `Describe how watching a show together keeps the back seat peaceful and happy so Mum or Dad can focus on the road!`
+            };
           }
-          if (prevHintRecord && prevHintRecord.hintGiven) {
-            contextualH += ` (Building on our last tip: keep that same vivid detail going as you explain what happens next!)`;
+          if (lowerBaseQ.includes('parents sometimes worry') && /(eyes|dizzy|sick|minute|limit|rule|promise|long trip)/i.test(allPriorText)) {
+            return {
+              question: `👉 Part ${idx + 1}: Building on what you said about "${snippet}", how will you and Ollie prove to Mum and Dad that you can turn the screen off immediately without complaining when the car parks?`,
+              hint: `Explain the exact deal or rule you and Ollie will follow so Mum and Dad never have to remind you twice!`
+            };
           }
 
-          return { question: contextualQ, hint: contextualH };
+          // Case 1: Upcoming step asks about favourite food/dish, but Milo already named a specific food/dish in Part 1
+          const foodMatch = allPriorText.match(/\b(cucumber[^.,!]*|sushi|ramen|noodles|pizza|burger|dumplings|dim sum|pasta|steak|curry|rice|chicken|ice cream|pancakes)\b/i);
+          if ((lowerBaseQ.includes('best food') || lowerBaseQ.includes('best dish') || lowerBaseQ.includes('what to eat')) && foodMatch) {
+            const dish = foodMatch[0];
+            return {
+              question: `👉 Part ${idx + 1}: You already mentioned loving ${dish}! When it arrives at your table, what does the restaurant smell or look like, and what makes eating ${dish} there so good?`,
+              hint: `Describe the smell at the table, how the food arrives (like on a sushi train or sizzling plate), or how ${dish} tastes!`
+            };
+          }
+
+          // Case 2: Upcoming step asks about the first spell/game, but Milo already named a spell in Part 1
+          const spellMatch = allPriorText.match(/\b(avada\s*k[ae]davra|expelliarmus|wingardium\s*leviosa|lumos|expecto\s*patronum|alohomora|spell)\b/i);
+          if (lowerBaseQ.includes('first spell') && spellMatch) {
+            return {
+              question: `👉 Part ${idx + 1}: Since you already mentioned ${spellMatch[0]}, how did you and Ollie act out your wizard duel or magical adventure around the house?`,
+              hint: `Describe where you and Ollie stood in the house and how you waved your wands or dodged each other's spells!`
+            };
+          }
+
+          // Case 3: Upcoming step asks about convincing the family / what others think, and Milo already mentioned brother/Ollie/mom/dad
+          if (lowerBaseQ.includes('convincing') || lowerBaseQ.includes('someone else in the family')) {
+            const placeMatch = allPriorText.match(/\b(Genki\s*Sushi|[A-Z][a-z]+\s+(?:Sushi|Restaurant|Cafe|Kitchen|Pizza|House))\b/);
+            const placeName = placeMatch ? placeMatch[0] : 'your chosen spot';
+            return {
+              question: `👉 Part ${idx + 1}: You and Ollie love ${placeName}, but what if Mum or Dad wants to eat something different? How does going to ${placeName} work out for the whole family?`,
+              hint: `Explain what you and Ollie get to choose there, or why Mum and Dad should still take you!`
+            };
+          }
+
+          // Case 4: Closing / Final Part — weave in the main details from Parts 1..N-1
+          if (idx === steps.length - 1 && priorParts.length >= 2) {
+            return {
+              question: `👉 Final Part (${idx + 1} of ${steps.length}): Building on everything you wrote so far ("${snippet}"), ${baseStep.question.replace(/^👉\s*Part\s*\d+[^:]*:\s*/i, '')}`,
+              hint: `Tie together your earlier points into a memorable final sentence or two!`
+            };
+          }
+
+          return {
+            question: `👉 Part ${idx + 1} (building on "${snippet}"): ${baseStep.question.replace(/^👉\s*Part\s*\d+[^:]*:\s*/i, '')}`,
+            hint: `Connect directly to "${snippet}"! ${baseStep.hint}`
+          };
         },
 
         extractKeyPhrase(text) {
@@ -1326,8 +2210,8 @@
           const sentences = cleaned.split(/(?<=[.!?])\s+/).filter(Boolean);
           const lastSent = (sentences[sentences.length - 1] || cleaned).replace(/[.!?]+$/, '').trim();
           const words = lastSent.split(/\s+/);
-          if (words.length <= 8) return lastSent;
-          return words.slice(0, 8).join(' ') + '...';
+          if (words.length <= 9) return lastSent;
+          return words.slice(0, 9).join(' ') + '...';
         },
 
         loadStepIntoEditor(idx) {
@@ -1337,8 +2221,6 @@
 
           const contextual = this.buildContextualQuestionAndHint(idx);
 
-          // Show persistent praise from the previous step at the top of the Coach bubble
-          // so Milo NEVER loses the AI's comment when advancing to the next part!
           const praiseBanner = document.getElementById('last-step-feedback');
           if (idx > 0 && this.lastPraiseBannerText) {
             praiseBanner.innerHTML = this.lastPraiseBannerText;
@@ -1448,7 +2330,7 @@
           btnSubmit.textContent = '⏳ Coach Alex is reading...';
           btnSubmit.disabled = true;
 
-          const analysis = this.analyzeSentenceHeuristically(text);
+          const analysis = this.analyzeSentenceHeuristically(text, this.currentStepIndex);
           const nextIdx = this.currentStepIndex + 1;
           const nextStepObj = (nextIdx < steps.length) ? steps[nextIdx] : null;
 
@@ -1482,11 +2364,10 @@
 
           this.awardEmeralds(5, `✅ Part ${this.currentStepIndex + 1} saved! +5 💎`);
 
-          // Store persistent praise banner so it stays visible even after moving to the next part!
-          this.lastPraiseBannerText = `<strong>${this.escapeHtml(finalBadge)} on Part ${this.currentStepIndex + 1}:</strong> ${this.escapeHtml(finalPraise)}`;
+          const fixNote = analysis.hint ? ` <em>(${this.escapeHtml(analysis.hint)})</em>` : '';
+          this.lastPraiseBannerText = `<strong>${this.escapeHtml(finalBadge)} on Part ${this.currentStepIndex + 1}:</strong> ${this.escapeHtml(finalPraise)}${fixNote}`;
 
-          // Also display it immediately and give Milo plenty of time (5.5 seconds) before switching parts
-          this.setCoachFeedback(finalBadge, finalBadgeClass, finalPraise, '');
+          this.setCoachFeedback(finalBadge, finalBadgeClass, finalPraise, analysis.hint);
 
           if (this.currentStepIndex < steps.length - 1) {
             clearTimeout(this._stepAdvanceTimer);
@@ -1501,14 +2382,11 @@
         async askHint() {
           this.saveCurrentEditorToStep();
           const text = document.getElementById('writing-input').value.trim();
-          const steps = this.getStepsArray(this.currentMission);
-          const st = steps[this.currentStepIndex];
           const contextual = this.buildContextualQuestionAndHint(this.currentStepIndex);
 
           const btnHint = document.getElementById('btn-hint');
           btnHint.textContent = '⏳ Thinking...';
 
-          // Try live contextual hint from Gemini (using all previous parts + previous hints + current draft)
           const liveHint = await this.fetchLiveContextualHint(text, contextual.question);
           btnHint.textContent = '💡 Hint';
 
@@ -1533,8 +2411,8 @@
             return;
           }
 
-          const analysis = this.analyzeSentenceHeuristically(text);
-          const combinedHint = `${analysis.praise} ${analysis.hint} (${contextual.hint})`;
+          const analysis = this.analyzeSentenceHeuristically(text, this.currentStepIndex);
+          const combinedHint = `${analysis.praise} ${analysis.hint}`;
           this.coachHistory.push({
             stepIndex: this.currentStepIndex + 1,
             studentText: text,
@@ -1543,30 +2421,78 @@
           this.setCoachFeedback(analysis.badge, analysis.badgeClass, contextual.question, combinedHint);
         },
 
-        analyzeSentenceHeuristically(text) {
+        /**
+         * Context-conscious, varied feedback analyzer (never repeats "vivid, well-explained part"!).
+         */
+        analyzeSentenceHeuristically(text, stepIdx = 0) {
           const words = text.split(/\s+/).filter(Boolean);
+          const lower = text.toLowerCase();
           const snippet = this.extractKeyPhrase(text);
 
+          // 1. Check all common misspellings (collect up to 2 so Milo gets specific, helpful feedback)
+          const foundSlips = [];
           for (const [wrong, right] of Object.entries(COMMON_MISSPELLINGS)) {
             const regex = new RegExp(`\\b${wrong}\\b`, 'i');
             if (regex.test(text)) {
-              return {
-                badge: '🔧 Quick Fix',
-                badgeClass: 'inaccuracy',
-                praise: `Great detail in "${snippet}"! Watch out for one small spelling slip: "${wrong}".`,
-                hint: `Try changing "${wrong}" to "${right}".`
-              };
+              foundSlips.push({ wrong, right });
             }
           }
+          if (/\btake it of\b/i.test(text)) {
+            foundSlips.push({ wrong: 'take it of', right: 'take it off' });
+          }
 
+          // 2. Build content-specific praise based on what Milo actually wrote in this sentence/part!
+          let contentPraise = '';
+          if (/because|becuase|since|so that/i.test(text)) {
+            contentPraise = `I love how you explained the reason behind your choice ("${snippet}")!`;
+          } else if (/smell|taste|sound|look|feel|dipped|crispy|warm|sweet|savory/i.test(text)) {
+            contentPraise = `Bringing in senses like smell and taste in "${snippet}" makes the reader feel right there at the table!`;
+          } else if (/ollie|brother|mom|mum|dad|family|friend/i.test(text)) {
+            contentPraise = `Including your family in "${snippet}" makes your writing personal and fun to read!`;
+          } else if (/anyways|actually|however|although|first|next|finally/i.test(text)) {
+            contentPraise = `Great conversational voice in "${snippet}"—your transition connects your thoughts smoothly!`;
+          } else {
+            const variedPraises = [
+              `Great job naming specific details in "${snippet}"!`,
+              `Your point in "${snippet}" comes across clearly and naturally!`,
+              `Nice storytelling touch in "${snippet}"—it sets up the scene really well!`,
+              `I like the specific example you chose in "${snippet}"!`
+            ];
+            contentPraise = variedPraises[(stepIdx + words.length) % variedPraises.length];
+          }
+
+          // 3. If there was a spelling slip, combine the warm content praise with the exact spelling fix!
+          if (foundSlips.length > 0) {
+            const slipDesc = foundSlips.slice(0, 2).map(s => `"${s.wrong}" ➔ "${s.right}"`).join(' and ');
+            return {
+              badge: '🔧 Quick Fix',
+              badgeClass: 'inaccuracy',
+              praise: contentPraise,
+              hint: `Quick spelling check: try fixing ${slipDesc}.`
+            };
+          }
+
+          // 4. Check if sentence starts with a lowercase letter
+          if (/^[a-z]/.test(text.trim())) {
+            const firstW = words[0];
+            const capW = firstW.charAt(0).toUpperCase() + firstW.slice(1);
+            return {
+              badge: '🔧 Quick Fix',
+              badgeClass: 'inaccuracy',
+              praise: contentPraise,
+              hint: `Remember to start your sentence with a capital letter ("${firstW}" ➔ "${capW}").`
+            };
+          }
+
+          // 5. Check weak basic words
           for (const [weak, upgrades] of Object.entries(WEAK_WORDS_MAP)) {
             const regex = new RegExp(`\\b${weak}\\b`, 'i');
             if (regex.test(text)) {
               return {
-                badge: '🔧 Quick Fix',
-                badgeClass: 'inaccuracy',
-                praise: `Nice idea about "${snippet}"! You used the everyday word "${weak}".`,
-                hint: `Try swapping "${weak}" for "${upgrades[0]}" or "${upgrades[1]}".`
+                badge: '⭐ Great!',
+                badgeClass: 'great',
+                praise: contentPraise,
+                hint: `Bonus tip: you can make "${weak}" even stronger by swapping it for "${upgrades[0]}" or "${upgrades[1]}".`
               };
             }
           }
@@ -1575,16 +2501,16 @@
             return {
               badge: '💎 Brilliant!!',
               badgeClass: 'brilliant',
-              praise: `Brilliant writing on "${snippet}", Milo!! That is a vivid, well-explained part (${words.length} words)!`,
-              hint: `Keep building on that detail in your next part!`
+              praise: contentPraise,
+              hint: `Spot-on spelling and detail (${words.length} words)!`
             };
           }
 
           return {
             badge: '⭐ Great!',
             badgeClass: 'great',
-            praise: `Great job describing "${snippet}" (${words.length} words)!`,
-            hint: `Add one extra detail about what you saw, heard, or felt to make it a 💎 Brilliant!! move.`
+            praise: contentPraise,
+            hint: `Add one more detail or reason to turn this into a 💎 Brilliant!! move.`
           };
         },
 
@@ -1607,8 +2533,8 @@
           const annotations = [];
           const retryCandidates = [];
 
-          rawSentences.forEach((sent) => {
-            const res = this.analyzeSentenceHeuristically(sent);
+          rawSentences.forEach((sent, sIdx) => {
+            const res = this.analyzeSentenceHeuristically(sent, sIdx);
             if (res.badgeClass === 'brilliant') brilliantCount++;
             else if (res.badgeClass === 'inaccuracy') {
               inaccuracyCount++;
@@ -1627,7 +2553,7 @@
           document.getElementById('rev-inaccuracy-count').textContent = inaccuracyCount;
 
           document.getElementById('review-coach-summary').textContent =
-            `Great work, Milo! You wrote ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 22} WPM.`;
+            `Awesome work finishing "${this.currentMission.title}", Milo! You wrote ${fullDraft.split(/\s+/).length} words at ${this.currentWpm || 18} WPM. Here is how each sentence went:`;
 
           const listEl = document.getElementById('sentence-review-list');
           listEl.innerHTML = '';
@@ -1646,11 +2572,11 @@
           const retryPromptEl = document.getElementById('retry-prompt-text');
           if (retryCandidates.length > 0) {
             const target = retryCandidates[0];
-            retryPromptEl.innerHTML = `<strong>Sentence:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Tip:</strong> ${this.escapeHtml(target.prompt)}`;
+            retryPromptEl.innerHTML = `<strong>Sentence to Polish:</strong> "${this.escapeHtml(target.original)}"<br/><strong>Coach Tip:</strong> ${this.escapeHtml(target.prompt)}`;
             retryInput.value = target.original;
           } else {
             const firstSent = rawSentences[0] || '';
-            retryPromptEl.innerHTML = `Add one extra descriptive detail to this sentence for +10 💎:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
+            retryPromptEl.innerHTML = `Zero spelling slips! Add one extra descriptive word to this sentence for +10 💎:<br/><em>"${this.escapeHtml(firstSent)}"</em>`;
             retryInput.value = firstSent;
           }
 
@@ -1677,7 +2603,7 @@
         advanceToNextLevel() {
           if (this.currentMissionIndex < this.missions.length - 1) {
             this.currentMissionIndex += 1;
-            localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(this.currentMissionIndex));
+            safeSetStorage(STORAGE_KEYS.CURRENT_LEVEL_IDX, String(this.currentMissionIndex));
             document.getElementById('level-select').value = this.currentMissionIndex;
             this.selectMission(this.missions[this.currentMissionIndex]);
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1721,11 +2647,11 @@
             compiledDraft: fullDraft
           };
 
-          const existing = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENT_LOGS) || '[]');
+          const existing = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
           existing.unshift(entry);
-          localStorage.setItem(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(existing.slice(0, 50)));
+          safeSetStorage(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(existing.slice(0, 50)));
 
-          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
+          const webAppUrl = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL);
           if (webAppUrl) {
             fetch(webAppUrl, {
               method: 'POST',
@@ -1736,69 +2662,114 @@
           }
         },
 
+        /**
+         * Uses JSONP fallback on iPad Safari if POST redirect is blocked by WebKit!
+         */
         async fetchLiveCoachTurn(studentText, stepObj, nextStepObj) {
-          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
-          const apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
+          const webAppUrl = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL);
+          const apiKey = safeGetStorage(STORAGE_KEYS.GEMINI_KEY, '');
           if (!webAppUrl) return null;
+
+          const reqPayload = {
+            action: 'socratic_turn',
+            gcpProjectId: (safeGetStorage(STORAGE_KEYS.GCP_PROJECT, '') || DEFAULT_GCP_PROJECT),
+            gcpLocation: safeGetStorage(STORAGE_KEYS.GCP_LOCATION, 'us-central1'),
+            apiKey,
+            genre: this.currentMission.genre,
+            promptScenario: this.currentMission.promptScenario,
+            storySoFar: this.getStorySoFarUpTo(this.currentStepIndex + 1),
+            previousHistory: this.coachHistory,
+            stepGoal: stepObj.question,
+            studentText,
+            nextStepGoal: nextStepObj ? nextStepObj.question : '',
+            nextStepBaseHint: nextStepObj ? nextStepObj.hint : ''
+          };
 
           try {
             const resp = await fetch(webAppUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: JSON.stringify({
-                action: 'socratic_turn',
-                gcpProjectId: (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT),
-                gcpLocation: localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1',
-                apiKey,
-                genre: this.currentMission.genre,
-                promptScenario: this.currentMission.promptScenario,
-                storySoFar: this.getStorySoFarUpTo(this.currentStepIndex + 1),
-                previousHistory: this.coachHistory,
-                stepGoal: stepObj.question,
-                studentText,
-                nextStepGoal: nextStepObj ? nextStepObj.question : '',
-                nextStepBaseHint: nextStepObj ? nextStepObj.hint : ''
-              })
+              body: JSON.stringify(reqPayload)
             });
             const data = await resp.json();
             if (data && data.status === 'ok' && data.coachResponse) {
               return data.coachResponse;
             }
-          } catch (e) {}
+          } catch (e) {
+            // Fallback to JSONP GET so iPad Safari 302 redirect never blocks the AI Coach!
+            const jsonpRes = await this.callActionViaJsonp(webAppUrl, 'socratic_turn', reqPayload);
+            if (jsonpRes && jsonpRes.status === 'ok' && jsonpRes.coachResponse) {
+              return jsonpRes.coachResponse;
+            }
+          }
           return null;
         },
 
         async fetchLiveContextualHint(studentText, currentQuestion) {
-          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
-          const apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
+          const webAppUrl = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL);
+          const apiKey = safeGetStorage(STORAGE_KEYS.GEMINI_KEY, '');
           if (!webAppUrl) return null;
+
+          const reqPayload = {
+            action: 'contextual_hint',
+            gcpProjectId: (safeGetStorage(STORAGE_KEYS.GCP_PROJECT, '') || DEFAULT_GCP_PROJECT),
+            gcpLocation: safeGetStorage(STORAGE_KEYS.GCP_LOCATION, 'us-central1'),
+            apiKey,
+            promptScenario: this.currentMission.promptScenario,
+            storySoFar: this.getStorySoFarUpTo(this.currentStepIndex),
+            previousHistory: this.coachHistory,
+            stepGoal: currentQuestion,
+            studentText
+          };
 
           try {
             const resp = await fetch(webAppUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: JSON.stringify({
-                action: 'contextual_hint',
-                gcpProjectId: (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT),
-                gcpLocation: localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1',
-                apiKey,
-                promptScenario: this.currentMission.promptScenario,
-                storySoFar: this.getStorySoFarUpTo(this.currentStepIndex),
-                previousHistory: this.coachHistory,
-                stepGoal: currentQuestion,
-                studentText
-              })
+              body: JSON.stringify(reqPayload)
             });
             const data = await resp.json();
             if (data && data.status === 'ok' && data.hintResponse) {
               return data.hintResponse;
             }
-          } catch (e) {}
+          } catch (e) {
+            const jsonpRes = await this.callActionViaJsonp(webAppUrl, 'contextual_hint', reqPayload);
+            if (jsonpRes && jsonpRes.status === 'ok' && jsonpRes.hintResponse) {
+              return jsonpRes.hintResponse;
+            }
+          }
           return null;
         },
 
+        callActionViaJsonp(webAppUrl, actionName, payloadObj) {
+          return new Promise((resolve) => {
+            const cbName = '__miloActCb_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+            const sep = webAppUrl.includes('?') ? '&' : '?';
+            const script = document.createElement('script');
+            const timer = setTimeout(() => {
+              if (window[cbName]) delete window[cbName];
+              script.remove();
+              resolve(null);
+            }, 6500);
+            window[cbName] = (res) => {
+              clearTimeout(timer);
+              delete window[cbName];
+              script.remove();
+              resolve(res);
+            };
+            script.onerror = () => {
+              clearTimeout(timer);
+              delete window[cbName];
+              script.remove();
+              resolve(null);
+            };
+            script.src = `${webAppUrl}${sep}action=${encodeURIComponent(actionName)}&payload=${encodeURIComponent(JSON.stringify(payloadObj))}&callback=${cbName}&t=${Date.now()}`;
+            document.body.appendChild(script);
+          });
+        },
+
         syncCloudMissions(manual = false) {
-          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL).trim();
+          const webAppUrl = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL).trim();
           if (!webAppUrl) {
             if (manual) this.showToast('⚠️ Tap ☁️ first to paste your Apps Script Web App URL!');
             return;
@@ -1866,7 +2837,7 @@
 
         awardEmeralds(amount, reasonText) {
           this.emeralds += amount;
-          localStorage.setItem(STORAGE_KEYS.EMERALDS, String(this.emeralds));
+          safeSetStorage(STORAGE_KEYS.EMERALDS, String(this.emeralds));
           this.updateEmeraldHud();
           if (reasonText) this.showToast(reasonText);
         },
@@ -1899,10 +2870,10 @@
         },
 
         openSettingsModal() {
-          document.getElementById('input-webapp-url').value = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
-          document.getElementById('input-gcp-project').value = (localStorage.getItem(STORAGE_KEYS.GCP_PROJECT) || DEFAULT_GCP_PROJECT);
-          document.getElementById('input-gcp-location').value = localStorage.getItem(STORAGE_KEYS.GCP_LOCATION) || 'us-central1';
-          document.getElementById('input-gemini-key').value = localStorage.getItem(STORAGE_KEYS.GEMINI_KEY) || '';
+          document.getElementById('input-webapp-url').value = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL);
+          document.getElementById('input-gcp-project').value = (safeGetStorage(STORAGE_KEYS.GCP_PROJECT, '') || DEFAULT_GCP_PROJECT);
+          document.getElementById('input-gcp-location').value = safeGetStorage(STORAGE_KEYS.GCP_LOCATION, 'us-central1');
+          document.getElementById('input-gemini-key').value = safeGetStorage(STORAGE_KEYS.GEMINI_KEY, '');
           this.renderParentLogsTable();
           document.getElementById('settings-modal').classList.add('open');
         },
@@ -1916,10 +2887,10 @@
           const proj = document.getElementById('input-gcp-project').value.trim();
           const loc = document.getElementById('input-gcp-location').value.trim() || 'us-central1';
           const key = document.getElementById('input-gemini-key').value.trim();
-          localStorage.setItem(STORAGE_KEYS.WEBAPP_URL, url);
-          localStorage.setItem(STORAGE_KEYS.GCP_PROJECT, proj);
-          localStorage.setItem(STORAGE_KEYS.GCP_LOCATION, loc);
-          localStorage.setItem(STORAGE_KEYS.GEMINI_KEY, key);
+          safeSetStorage(STORAGE_KEYS.WEBAPP_URL, url);
+          safeSetStorage(STORAGE_KEYS.GCP_PROJECT, proj);
+          safeSetStorage(STORAGE_KEYS.GCP_LOCATION, loc);
+          safeSetStorage(STORAGE_KEYS.GEMINI_KEY, key);
 
           if (url) {
             fetch(url, {
@@ -1935,7 +2906,7 @@
 
         renderParentLogsTable() {
           const tbody = document.getElementById('parent-log-tbody');
-          const logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENT_LOGS) || '[]');
+          const logs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
           if (logs.length === 0) {
             tbody.innerHTML = `<tr><td colspan="8" style="color:var(--text-muted);text-align:center;">No completed sessions recorded on this device yet.</td></tr>`;
             return;
@@ -1955,16 +2926,17 @@
         },
 
         resetAllProgress() {
-          localStorage.setItem(STORAGE_KEYS.EMERALDS, '20');
-          localStorage.setItem(STORAGE_KEYS.CURRENT_LEVEL_IDX, '0');
-          localStorage.setItem(STORAGE_KEYS.PARENT_LOGS, '[]');
+          safeSetStorage(STORAGE_KEYS.EMERALDS, '20');
+          safeSetStorage(STORAGE_KEYS.CURRENT_LEVEL_IDX, '0');
+          safeSetStorage(STORAGE_KEYS.PARENT_LOGS, '[]');
+          safeSetStorage(STORAGE_KEYS.WARMUP_DONE, '{}');
           this.emeralds = 20;
           this.updateEmeraldHud();
           this.currentMissionIndex = 0;
           document.getElementById('level-select').value = 0;
           if (this.missions[0]) this.selectMission(this.missions[0]);
           this.renderParentLogsTable();
-          const webAppUrl = (localStorage.getItem(STORAGE_KEYS.WEBAPP_URL) || DEFAULT_WEBAPP_URL);
+          const webAppUrl = (safeGetStorage(STORAGE_KEYS.WEBAPP_URL, '') || DEFAULT_WEBAPP_URL);
           if (webAppUrl) {
             fetch(webAppUrl, {
               method: 'POST',
@@ -1977,7 +2949,7 @@
         },
 
         exportParentCsv() {
-          const logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.PARENT_LOGS) || '[]');
+          const logs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
           const headers = ['Timestamp','Level_ID','Title','Genre','Word_Count','WPM','Content_10','Language_10','Spelling_10','ISA_Total_30','ISA_Band','Compiled_Draft'];
           const rows = logs.map(l => [
             l.timestamp, l.missionId, `"${(l.missionTitle||'').replace(/"/g,'""')}"`, l.genre,
