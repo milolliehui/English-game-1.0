@@ -1451,6 +1451,7 @@
         GCP_LOCATION: 'milo_isa_gcp_location_v1',
         GEMINI_KEY: 'milo_isa_gemini_key_v1',
         PARENT_LOGS: 'milo_isa_parent_logs_v2_fresh',
+        STEP_DRAFTS: 'milo_isa_step_drafts_v1',
         WARMUP_DONE: 'milo_isa_warmup_done_v1',
         SOUND_MUTED: 'milo_isa_sound_muted_v1'
       };
@@ -1576,6 +1577,7 @@
         ],
 
         init() {
+          this.sanitizeStoredLogsAndSeedDrafts();
           this.emeralds = parseInt(safeGetStorage(STORAGE_KEYS.EMERALDS, '20'), 10);
           this.updateEmeraldHud();
 
@@ -1649,7 +1651,17 @@
           this.lastPraiseBannerText = '';
 
           const steps = this.getStepsArray(mission);
-          this.stepDrafts = new Array(steps.length).fill('');
+          this.stepDrafts = this.loadSavedStepDraftsForMission(mission.levelId, steps.length);
+          let firstIncompleteStep = 0;
+          for (let i = 0; i < steps.length; i++) {
+            const qCheck = this.validateWritingQuality(this.stepDrafts[i] || '', steps[i].minWords);
+            if (qCheck.ok) {
+              firstIncompleteStep = Math.min(i + 1, steps.length - 1);
+            } else {
+              firstIncompleteStep = i;
+              break;
+            }
+          }
 
           this.typingStartTime = null;
           this.activeTypingSeconds = 0;
@@ -1661,7 +1673,7 @@
           document.getElementById('review-panel').classList.remove('visible');
 
           this.renderStepsBar();
-          this.loadStepIntoEditor(0);
+          this.loadStepIntoEditor(firstIncompleteStep);
           this.renderCompiledScroll();
 
           if (!this.isWarmupDoneForMission(mission.levelId)) {
@@ -2076,6 +2088,263 @@
           }, 850);
         },
 
+        /**
+         * Checks whether a whitespace token is a genuine English word or number
+         * (rejects single-letter key-mashing like 'b', 'n', 'd' and gibberish like 'kjbs', 'dndndd', 'nn').
+         */
+        isValidEnglishWordToken(rawTok) {
+          const clean = String(rawTok || '').replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+          if (!clean) return false;
+          if (/^\d+(st|nd|rd|th)?$/i.test(clean)) return true;
+          if (!/^[a-zA-Z]+(['-][a-zA-Z]+)*$/.test(clean)) return false;
+          const lower = clean.toLowerCase().replace(/['-]/g, '');
+          if (lower.length === 1) {
+            return lower === 'a' || lower === 'i';
+          }
+          if (lower.length > 20) return false;
+          if (/(.)\1\1/.test(lower)) return false;
+          if (/^([a-z]{1,3})\1{2,}[a-z]*$/.test(lower)) return false;
+          if (/[bcdfghjklmnpqrstvwxz]{5,}/.test(lower)) return false;
+          const VOWELLESS_ALLOWED = new Set(['tv', 'mr', 'mrs', 'ms', 'dr', 'st', 'shh', 'hmm', 'hm', 'brr', 'psst', 'nth']);
+          if (!/[aeiouy]/.test(lower) && !VOWELLESS_ALLOWED.has(lower)) {
+            return false;
+          }
+          if (/(kj|jb|jv|vf|vk|dbj|hdb|jf|fuhg|ehf|hlh|bsd|sdv|kbs|jbs|dnd|ndn|bjb|fgf|hjh|jkl|sdf|dfg|fgh|ghj|hjk|cvb|vbn|bnm|qwe|wer|ert|rty|tyu|yui|uio|iop|zxc|xcv)/.test(lower)) {
+            return false;
+          }
+          if (/^[bcdfghjklmnpqrstvwxz]{4,}/.test(lower) || /[bcdfghjklmnpqrstvwxz]{4,}$/.test(lower)) {
+            if (!/(ngths|mpst|mpts|rlds|rsts|rths|fths|lpts|ncts|rpts|stry|str|spl|spr|scr|shr|thr|chr|phr|sch)/.test(lower)) {
+              return false;
+            }
+          }
+          return true;
+        },
+
+        /**
+         * Counts only valid English words, ignoring standalone punctuation and consecutive duplicate spam.
+         */
+        countRealWords(text) {
+          if (!text || !text.trim()) return 0;
+          const rawTokens = text.trim().split(/\s+/).filter(Boolean);
+          let count = 0;
+          let prevLower = '';
+          let repeatRun = 0;
+          for (const tok of rawTokens) {
+            if (/^[.,!?;:'"()\-—]+$/.test(tok)) continue;
+            if (!this.isValidEnglishWordToken(tok)) continue;
+            const norm = tok.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '').toLowerCase();
+            if (norm === prevLower) {
+              repeatRun += 1;
+              if (repeatRun >= 2) continue;
+            } else {
+              prevLower = norm;
+              repeatRun = 1;
+            }
+            count += 1;
+          }
+          return count;
+        },
+
+        /**
+         * Validates step or full-draft text against key-mashing, gibberish, and word-repetition padding.
+         */
+        validateWritingQuality(text, minWords = 10) {
+          const trimmed = (text || '').trim();
+          if (!trimmed) {
+            return { ok: false, reason: 'short', validWordCount: 0, invalidSample: [] };
+          }
+          const rawTokens = trimmed.split(/\s+/).filter(Boolean);
+          const wordTokens = rawTokens.filter(t => !/^[.,!?;:'"()\-—]+$/.test(t));
+          const validWords = [];
+          const invalidTokens = [];
+          let maxConsecutiveRepeat = 0;
+          let currentRepeat = 0;
+          let prevNorm = '';
+          const freqMap = {};
+
+          for (const tok of wordTokens) {
+            if (this.isValidEnglishWordToken(tok)) {
+              const norm = tok.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '').toLowerCase();
+              validWords.push(norm);
+              freqMap[norm] = (freqMap[norm] || 0) + 1;
+              if (norm === prevNorm) {
+                currentRepeat += 1;
+              } else {
+                prevNorm = norm;
+                currentRepeat = 1;
+              }
+              if (currentRepeat > maxConsecutiveRepeat) {
+                maxConsecutiveRepeat = currentRepeat;
+              }
+            } else {
+              invalidTokens.push(tok);
+            }
+          }
+
+          const effectiveValidCount = this.countRealWords(trimmed);
+
+          if (invalidTokens.length >= 3 || (wordTokens.length >= 4 && (validWords.length / wordTokens.length) < 0.72)) {
+            const sample = invalidTokens.slice(0, 3).join('", "');
+            return {
+              ok: false,
+              reason: 'gibberish',
+              validWordCount: effectiveValidCount,
+              invalidSample: invalidTokens.slice(0, 3),
+              badge: '🛑 Real Words Only!',
+              message: `Whoa there, keyboard ninja! Coach Alex spotted random letters or key-mashing ("${sample}"). Real words only—delete the gibberish and write your own sentences!`,
+              hint: `Only real English words count toward your ${minWords}-word goal (repeated letters like "b b b" or "n n n" do not count!).`
+            };
+          }
+
+          if (validWords.length >= 6) {
+            const uniqueCount = Object.keys(freqMap).length;
+            const uniqueRatio = uniqueCount / validWords.length;
+            const maxFreq = Math.max(...Object.values(freqMap));
+            if (maxConsecutiveRepeat >= 3 || (validWords.length >= 8 && uniqueRatio < 0.38) || (validWords.length >= 10 && (maxFreq / validWords.length) > 0.38)) {
+              return {
+                ok: false,
+                reason: 'repetition',
+                validWordCount: effectiveValidCount,
+                invalidSample: [],
+                badge: '🛑 No Word Spamming!',
+                message: `Hold on, Milo! Repeating the same word over and over doesn't count as a real sentence. Tell Coach Alex what really happened in your own words!`,
+                hint: `Write complete sentences with different words to reach your ${minWords}-word goal.`
+              };
+            }
+          }
+
+          if (effectiveValidCount < Math.max(5, minWords - 3)) {
+            return {
+              ok: false,
+              reason: 'short',
+              validWordCount: effectiveValidCount,
+              invalidSample: []
+            };
+          }
+
+          return {
+            ok: true,
+            reason: 'ok',
+            validWordCount: effectiveValidCount,
+            invalidSample: []
+          };
+        },
+
+        sanitizeStoredLogsAndSeedDrafts() {
+          try {
+            const defaultCleanLogs = [
+              {
+                timestamp: '2026-10-23 07:42:37',
+                missionId: 'L04',
+                missionTitle: 'Level 4: Should School Recess Be Longer?',
+                genre: 'Exposition/Argument',
+                modeLabel: '🗣️ Share Your Opinion • Easy (Step-by-Step)',
+                wordCount: 78,
+                wpm: 9,
+                durationSec: 494,
+                emeraldsEarned: 15,
+                brilliantCount: 2,
+                greatCount: 0,
+                retriesCompleted: 0,
+                isaContent10: 9.1,
+                isaLanguage10: 6.8,
+                isaSpelling10: 7.5,
+                isaTotal30: 23.4,
+                isaBand: 'ISA Level 4 (Proficient Upper Elementary)',
+                compiledDraft: "I think recess at school should be longer because then we can exercise a little longer.\n\ni don't think our recess is short because all I know is that our recess is half an hour , and to me , that is quite long.\n\nWell I guess that maybe 5 more minutes will be fine but , after the 5 minutes i would be super hungary.\n\ni am not sure how to explain that.but i do like exercising"
+              },
+              {
+                timestamp: '2026-10-18 10:57:53',
+                missionId: 'L02',
+                missionTitle: 'Level 2: Picking the Best Weekend Family Lunch',
+                genre: 'Exposition/Argument',
+                modeLabel: '🗣️ Share Your Opinion • Easy (Step-by-Step)',
+                wordCount: 102,
+                wpm: 13,
+                durationSec: 465,
+                emeraldsEarned: 15,
+                brilliantCount: 4,
+                greatCount: 0,
+                retriesCompleted: 0,
+                isaContent10: 9.5,
+                isaLanguage10: 8.0,
+                isaSpelling10: 8.0,
+                isaTotal30: 25.5,
+                isaBand: 'ISA Level 5 (Advanced Upper Elementary)',
+                compiledDraft: "My favourite restruant on weekend to go to is Genki Sushi , and my favourite food in that restruant is cucumber in sushi dipped in soy suace.\n\nWhen I first get to my table it smells like noodles, sushi and soy suace.\n\nmy mom lets me and my little brother choose whatever food we like for ourself.\n\nI like to go to Genki Sushi becuase me and my brother both like sushi but my mom and my dad dont like sushi that much . Anyways, my mom and dad have to go because we cant pay and we cant go by ourself."
+              },
+              {
+                timestamp: '2026-10-17 08:35:55',
+                missionId: 'L01',
+                missionTitle: 'Level 1: Trying On Our New Harry Potter Costumes',
+                genre: 'Narrative/Reflective',
+                modeLabel: '📖 Story Time • Easy (Step-by-Step)',
+                wordCount: 60,
+                wpm: 11,
+                durationSec: 336,
+                emeraldsEarned: 15,
+                brilliantCount: 1,
+                greatCount: 2,
+                retriesCompleted: 0,
+                isaContent10: 8.8,
+                isaLanguage10: 6.9,
+                isaSpelling10: 8.0,
+                isaTotal30: 23.7,
+                isaBand: 'ISA Level 4 (Proficient Upper Elementary)',
+                compiledDraft: "when I put on the Harry Potter costume, I feel like I am a wizard.\n\nI first did the Avada Kadavra , the spell of instaneous death.\n\nMy mom took a picture of us and my dad said it was time to take it of and eat our dinner.\n\nI was most happy to wear my costume next for haloween."
+              }
+            ];
+
+            const rawLogs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
+            const filtered = Array.isArray(rawLogs) ? rawLogs.filter(entry => {
+              const draft = String(entry && entry.compiledDraft || '');
+              if (!draft) return false;
+              const check = this.validateWritingQuality(draft, 20);
+              return check.ok;
+            }) : [];
+
+            const finalLogs = filtered.length > 0 ? filtered : defaultCleanLogs;
+            safeSetStorage(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(finalLogs));
+
+            // Preserve Milo's genuine 55-word Paragraph 1 for Level 5 so he doesn't have to re-type it!
+            const savedDraftsMap = JSON.parse(safeGetStorage(STORAGE_KEYS.STEP_DRAFTS, '{}')) || {};
+            if (!savedDraftsMap['L05'] || !Array.isArray(savedDraftsMap['L05']) || !savedDraftsMap['L05'][0]) {
+              savedDraftsMap['L05'] = [
+                'One day , I woke up on a sunny morning with wind blowing on my face , I got out of my bunk bed , went out to the living room , and started playing the games on my Ipad , after my brekfast , me , Ollie and my dad set of to the second floor of our building to meet up with our friend called Pase to go running with.',
+                '',
+                ''
+              ];
+              safeSetStorage(STORAGE_KEYS.STEP_DRAFTS, JSON.stringify(savedDraftsMap));
+            }
+          } catch (e) {}
+        },
+
+        saveStepDraftsToStorage() {
+          try {
+            if (!this.currentMission || !this.currentMission.levelId) return;
+            const map = JSON.parse(safeGetStorage(STORAGE_KEYS.STEP_DRAFTS, '{}')) || {};
+            map[this.currentMission.levelId] = this.stepDrafts;
+            safeSetStorage(STORAGE_KEYS.STEP_DRAFTS, JSON.stringify(map));
+          } catch (e) {}
+        },
+
+        loadSavedStepDraftsForMission(levelId, stepsCount) {
+          try {
+            const map = JSON.parse(safeGetStorage(STORAGE_KEYS.STEP_DRAFTS, '{}')) || {};
+            const arr = map[levelId];
+            if (Array.isArray(arr) && arr.length === stepsCount) {
+              // Sanitize each step draft so any old gibberish part is cleared while real parts stay
+              return arr.map(partTxt => {
+                const trimmed = String(partTxt || '').trim();
+                if (!trimmed) return '';
+                const check = this.validateWritingQuality(trimmed, 5);
+                return (check.reason === 'gibberish' || check.reason === 'repetition') ? '' : trimmed;
+              });
+            }
+          } catch (e) {}
+          return new Array(stepsCount).fill('');
+        },
+
         getStepsArray(mission) {
           const list = mission.steps || mission.socraticSteps || mission.workshopMilestones || [];
           if (list.length > 0) {
@@ -2104,8 +2373,8 @@
           }
           steps.forEach((st, idx) => {
             const span = document.createElement('span');
-            const words = (this.stepDrafts[idx] || '').trim().split(/\s+/).filter(Boolean).length;
-            const isDone = words >= st.minWords;
+            const stepCheck = this.validateWritingQuality(this.stepDrafts[idx] || '', st.minWords);
+            const isDone = stepCheck.ok && stepCheck.validWordCount >= st.minWords;
             span.className = 'step-pill' + (idx === this.currentStepIndex ? ' active' : '') + (isDone ? ' done' : '');
             span.textContent = isDone ? `✓ ${st.shortLabel}` : st.shortLabel;
             span.onclick = () => {
@@ -2244,6 +2513,7 @@
         saveCurrentEditorToStep() {
           const val = document.getElementById('writing-input').value;
           this.stepDrafts[this.currentStepIndex] = val;
+          this.saveStepDraftsToStorage();
         },
 
         handleKeyDown(e) {
@@ -2258,10 +2528,10 @@
         handleInputUpdate() {
           this.saveCurrentEditorToStep();
           const currentText = document.getElementById('writing-input').value.trim();
-          const stepWords = currentText ? currentText.split(/\s+/).length : 0;
+          const stepWords = this.countRealWords(currentText);
 
           const fullDraft = this.getCompiledDraftText();
-          const totalWords = fullDraft ? fullDraft.split(/\s+/).length : 0;
+          const totalWords = this.countRealWords(fullDraft);
 
           document.getElementById('step-word-count').textContent = stepWords;
           document.getElementById('total-word-count').textContent = totalWords;
@@ -2312,14 +2582,25 @@
           const steps = this.getStepsArray(this.currentMission);
           const st = steps[this.currentStepIndex];
           const text = (this.stepDrafts[this.currentStepIndex] || '').trim();
-          const wordCount = text ? text.split(/\s+/).length : 0;
+          const quality = this.validateWritingQuality(text, st.minWords);
+          const wordCount = quality.validWordCount;
 
-          if (wordCount < Math.max(5, st.minWords - 3)) {
+          if (!quality.ok) {
             const contextual = this.buildContextualQuestionAndHint(this.currentStepIndex);
+            if (quality.reason === 'gibberish' || quality.reason === 'repetition') {
+              this.setCoachFeedback(
+                quality.badge,
+                'inaccuracy',
+                quality.message,
+                quality.hint
+              );
+              this.showToast('🛑 Please use real English words and sentences!');
+              return;
+            }
             this.setCoachFeedback(
               '🔧 Add a Little More',
               'inaccuracy',
-              `Nice start, Milo! You have ${wordCount} words so far—try adding one more detail to reach ${st.minWords} words.`,
+              `Nice start, Milo! You have ${wordCount} real words so far—try adding one more detail to reach ${st.minWords} words.`,
               contextual.hint
             );
             return;
@@ -2516,9 +2797,36 @@
 
         runGameReview() {
           this.saveCurrentEditorToStep();
+          const steps = this.getStepsArray(this.currentMission);
+          for (let i = 0; i < steps.length; i++) {
+            const partTxt = (this.stepDrafts[i] || '').trim();
+            const partCheck = this.validateWritingQuality(partTxt, steps[i].minWords);
+            if (!partCheck.ok) {
+              this.loadStepIntoEditor(i);
+              if (partCheck.reason === 'gibberish' || partCheck.reason === 'repetition') {
+                this.setCoachFeedback(partCheck.badge, 'inaccuracy', partCheck.message, partCheck.hint);
+                this.showToast(`🛑 Please fix ${steps[i].shortLabel} with real words first!`);
+              } else {
+                const contextual = this.buildContextualQuestionAndHint(i);
+                this.setCoachFeedback(
+                  '🔧 Finish All Parts First',
+                  'inaccuracy',
+                  `${steps[i].shortLabel} has ${partCheck.validWordCount} real words so far (goal: ${steps[i].minWords} words). Finish this part before checking your full piece!`,
+                  contextual.hint
+                );
+                this.showToast(`✏️ Please finish ${steps[i].shortLabel} (${partCheck.validWordCount}/${steps[i].minWords} words) first!`);
+              }
+              return;
+            }
+          }
+
           const fullDraft = this.getCompiledDraftText();
-          if (!fullDraft || fullDraft.split(/\s+/).length < 10) {
-            this.showToast('⚠️ Please write a few sentences first!');
+          const fullCheck = this.validateWritingQuality(fullDraft, this.currentMission.minWords || 45);
+          if (!fullCheck.ok) {
+            if (fullCheck.reason === 'gibberish' || fullCheck.reason === 'repetition') {
+              this.setCoachFeedback(fullCheck.badge, 'inaccuracy', fullCheck.message, fullCheck.hint);
+            }
+            this.showToast('🛑 Please write complete sentences using real English words!');
             return;
           }
 
@@ -2592,8 +2900,9 @@
             return;
           }
           const val = document.getElementById('retry-input').value.trim();
-          if (val.split(/\s+/).length < 5) {
-            this.showToast('⚠️ Please type out the full sentence!');
+          const retryCheck = this.validateWritingQuality(val, 5);
+          if (!retryCheck.ok) {
+            this.showToast('⚠️ Please type out the full sentence using real words!');
             return;
           }
           this.retryCompletedForMission = true;
@@ -2614,7 +2923,7 @@
         },
 
         recordSilentParentAnalytics(fullDraft, brilliantCount, greatCount, inaccuracyCount) {
-          const words = fullDraft.split(/\s+/).filter(Boolean).length;
+          const words = this.countRealWords(fullDraft);
           const goal = this.currentMission.minWords || 45;
 
           const contentScore = Math.min(9.5, Math.max(5.5, Number((6.5 + Math.min(2.0, (words / goal) * 1.5) + brilliantCount * 0.3).toFixed(1))));
@@ -2930,6 +3239,7 @@
           safeSetStorage(STORAGE_KEYS.CURRENT_LEVEL_IDX, '0');
           safeSetStorage(STORAGE_KEYS.PARENT_LOGS, '[]');
           safeSetStorage(STORAGE_KEYS.WARMUP_DONE, '{}');
+          safeSetStorage(STORAGE_KEYS.STEP_DRAFTS, '{}');
           this.emeralds = 20;
           this.updateEmeraldHud();
           this.currentMissionIndex = 0;
