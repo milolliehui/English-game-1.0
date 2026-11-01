@@ -1042,14 +1042,18 @@
         <input type="text" id="input-gcp-project" class="form-input" placeholder="e.g. milo-writing-crafter" />
       </div>
 
-      <div class="form-group" style="display:flex;gap:10px;">
-        <div style="flex:1;">
+      <div class="form-group" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:140px;">
           <label for="input-gcp-location">Vertex AI Region:</label>
           <input type="text" id="input-gcp-location" class="form-input" value="us-central1" />
         </div>
-        <div style="flex:1.2;">
-          <label for="input-gemini-key">Option B: Gemini API Key (from Cloud Credentials):</label>
+        <div style="flex:1.2;min-width:180px;">
+          <label for="input-gemini-key">Option B: Gemini API Key (optional):</label>
           <input type="password" id="input-gemini-key" class="form-input" placeholder="AIzaSy... (optional)" />
+        </div>
+        <div style="flex:1.4;min-width:220px;">
+          <label for="input-parent-email">📧 Parent Notification Email (Auto-Sent on Finish):</label>
+          <input type="email" id="input-parent-email" class="form-input" value="milolliehui@gmail.com" placeholder="milolliehui@gmail.com" />
         </div>
       </div>
 
@@ -1057,13 +1061,32 @@
         <button class="btn-primary" onclick="window.GameEngine.saveCloudSettings()">💾 Save Cloud Settings</button>
         <button class="btn-light" onclick="window.GameEngine.syncCloudMissions(true)">🔄 Sync Questions from Drive</button>
         <button class="btn-light" id="btn-gen-new-level" onclick="window.GameEngine.generateNewCloudLevel()">✨ Generate New Level (Vertex AI)</button>
+        <button class="btn-light" id="btn-send-parent-email" onclick="window.GameEngine.sendLatestReportEmail()">📧 Email Latest Report Now</button>
         <button class="btn-light" onclick="window.GameEngine.exportParentCsv()">📥 Download Report (CSV)</button>
         <button class="btn-light" onclick="window.GameEngine.resetAllProgress()">🗑️ Reset Progress & Logs</button>
       </div>
       <div id="modal-cloud-status" style="display:none;padding:10px 14px;border-radius:10px;font-size:0.9rem;font-weight:600;margin-bottom:14px;border:1px solid #cbd5e1;background:#f8fafc;color:#1e293b;line-height:1.45;"></div>
 
+      <strong style="font-size:0.9rem;display:block;margin-bottom:4px;color:#1e3a8a;">
+        🔍 Montessori &amp; ISA Learning Gaps Profile (Grammar, Sentence Structure &amp; Punctuation)
+      </strong>
+      <div style="overflow-x:auto;margin-bottom:14px;">
+        <table class="parent-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Skill / Gap Area</th>
+              <th>Status</th>
+              <th>Pattern &amp; Verbatim Example from Milo</th>
+              <th>Blended Emphasis in Future Questions</th>
+            </tr>
+          </thead>
+          <tbody id="parent-gaps-tbody"></tbody>
+        </table>
+      </div>
+
       <strong style="font-size:0.9rem;display:block;margin-bottom:4px;">
-        🔒 Parent-Only ISA Rubric Scores (Hidden from Milo's Screen)
+        🔒 Parent-Only ISA Rubric Scores &amp; Session Gap Notes (Hidden from Milo's Screen)
       </strong>
       <div style="overflow-x:auto;">
         <table class="parent-table">
@@ -1077,6 +1100,7 @@
               <th>Spelling /10</th>
               <th>Total /30</th>
               <th>Estimated Band</th>
+              <th>Assessed Gaps &amp; Feedback</th>
             </tr>
           </thead>
           <tbody id="parent-log-tbody"></tbody>
@@ -1090,8 +1114,8 @@
   <script>
     window.DEFAULT_BANKS = {
   "gameTitle": "Milo's Writing Crafter",
-  "version": "1.2.0",
-  "lastUpdated": "2026-10-30",
+  "version": "1.6.0",
+  "lastUpdated": "2026-11-01",
   "child": "milo",
   "folderId": "1t6f9LKdc4g2WRIwSAt4b5cL-kgSa0VPm",
   "missions": [
@@ -1202,33 +1226,38 @@
         {
           "stepIndex": 1,
           "role": "Part 1 of 4: Starting the Match",
-          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!\n\n👉 Part 1 of 4: Who were you playing against, where were you sitting, and how did the match start off?",
-          "hint": "🗺️ Overall Story Idea: Set the scene of the match first, build excitement around a tricky move in the middle, and finish with the result! 👉 For Part 1: Mention who your opponent was and how the opening moves went.",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!\n\n👉 Part 1 of 4: Who were you playing against (like Ollie, Dad, or a friend), where were you sitting, and how did the match start off? (Start right in the past tense—like \"Last weekend, Ollie and I played...\"—and remember two f's if you write \"started off\"!)",
+          "hint": "🗺️ Overall Story Idea: Set the scene of the match in the past tense, build excitement around a tricky move, and finish with the result! 👉 For Part 1: Try starting with \"Last weekend, Ollie and I sat down to play...\" and finish each sentence with a crisp period (.) instead of chaining everything with commas.",
           "minStepWords": 12
         },
         {
           "stepIndex": 2,
           "role": "Part 2 of 4: A Surprising Move",
-          "coachQuestion": "Halfway through the game, something unexpected happened! Did your opponent set a trap, or did you spot a clever tactic?",
-          "hint": "Describe the turning point in the game.",
+          "coachQuestion": "👉 Part 2 of 4: Halfway through the game, something surprising happened! Did your opponent set a trap, or did you spot a clever move? Start one sentence with an opener followed by a comma—like \"Halfway through the match,\" or \"To my surprise,\"!",
+          "hint": "Put a comma right after your opening phrase (for example: \"Halfway through the game, my opponent moved his knight.\"), and watch the 'r' in \"surprising\"!",
           "minStepWords": 14
         },
         {
           "stepIndex": 3,
           "role": "Part 3 of 4: Thinking Under Pressure",
-          "coachQuestion": "How did you feel while deciding your next move, and what did you choose to do?",
-          "hint": "Did you take a deep breath and check the whole board carefully?",
+          "coachQuestion": "👉 Part 3 of 4: How did you feel while deciding your next move, and what did you or your opponent say out loud? Include one short line of spoken dialogue inside quotation marks (\"...\")!",
+          "hint": "Try writing what someone said using quotation marks, like: \"Checkmate!\" I shouted, or \"That is a tricky trap,\" Ollie said.",
           "minStepWords": 14
         },
         {
           "stepIndex": 4,
           "role": "Part 4 of 4: The Result & Lesson",
-          "coachQuestion": "How did the match end, and what did you learn that will help you in your next game?",
-          "hint": "Wrap up with how you felt at the end of the match.",
+          "coachQuestion": "👉 Part 4 of 4: How did the match end, and what did you learn that will help you next time? Write 2 separate sentences with a period (.) in between!",
+          "hint": "Wrap up with how the game ended in Sentence 1, put a period (.), and share what you learned for your next match in Sentence 2.",
           "minStepWords": 12
         }
       ],
-      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!"
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 4-part story about an exciting chess or board game match — (1) how the match started, (2) a surprise move or trap, (3) thinking carefully under pressure, and (4) how the game finished!",
+      "targetGaps": [
+        "GAP_TENSE_CONNECTORS",
+        "GAP_PUNCTUATION_DIALOGUE",
+        "GAP_SENTENCE_BOUNDARIES"
+      ]
     },
     {
       "levelId": "L04",
@@ -1416,7 +1445,7 @@
     {
       "levelId": "L09",
       "order": 9,
-      "date": "2026-10-15",
+      "date": "2026-11-01",
       "title": "Level 9: Balancing Screen Time and Outdoor Play",
       "genre": "Exposition/Argument",
       "genreBadge": "🗣️ Share Your Opinion • Challenge (Full Essay)",
@@ -1430,17 +1459,23 @@
         {
           "stepIndex": 1,
           "role": "Full Opinion Piece (3 Paragraphs: Opinion, Reasons, Conclusion)",
-          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules; Paragraph 2: Why sports, sleep, and outdoor fun matter; Paragraph 3: Your conclusion.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice to start each new paragraph.",
-          "hint": "🗺️ Overall Passage Idea: Paragraph 1 states what fair weekday and weekend rules look like, Paragraph 2 explains how outdoor play and rest help kids thrive, and Paragraph 3 wraps up your argument.",
+          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules for school days and weekends; Paragraph 2: Why outdoor play, running, and sleep matter; Paragraph 3: How kids and parents can agree on the rules.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice between paragraphs so you have 3 clear blocks, and whenever a new thought starts, finish with a period (.) instead of chaining long sentences with commas.",
+          "hint": "🗺️ Overall Passage Idea: In Paragraph 1, try using an opener with a comma like \"On school days, I think Ollie and I should...\" In Paragraph 2, explain why running and outdoor games help us stay healthy. In Paragraph 3, use \"by ourselves\" (with -ves!) if you explain how you and Ollie can turn off the iPad on time, and remember apostrophes in \"don't\" and \"can't\"!",
           "minStepWords": 130
         }
       ],
-      "passageOverview": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules; Paragraph 2: Why sports, sleep, and outdoor fun matter; Paragraph 3: Your conclusion."
+      "passageOverview": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on balancing screen time and outdoor play — Paragraph 1: Your view on fair screen-time rules; Paragraph 2: Why sports, sleep, and outdoor fun matter; Paragraph 3: Your conclusion.",
+      "targetGaps": [
+        "GAP_SENTENCE_BOUNDARIES",
+        "GAP_PRONOUN_AGREEMENT",
+        "GAP_PUNCTUATION_DIALOGUE",
+        "GAP_CONTRACTIONS_CAPS"
+      ]
     },
     {
       "levelId": "L10",
       "order": 10,
-      "date": "2026-10-30",
+      "date": "2026-11-01",
       "title": "Level 10: Designing the Ultimate Class Reward Day",
       "genre": "Exposition/Argument",
       "genreBadge": "🗣️ Share Your Opinion • Medium (3 Short Paragraphs)",
@@ -1455,30 +1490,35 @@
         {
           "stepIndex": 1,
           "role": "Paragraph 1: The Class Vote & Your Pick",
-          "coachQuestion": "🗺️ Whole Passage Plan: Today we will write a 3-paragraph opinion piece on the best class reward day — Paragraph 1: The two choices and your top pick; Paragraph 2: What the class will do and why everyone will enjoy it; Paragraph 3: Why this reward brings the whole class together.\n\n👉 Paragraph 1 (Your Choice): If your class could vote between two special reward afternoons (like a games arcade trip, a park sports tournament, or a board-game party), which one would you vote for and why?",
-          "hint": "🗺️ Overall Passage Idea: Paragraph 1 states your clear choice, Paragraph 2 explains the fun activities in detail, and Paragraph 3 wraps up why your classmates should vote for it! 👉 For Paragraph 1: Name the choices and state which one gets your vote.",
+          "coachQuestion": "🗺️ Whole Passage Plan: Today we will write a 3-paragraph opinion piece on the best class reward day — Paragraph 1: The two choices and your top pick; Paragraph 2: What the class will do and why everyone will enjoy it; Paragraph 3: Why this reward brings the whole class together.\n\n👉 Paragraph 1 (Your Choice): If your class could vote between two special reward afternoons (like a games arcade trip, a park sports tournament, or a board-game party), which one would you vote for and why? Make sure to break your ideas into 2 or 3 crisp sentences with periods (.) instead of one long comma chain!",
+          "hint": "🗺️ Overall Passage Idea: Paragraph 1 states your clear choice, Paragraph 2 explains the fun activities using varied sentence starters, and Paragraph 3 wraps up why your classmates should vote for it! 👉 For Paragraph 1: Spell \"between\" with two e's and \"arcade\" as a-r-c-a-d-e, and put a period (.) after introducing the two choices before explaining your vote.",
           "minStepWords": 35
         },
         {
           "stepIndex": 2,
           "role": "Paragraph 2: The Best Activities & Teamwork",
-          "coachQuestion": "Paragraph 2 (Reasons & Details): What specific games, challenges, or prizes would you and your friends (like Hugo, Aiden, or Mason) do during this reward afternoon?",
-          "hint": "Give concrete examples of the games you would play together and how classmates can team up.",
+          "coachQuestion": "👉 Paragraph 2 (Reasons & Details): What specific games, challenges, or prizes would you and your friends (like Hugo, Aiden, or Mason) enjoy during this reward afternoon? Use varied openers with a comma—such as \"First of all,\", \"Right after that,\", and \"Best of all,\"—instead of repeating \"The next...\"!",
+          "hint": "Try writing \"My friends and I could play...\" (putting \"and I\" second!) and \"we could choose teams by ourselves\" (ending in -ves).",
           "minStepWords": 40
         },
         {
           "stepIndex": 3,
           "role": "Paragraph 3: Convincing the Whole Class",
-          "coachQuestion": "Paragraph 3 (Conclusion): What would you say to convince the kids who voted for the other option that your choice will be an unforgettable afternoon for everyone?",
-          "hint": "Finish with a warm, persuasive closing sentence that includes the whole class.",
+          "coachQuestion": "👉 Paragraph 3 (Conclusion): What would you say to convince the kids who voted for the other option that your choice will be a fun afternoon for everyone? Start your first sentence with \"Because\" or \"Even though\" and remember the comma halfway through!",
+          "hint": "For example: \"Even though some classmates voted for the other option, everyone will have a brilliant time together.\"",
           "minStepWords": 30
         }
+      ],
+      "targetGaps": [
+        "GAP_SENTENCE_BOUNDARIES",
+        "GAP_PRONOUN_AGREEMENT",
+        "GAP_PUNCTUATION_DIALOGUE"
       ]
     },
     {
       "levelId": "L11",
       "order": 11,
-      "date": "2026-10-30",
+      "date": "2026-11-01",
       "title": "Level 11: The Great Outdoor Treasure Chase",
       "genre": "Narrative/Reflective",
       "genreBadge": "📖 Story Time • Challenge (Full Story)",
@@ -1493,16 +1533,21 @@
         {
           "stepIndex": 1,
           "role": "Full Story (3 Paragraphs: Beginning, Middle, Ending)",
-          "coachQuestion": "🗺️ Whole Story Plan: Write a 3-paragraph story about an outdoor treasure chase — Paragraph 1: Setting up the rules and who was playing; Paragraph 2: The most suspenseful moment of sneaking and sprinting; Paragraph 3: Tallying the points and celebrating after the game.\n\n👉 Write your 3-paragraph story below! Press Enter twice between paragraphs to separate your Beginning, Middle, and Ending.",
-          "hint": "🗺️ Overall Story Idea: Paragraph 1 introduces the players and rules of the treasure game, Paragraph 2 zooms in on a thrilling close call when someone almost got caught, and Paragraph 3 shares the final score and reward!",
+          "coachQuestion": "🗺️ Whole Story Plan: Write a 3-paragraph story about an outdoor treasure chase — Paragraph 1: Setting up the rules and who was playing; Paragraph 2: The most suspenseful moment of sneaking and sprinting; Paragraph 3: Tallying the points and celebrating after the game.\n\n👉 Write your 3-paragraph story below! Press Enter twice between paragraphs, keep the whole story in the past tense right from Sentence 1, and include at least one line of spoken dialogue inside quotation marks (\"...\")!",
+          "hint": "🗺️ Overall Story Idea: In Paragraph 1, write \"Ollie, my dad, and I set off...\" (with two f's in \"set off\"!) and keep the rules in past tense (\"Whenever my dad turned around, we had to sneak up quietly...\"). In Paragraph 2, add a spoken line with quotation marks like \"Run back to base!\" I whispered. In Paragraph 3, use periods (.) to separate your sentences when counting points and snacks!",
           "minStepWords": 135
         }
+      ],
+      "targetGaps": [
+        "GAP_TENSE_CONNECTORS",
+        "GAP_PUNCTUATION_DIALOGUE",
+        "GAP_SENTENCE_BOUNDARIES"
       ]
     },
     {
       "levelId": "L12",
       "order": 12,
-      "date": "2026-10-30",
+      "date": "2026-11-01",
       "title": "Level 12: What Makes a Great Team Captain or Teammate?",
       "genre": "Exposition/Argument",
       "genreBadge": "🗣️ Share Your Opinion • Challenge (Full Essay)",
@@ -1517,11 +1562,156 @@
         {
           "stepIndex": 1,
           "role": "Full Opinion Piece (3 Paragraphs: Opinion, Example, Conclusion)",
-          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on what makes a great teammate — Paragraph 1: The most important qualities of a good teammate; Paragraph 2: A real example from Sports Day, running, or school; Paragraph 3: How great teammates handle winning and losing.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice to start each new paragraph.",
-          "hint": "🗺️ Overall Passage Idea: Paragraph 1 shares your view on what makes a great teammate, Paragraph 2 gives a real-life example of cheering or helping a friend in a race or game, and Paragraph 3 concludes with why teamwork beats winning alone.",
+          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on what makes a great teammate — Paragraph 1: The most important qualities of a good teammate; Paragraph 2: A real example from Sports Day, running, or school; Paragraph 3: How great teammates handle winning and losing.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice to separate your 3 paragraphs, and watch out for small connecting words like \"on a team\", \"have to\", and \"went to\".",
+          "hint": "🗺️ Overall Passage Idea: In Paragraph 1, explain what a great teammate does when someone is \"on a team\" with them. In Paragraph 2, share a real past-tense story (and include one encouraging thing someone said in quotation marks \"...\"). In Paragraph 3, start a sentence with \"When a team loses,\" (with a comma right after the opener!) and finish every sentence with a period.",
+          "minStepWords": 135
+        }
+      ],
+      "targetGaps": [
+        "GAP_TENSE_CONNECTORS",
+        "GAP_SENTENCE_BOUNDARIES",
+        "GAP_PUNCTUATION_DIALOGUE"
+      ]
+    },
+    {
+      "levelId": "L13",
+      "order": 13,
+      "date": "2026-11-01",
+      "title": "Level 13: Making a Fun Family Snack or Weekend Breakfast",
+      "genre": "Narrative/Reflective",
+      "genreBadge": "📖 Story Time • Medium (3 Short Paragraphs)",
+      "mode": "workshop",
+      "minWords": 110,
+      "emeraldReward": 30,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "targetGaps": [
+        "GAP_PRONOUN_AGREEMENT",
+        "GAP_PUNCTUATION_DIALOGUE",
+        "GAP_SENTENCE_BOUNDARIES"
+      ],
+      "promptScenario": "Write a 3-paragraph story about a time you and Ollie helped make breakfast, a snack, or a treat at home (or chose your favourite food together).",
+      "passageOverview": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about making or choosing a fun family meal — Paragraph 1: Getting started in the kitchen or restaurant; Paragraph 2: What happened while preparing or picking the food; Paragraph 3: Tasting the food together!",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Paragraph 1: Getting Ready",
+          "coachQuestion": "🗺️ Whole Story Plan: Today we will write a 3-paragraph story about making or choosing a fun family meal — Paragraph 1: Getting started; Paragraph 2: Preparing or picking the food; Paragraph 3: Tasting it together!\n\n👉 Paragraph 1 (The Start): When did this happen, who was there with you (Ollie, Mum, or Dad), and what food did you decide to make or order? (Try using \"Ollie and I\" and keep every verb in the past tense!)",
+          "hint": "🗺️ Overall Story Idea: Set the scene in Paragraph 1, describe the action and dialogue in Paragraph 2, and share the taste test in Paragraph 3! 👉 For Paragraph 1: Start with \"One Saturday morning, Ollie and I decided to...\" and use a period (.) at the end of each complete thought.",
+          "minStepWords": 35
+        },
+        {
+          "stepIndex": 2,
+          "role": "Paragraph 2: The Action & Dialogue",
+          "coachQuestion": "👉 Paragraph 2 (The Action): What steps did you do by yourselves, and what funny or helpful thing did someone say? Include at least one line of spoken dialogue inside quotation marks (\"...\")!",
+          "hint": "Remember to write \"by ourselves\" (ending in -ves) if you and Ollie did a step together, and put quotation marks around what someone said, like: \"Watch out for the hot pan!\" Mum said.",
+          "minStepWords": 40
+        },
+        {
+          "stepIndex": 3,
+          "role": "Paragraph 3: The Taste Test",
+          "coachQuestion": "👉 Paragraph 3 (The Finish): How did the food smell and taste at the end? Start one sentence with an introductory clause followed by a comma, like \"When we took our first bite,\"!",
+          "hint": "Place your comma right after \"When we took our first bite,\" (with no space before the comma!) and watch the spelling of words like \"breakfast\", \"sauce\", or \"delicious\".",
+          "minStepWords": 35
+        }
+      ]
+    },
+    {
+      "levelId": "L14",
+      "order": 14,
+      "date": "2026-11-01",
+      "title": "Level 14: Why Kids Learn Best by Doing Hands-On Challenges",
+      "genre": "Exposition/Argument",
+      "genreBadge": "🗣️ Share Your Opinion • Challenge (Full Essay)",
+      "mode": "boss",
+      "minWords": 135,
+      "emeraldReward": 40,
+      "coachName": "Coach Alex",
+      "coachAvatar": "🦉",
+      "targetGaps": [
+        "GAP_SENTENCE_BOUNDARIES",
+        "GAP_TENSE_CONNECTORS",
+        "GAP_PUNCTUATION_DIALOGUE"
+      ],
+      "promptScenario": "Some lessons are taught by listening to a long talk, while others let you build, experiment, or try things hands-on. Write a 3-paragraph opinion piece explaining why hands-on projects or games help kids learn better.",
+      "passageOverview": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on hands-on learning — Paragraph 1: Your main opinion on learning by doing; Paragraph 2: Two real examples (like building Lego, science experiments, or strategy games); Paragraph 3: Your conclusion.",
+      "steps": [
+        {
+          "stepIndex": 1,
+          "role": "Full Opinion Piece (3 Paragraphs: Opinion, Examples, Conclusion)",
+          "coachQuestion": "🗺️ Whole Passage Plan: Write a 3-paragraph opinion piece on hands-on learning — Paragraph 1: Your main opinion; Paragraph 2: Two real examples; Paragraph 3: Your conclusion.\n\n👉 Write your 3-paragraph opinion piece below! Press Enter twice between paragraphs, use varied transition openers followed by a comma (\"First of all,\", \"For example,\", \"Because of this,\"), and use crisp periods (.) instead of comma chains.",
+          "hint": "🗺️ Overall Passage Idea: In Paragraph 1, state why hands-on learning is better than just sitting still. In Paragraph 2, give two examples using \"my classmates and I\" or \"by ourselves\". In Paragraph 3, check that every contraction has an apostrophe (\"don't\", \"can't\") and every sentence ends with a period!",
           "minStepWords": 135
         }
       ]
+    }
+  ],
+  "learningGapsProfile": [
+    {
+      "gapId": "GAP_SENTENCE_BOUNDARIES",
+      "category": "Sentence Structure",
+      "title": "Comma Splices, Run-On Chains & Starter Variety",
+      "status": "🌱 Needs Focus",
+      "occurrences": "L05, L06, L07, L08",
+      "patternObserved": "Chains 3 to 5 complete sentences together with commas instead of periods when excited (e.g., 55-word sentence in L05), or falls back on identical 'The first... The next... Next...' starters when writing shorter sentences (L08).",
+      "exampleFromMilo": "\"...looked inside the bedrooms , he helped us because...\" (L07) / \"The first sport we did was... The next sport we did was... Next we did...\" (L08)",
+      "targetFix": "Start a brand-new sentence with a period (.) whenever a new person does a new action, and vary sentence openers ('First of all,', 'Right after that,', 'To our surprise,').",
+      "naturalPromptEmphasis": "Weave reminders into questions/hints to finish each complete thought with a period (.) instead of chaining actions with commas, and suggest varied time/sequence openers."
+    },
+    {
+      "gapId": "GAP_PUNCTUATION_DIALOGUE",
+      "category": "Punctuation & Paragraphing",
+      "title": "Quotation Marks (\"...\"), Introductory Commas & Paragraph Breaks",
+      "status": "🌱 Needs Focus",
+      "occurrences": "L04, L06, L07, L08",
+      "patternObserved": "Avoided quotation marks across all 7 completed levels (even when prompted in L07), misses commas after introductory clauses ('Because...,', 'By the end...,'), puts spaces before commas/periods, and wrote L08 as one block without paragraph breaks.",
+      "exampleFromMilo": "\"Because most children like to play video games we played them first then we ate lunch.\" (L06) / \"will be fine but , after...\" (L04)",
+      "targetFix": "Use quotation marks (\"...\") for one spoken line in stories, place a comma right after introductory clauses (no space before the comma!), and press Enter twice between paragraphs.",
+      "naturalPromptEmphasis": "Naturally prompt for one spoken line inside quotation marks (\"...\") in story missions and model introductory clauses followed by a comma in opinion missions."
+    },
+    {
+      "gapId": "GAP_PRONOUN_AGREEMENT",
+      "category": "Grammar — Pronouns",
+      "title": "Subject Pronouns ('...and I') & Plural Reflexives ('ourselves')",
+      "status": "🌱 Needs Focus",
+      "occurrences": "L02, L05",
+      "patternObserved": "Uses object pronoun 'me' in the subject position ('me and my brother', 'me, Ollie and my dad') and singular 'ourself' instead of plural 'ourselves'.",
+      "exampleFromMilo": "\"...becuase me and my brother both like sushi... we cant go by ourself.\" (L02) / \"...me , Ollie and my dad set of...\" (L05)",
+      "targetFix": "Put yourself last as 'I' when you are doing the action ('Ollie and I', 'my friends and I'), and use 'ourselves' (-ves) when talking about more than one person.",
+      "naturalPromptEmphasis": "Model 'Ollie and I' / 'my friends and I' and 'by ourselves' directly inside Coach Alex's question stems and hints."
+    },
+    {
+      "gapId": "GAP_TENSE_CONNECTORS",
+      "category": "Grammar — Tense & Small Connectors",
+      "title": "Consistent Past Tense & Small Connecting Words (to, on, an, off)",
+      "status": "🌱 Needs Focus",
+      "occurrences": "L01, L05, L06, L07, L08",
+      "patternObserved": "Starts past-tense stories in present tense ('Today is sports day... We got on') or shifts to 'will' mid-story (L05), and drops small connectors when typing fast ('go [to] a party', 'have [to] sneak', 'went [to] eat', 'was [on] a team', 'a [an] egg', 'set of [off]').",
+      "exampleFromMilo": "\"Today is sports day... We got on the coach bus\" (L08) / \"we have sneak up\" & \"set of\" (L05) / \"go a birthday party\" & \"took it out gave it\" (L07)",
+      "targetFix": "Keep stories in past tense from Sentence 1, and double-check small connectors ('go to', 'have to', 'went to', 'on a team', 'an egg', 'take off / set off').",
+      "naturalPromptEmphasis": "Model past-tense verbs in story questions and weave in natural reminders to check small connectors ('to', 'on', 'an', 'off') before submitting."
+    },
+    {
+      "gapId": "GAP_CONTRACTIONS_CAPS",
+      "category": "Mechanics — Contractions & Capitalization",
+      "title": "Apostrophes in Contractions (don't, can't) & Capital 'I'",
+      "status": "🌿 Improving",
+      "occurrences": "L01, L02, L04 (Improved in L05–L08)",
+      "patternObserved": "Omitted apostrophes in 'dont' and 'cant' in L02 and wrote lowercase 'i' four times in L04, though capitalization improved significantly in L05–L08.",
+      "exampleFromMilo": "\"my mom and my dad dont like sushi... we cant pay\" (L02) / \"i don't think... i would be super hungary.\" (L04)",
+      "targetFix": "Always include the apostrophe in contractions (don't, can't, didn't, couldn't) and keep 'I' and proper nouns (Halloween, iPad) capitalized.",
+      "naturalPromptEmphasis": "Gently remind Milo to use apostrophes in contractions like don't and can't when stating opinions."
+    },
+    {
+      "gapId": "GAP_PHONETIC_SPELLING",
+      "category": "Spelling Patterns",
+      "title": "Multi-Syllable Vowel Pairs & Consonant Blends",
+      "status": "🌿 Improving",
+      "occurrences": "L01–L08",
+      "patternObserved": "Phonetic vowel/consonant transpositions on longer words: restruant (restaurant), suace (sauce), becuase (because), brekfast (breakfast), tresure (treasure), queitly (quietly), eqaul (equal), acrade (arcade), cuboards (cupboards), suprising (surprising), craked (cracked), hungary (hungry).",
+      "exampleFromMilo": "\"My favourite restruant... soy suace... becuase\" (L02) / \"suprising... craked\" (L08)",
+      "targetFix": "Watch 'au' vs 'ua' (restaurant, sauce, because), 'ea' in breakfast/treasure, 'quie-' in quietly, and 'sur-' in surprising.",
+      "naturalPromptEmphasis": "Highlight 1–2 tricky words in Coach Alex's hints and Quick Fix retry challenges."
     }
   ]
 };
@@ -1531,6 +1721,7 @@
     (function() {
       const DEFAULT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbybiCtU66T4LDJin1zAkt9ie9mEoU4IMgM-Z839occrAocptze4WOkigu21hvkgqegL/exec';
       const DEFAULT_GCP_PROJECT = 'milo-writing-crafter';
+      const DEFAULT_PARENT_EMAIL = 'milolliehui@gmail.com';
 
       const STORAGE_KEYS = {
         EMERALDS: 'milo_isa_emeralds_v2_fresh',
@@ -1539,7 +1730,8 @@
         GCP_PROJECT: 'milo_isa_gcp_project_v1',
         GCP_LOCATION: 'milo_isa_gcp_location_v1',
         GEMINI_KEY: 'milo_isa_gemini_key_v1',
-        PARENT_LOGS: 'milo_isa_parent_logs_v2_fresh',
+        PARENT_EMAIL: 'milo_isa_parent_email_v1',
+        PARENT_LOGS: 'milo_isa_parent_logs_v3_gaps',
         STEP_DRAFTS: 'milo_isa_step_drafts_v1',
         WARMUP_DONE: 'milo_isa_warmup_done_v1',
         SOUND_MUTED: 'milo_isa_sound_muted_v1'
@@ -2341,66 +2533,204 @@
           try {
             const defaultCleanLogs = [
               {
-                timestamp: '2026-10-23 07:42:37',
-                missionId: 'L04',
-                missionTitle: 'Level 4: Should School Recess Be Longer?',
-                genre: 'Exposition/Argument',
-                modeLabel: '🗣️ Share Your Opinion • Easy (Step-by-Step)',
-                wordCount: 78,
-                wpm: 9,
-                durationSec: 494,
-                emeraldsEarned: 15,
-                brilliantCount: 2,
-                greatCount: 0,
-                retriesCompleted: 0,
-                isaContent10: 9.1,
-                isaLanguage10: 6.8,
-                isaSpelling10: 7.5,
-                isaTotal30: 23.4,
-                isaBand: 'ISA Level 4 (Proficient Upper Elementary)',
-                compiledDraft: "I think recess at school should be longer because then we can exercise a little longer.\n\ni don't think our recess is short because all I know is that our recess is half an hour , and to me , that is quite long.\n\nWell I guess that maybe 5 more minutes will be fine but , after the 5 minutes i would be super hungary.\n\ni am not sure how to explain that.but i do like exercising"
+                            "timestamp": "2026-10-29 18:57:23",
+                            "missionId": "L08",
+                            "missionTitle": "Level 8: A Memorable School Event or Sports Day",
+                            "genre": "Narrative/Reflective",
+                            "modeLabel": "📖 Story Time • Challenge (Full Story)",
+                            "wordCount": 135,
+                            "wpm": 9,
+                            "durationSec": 916,
+                            "emeraldsEarned": 40,
+                            "brilliantCount": 2,
+                            "greatCount": 9,
+                            "retriesCompleted": 0,
+                            "isaContent10": 8.7,
+                            "isaLanguage10": 9,
+                            "isaSpelling10": 8.5,
+                            "isaTotal30": 26.2,
+                            "isaBand": "ISA Level 5 (Advanced Upper Elementary)",
+                            "compiledDraft": "Today is sports day , and our class is getting ready to go on a coach bus . We got on the coach bus and headed to the stadium where we were going to have sports day. The first sport we did was relay races. I was a team with my best friends Aiden , Mason and Hugo. Our team won first place and got a trophy. The next sport we did was a running race. I won first place and got a trophy. Next we did a egg and spoon races. The suprising thing was that our teacher said that we were going to use ping-pong balls but instead , we used real eggs with chicks inside if you craked them. I won first and won the whole sports day. After a super good day every one went eat lunch.",
+                            "coachNotes": "Gaps Identified: (1) Sentence Structure: Avoided comma splices well, but relied on repetitive starters ('The first sport we did was... won first place and got a trophy. The next sport we did was... Next we did...'). (2) Tense & Small Connectors: Started in present tense ('Today is sports day') before switching to past ('We got on'), and dropped small words ('I was [on] a team', 'a [an] egg and spoon races', 'went [to] eat lunch'). (3) Punctuation/Format: Space before commas/periods, single block without paragraph breaks. (4) Spelling: 'suprising' -> 'surprising', 'craked' -> 'cracked', 'every one' -> 'everyone'.",
+                            "detectedGaps": [
+                                          "Repetitive Sentence Starters (The first... The next... Next...)",
+                                          "Tense Shift at Opening (Today is... -> We got on...)",
+                                          "Dropped Small Words (on a team, an egg, went to eat)",
+                                          "Missing Paragraph Breaks in Challenge Mode",
+                                          "Punctuation Spacing & Spelling (suprising, craked, every one)"
+                            ],
+                            "studentFeedbackSummary": "Coach Alex loved the surprise real eggs with chicks inside! Next time: (1) Start in past tense right from Sentence 1 ('Today was Sports Day'), (2) Vary your starters ('First of all,', 'Right after that,', 'For our final event,'), and (3) Don't drop tiny words like 'on a team', 'an egg', and 'went to eat lunch'."
               },
               {
-                timestamp: '2026-10-18 10:57:53',
-                missionId: 'L02',
-                missionTitle: 'Level 2: Picking the Best Weekend Family Lunch',
-                genre: 'Exposition/Argument',
-                modeLabel: '🗣️ Share Your Opinion • Easy (Step-by-Step)',
-                wordCount: 102,
-                wpm: 13,
-                durationSec: 465,
-                emeraldsEarned: 15,
-                brilliantCount: 4,
-                greatCount: 0,
-                retriesCompleted: 0,
-                isaContent10: 9.5,
-                isaLanguage10: 8.0,
-                isaSpelling10: 8.0,
-                isaTotal30: 25.5,
-                isaBand: 'ISA Level 5 (Advanced Upper Elementary)',
-                compiledDraft: "My favourite restruant on weekend to go to is Genki Sushi , and my favourite food in that restruant is cucumber in sushi dipped in soy suace.\n\nWhen I first get to my table it smells like noodles, sushi and soy suace.\n\nmy mom lets me and my little brother choose whatever food we like for ourself.\n\nI like to go to Genki Sushi becuase me and my brother both like sushi but my mom and my dad dont like sushi that much . Anyways, my mom and dad have to go because we cant pay and we cant go by ourself."
+                            "timestamp": "2026-10-28 18:54:41",
+                            "missionId": "L07",
+                            "missionTitle": "Level 7: The Day Something Went Missing at Home",
+                            "genre": "Narrative/Reflective",
+                            "modeLabel": "📖 Story Time • Medium (3 Short Paragraphs)",
+                            "wordCount": 117,
+                            "wpm": 14,
+                            "durationSec": 496,
+                            "emeraldsEarned": 25,
+                            "brilliantCount": 3,
+                            "greatCount": 2,
+                            "retriesCompleted": 0,
+                            "isaContent10": 9.1,
+                            "isaLanguage10": 8.1,
+                            "isaSpelling10": 8.5,
+                            "isaTotal30": 25.7,
+                            "isaBand": "ISA Level 5 (Advanced Upper Elementary)",
+                            "compiledDraft": "One day , I was getting ready to go a birthday party when I realised the birthday present was missing. I told my parents just in time. Then we started to find the birthday present.\n\nMy mom looked in the cuboards , my little brother looked in the play area , and my dad, who usually would not help us , looked inside the bedrooms , he helped us because he did not want us to start crying.\n\nI looked in the book shelf and found out that there was a box of Lego inside , I took it out gave it to my mom and she wrapped it up in Lego wrapping paper , then we ruhed down the stairs and into the car.",
+                            "coachNotes": "Gaps Identified: (1) Sentence Boundaries: Brilliant embedded relative clause ('my dad, who usually would not help us, looked inside the bedrooms'), but comma-spliced the next clause ('...bedrooms, he helped us...') and chained 4 actions in Paragraph 3 with commas. (2) Punctuation: Skipped the prompt to include spoken dialogue in quotation marks (\"...\"). (3) Omitted words: 'go [to] a birthday party', 'took it out [and] gave it'. (4) Spelling: 'cuboards' -> 'cupboards', 'ruhed' -> 'rushed'.",
+                            "detectedGaps": [
+                                          "Comma Splices / Run-On Chains (3+ clauses joined by commas)",
+                                          "Skipped Direct Speech / Quotation Marks (\"...\")",
+                                          "Dropped Small Words (go to a party, took it out and gave it)",
+                                          "Punctuation Spacing & Spelling (cuboards, ruhed)"
+                            ],
+                            "studentFeedbackSummary": "Coach Alex loved the funny detail about Dad helping so nobody would cry! Quick fixes: (1) Put a period after 'bedrooms.' to start a new sentence ('He helped us because...'), (2) Add 'to' ('go to a birthday party') and 'and' ('took it out and gave it'), and (3) Try adding one line of spoken dialogue with quotation marks (\"...\")!"
               },
               {
-                timestamp: '2026-10-17 08:35:55',
-                missionId: 'L01',
-                missionTitle: 'Level 1: Trying On Our New Harry Potter Costumes',
-                genre: 'Narrative/Reflective',
-                modeLabel: '📖 Story Time • Easy (Step-by-Step)',
-                wordCount: 60,
-                wpm: 11,
-                durationSec: 336,
-                emeraldsEarned: 15,
-                brilliantCount: 1,
-                greatCount: 2,
-                retriesCompleted: 0,
-                isaContent10: 8.8,
-                isaLanguage10: 6.9,
-                isaSpelling10: 8.0,
-                isaTotal30: 23.7,
-                isaBand: 'ISA Level 4 (Proficient Upper Elementary)',
-                compiledDraft: "when I put on the Harry Potter costume, I feel like I am a wizard.\n\nI first did the Avada Kadavra , the spell of instaneous death.\n\nMy mom took a picture of us and my dad said it was time to take it of and eat our dinner.\n\nI was most happy to wear my costume next for haloween."
+                            "timestamp": "2026-10-28 06:27:11",
+                            "missionId": "L06",
+                            "missionTitle": "Level 6: Picking the Best Class Field Trip",
+                            "genre": "Exposition/Argument",
+                            "modeLabel": "🗣️ Share Your Opinion • Medium (3 Short Paragraphs)",
+                            "wordCount": 127,
+                            "wpm": 10,
+                            "durationSec": 743,
+                            "emeraldsEarned": 25,
+                            "brilliantCount": 3,
+                            "greatCount": 4,
+                            "retriesCompleted": 1,
+                            "isaContent10": 9.3,
+                            "isaLanguage10": 8.5,
+                            "isaSpelling10": 8.5,
+                            "isaTotal30": 26.3,
+                            "isaBand": "ISA Level 5 (Advanced Upper Elementary)",
+                            "compiledDraft": "I think my teacher will make a vote betweeen two places , one is the acrade , second is the library and our class has twenty-two children , thirteen children wanted to go to the acrade, and nine wanted to go to the library. So we went to the acrade.\n\nBecause most children like to play video games we played them first then we ate lunch. We played in the most grown-up playroom I have ever seen. All together , we won two-hundred and seventy-seven    tickets. We used some of the tickets to play games that you need to pay with tickets\n\nBy the end of the game I noticed that we only got twenty-two tickets left so I went back to playing video games with my best friend Hugo very happily.",
+                            "coachNotes": "Gaps Identified: (1) Comma Splices: Paragraph 1 chains 5 clauses with commas ('I think my teacher will make a vote betweeen two places , one is the acrade , second is the library...'). (2) Introductory Commas & End Punctuation: Missing comma after 'Because most children like to play video games,' and 'By the end of the game,', plus missing period at the end of Paragraph 2. (3) Tense/Genre Drift: Shifted from future opinion ('will make a vote') to past story ('So we went'). (4) Spelling: 'betweeen' -> 'between', 'acrade' -> 'arcade'.",
+                            "detectedGaps": [
+                                          "Comma Splices in Opening Paragraph (5 clauses chained with commas)",
+                                          "Missing Commas After Introductory Clauses (Because..., By the end...)",
+                                          "Genre/Tense Drift (Future recommendation -> Past narrative)",
+                                          "Missing Final Period & Spelling (betweeen, acrade)"
+                            ],
+                            "studentFeedbackSummary": "Winning 277 arcade tickets with Hugo sounds awesome! Quick fixes: (1) Break that long first sentence into 2 or 3 crisp sentences with periods, (2) Add a comma after introductory openers like 'Because most children like video games,' and 'By the end of the game,', and (3) Check 'arcade' and 'between'."
+              },
+              {
+                            "timestamp": "2026-10-27 20:23:34",
+                            "missionId": "L05",
+                            "missionTitle": "Level 5: A Weekend Run or Outdoor Outing",
+                            "genre": "Narrative/Reflective",
+                            "modeLabel": "📖 Story Time • Medium (3 Short Paragraphs)",
+                            "wordCount": 177,
+                            "wpm": 95,
+                            "durationSec": 120,
+                            "emeraldsEarned": 25,
+                            "brilliantCount": 3,
+                            "greatCount": 2,
+                            "retriesCompleted": 0,
+                            "isaContent10": 9.4,
+                            "isaLanguage10": 8.1,
+                            "isaSpelling10": 8.5,
+                            "isaTotal30": 26,
+                            "isaBand": "ISA Level 5 (Advanced Upper Elementary)",
+                            "compiledDraft": "One day , I woke up on a sunny morning with wind blowing on my face , I got out of my bunk bed , went out to the living room , and started playing the games on my Ipad , after my brekfast , me , Ollie and my dad set of to the second floor of our building to meet up with our friend called Pase to go running with.\n\nDuring the run ,  we played this game were my dad was a monster and he stole our water bottle , which in the game is our tresure . My dad will turn around , and we have sneak up very queitly and grab our water bottle , and run back to our land before he catches us , if he does , then we don't get a point , and each water bottle which gets back to our land is one point.\n\nAfter the run , we had around 10,15 points. And each ten points eqaul a pack of Pretz or Pocky I bought a pack of Pretz , and Ollie bought a pack of chocolate  , and Pase bought a pack of Doritos.",
+                            "coachNotes": "Gaps Identified: (1) Run-On / Comma Splices: Paragraph 1 is a 55-word sentence chaining 4 clauses with commas; Paragraph 3 fuses '...Pretz or Pocky I bought a pack...' with no period. (2) Pronoun Case: 'me, Ollie and my dad set of' -> 'Ollie, my dad, and I set off'. (3) Tense & Small Words: Shifted to 'will turn around' inside a past-tense story, dropped 'to' in 'we have [to] sneak up', wrote 'were' for 'where' and 'set of' for 'set off'. (4) Spelling: 'brekfast', 'tresure', 'queitly', 'eqaul'.",
+                            "detectedGaps": [
+                                          "Comma Splices & Run-On Sentences (55-word Paragraph 1; fused sentence in Paragraph 3)",
+                                          "Pronoun Case & Order (me, Ollie and my dad -> Ollie, my dad, and I)",
+                                          "Tense Shifting in Rules (played/stole -> My dad will turn around)",
+                                          "Dropped Words & Homophones (have to sneak, set off, where vs. were)",
+                                          "Phonetic Spelling (brekfast, tresure, queitly, eqaul)"
+                            ],
+                            "studentFeedbackSummary": "The monster water-bottle treasure game with Dad, Ollie, and Pase is a brilliant story! Quick fixes: (1) Start a new sentence with a period when a new action starts (like 'After breakfast, Ollie, my dad, and I set off...'), (2) Put yourself last as 'I' ('Ollie, my dad, and I'), and (3) Use two f's in 'set off' and add 'to' in 'have to sneak up'."
+              },
+              {
+                            "timestamp": "2026-10-23 07:42:37",
+                            "missionId": "L04",
+                            "missionTitle": "Level 4: Should School Recess Be Longer?",
+                            "genre": "Exposition/Argument",
+                            "modeLabel": "🗣️ Share Your Opinion • Easy (Step-by-Step)",
+                            "wordCount": 78,
+                            "wpm": 9,
+                            "durationSec": 494,
+                            "emeraldsEarned": 15,
+                            "brilliantCount": 2,
+                            "greatCount": 0,
+                            "retriesCompleted": 0,
+                            "isaContent10": 9.1,
+                            "isaLanguage10": 6.8,
+                            "isaSpelling10": 7.5,
+                            "isaTotal30": 23.4,
+                            "isaBand": "ISA Level 4 (Proficient Upper Elementary)",
+                            "compiledDraft": "I think recess at school should be longer because then we can exercise a little longer.\n\ni don't think our recess is short because all I know is that our recess is half an hour , and to me , that is quite long.\n\nWell I guess that maybe 5 more minutes will be fine but , after the 5 minutes i would be super hungary.\n\ni am not sure how to explain that.but i do like exercising",
+                            "coachNotes": "Gaps Identified: (1) Capitalization: Wrote lowercase 'i' four times ('i don't', 'i would', 'i am', 'i do'). (2) Punctuation Placement: Placed comma after 'but' ('will be fine but , after'), missed space after period ('that.but'), and missed final period at end of piece. (3) Spelling: 'hungary' (the country) instead of 'hungry'.",
+                            "detectedGaps": [
+                                          "Lowercase Pronoun 'i' & Sentence Openings (4 instances)",
+                                          "Comma Placement with Conjunctions ('but , after' instead of ', but after')",
+                                          "Missing Final Period & Space After Period ('that.but i')",
+                                          "Homophone Spelling (hungary -> hungry)"
+                            ],
+                            "studentFeedbackSummary": "Great honest point that 5 extra minutes of recess would make you hungry! Quick fixes: (1) Always capitalize 'I' when talking about yourself, (2) Put the comma BEFORE 'but' (', but after 5 minutes'), and (3) Spell 'hungry' without an 'a'!"
+              },
+              {
+                            "timestamp": "2026-10-18 10:57:53",
+                            "missionId": "L02",
+                            "missionTitle": "Level 2: Picking the Best Weekend Family Lunch",
+                            "genre": "Exposition/Argument",
+                            "modeLabel": "🗣️ Share Your Opinion • Easy (Step-by-Step)",
+                            "wordCount": 102,
+                            "wpm": 13,
+                            "durationSec": 465,
+                            "emeraldsEarned": 15,
+                            "brilliantCount": 4,
+                            "greatCount": 0,
+                            "retriesCompleted": 0,
+                            "isaContent10": 9.5,
+                            "isaLanguage10": 8,
+                            "isaSpelling10": 8,
+                            "isaTotal30": 25.5,
+                            "isaBand": "ISA Level 5 (Advanced Upper Elementary)",
+                            "compiledDraft": "My favourite restruant on weekend to go to is Genki Sushi , and my favourite food in that restruant is cucumber in sushi dipped in soy suace.\n\nWhen I first get to my table it smells like noodles, sushi and soy suace.\n\nmy mom lets me and my little brother choose whatever food we like for ourself.\n\nI like to go to Genki Sushi becuase me and my brother both like sushi but my mom and my dad dont like sushi that much . Anyways, my mom and dad have to go because we cant pay and we cant go by ourself.",
+                            "coachNotes": "Gaps Identified: (1) Pronouns: Used 'me and my brother' in subject position (instead of 'my brother and I') and singular 'ourself' twice (instead of plural 'ourselves'). (2) Contractions: Omitted apostrophes in 'dont' and 'cant'. (3) Articles & Capitalization: 'on weekend' -> 'on the weekend', lowercase sentence start 'my mom'. (4) Spelling: 'restruant' -> 'restaurant', 'suace' -> 'sauce', 'becuase' -> 'because'.",
+                            "detectedGaps": [
+                                          "Pronoun Case & Reflexive Agreement (me and my brother -> my brother and I; ourself -> ourselves)",
+                                          "Missing Apostrophes in Contractions (dont -> don't, cant -> can't)",
+                                          "Missing Article ('on weekend' -> 'on the weekend')",
+                                          "Lowercase Sentence Start & Phonetic Spelling (restruant, suace, becuase)"
+                            ],
+                            "studentFeedbackSummary": "Haha, it is so true that Mum and Dad have to come to Genki Sushi because you and Ollie can't pay! Quick fixes: (1) When talking about more than one person, use 'ourselves' (with -ves) and 'my brother and I', (2) Add apostrophes in \"don't\" and \"can't\", and (3) Watch the 'au' in 'restaurant' and 'sauce'."
+              },
+              {
+                            "timestamp": "2026-10-17 08:35:55",
+                            "missionId": "L01",
+                            "missionTitle": "Level 1: Trying On Our New Harry Potter Costumes",
+                            "genre": "Narrative/Reflective",
+                            "modeLabel": "📖 Story Time • Easy (Step-by-Step)",
+                            "wordCount": 60,
+                            "wpm": 11,
+                            "durationSec": 336,
+                            "emeraldsEarned": 15,
+                            "brilliantCount": 1,
+                            "greatCount": 2,
+                            "retriesCompleted": 0,
+                            "isaContent10": 8.8,
+                            "isaLanguage10": 6.9,
+                            "isaSpelling10": 8,
+                            "isaTotal30": 23.7,
+                            "isaBand": "ISA Level 4 (Proficient Upper Elementary)",
+                            "compiledDraft": "when I put on the Harry Potter costume, I feel like I am a wizard.\n\nI first did the Avada Kadavra , the spell of instaneous death.\n\nMy mom took a picture of us and my dad said it was time to take it of and eat our dinner.\n\nI was most happy to wear my costume next for haloween.",
+                            "coachNotes": "Gaps Identified: (1) Tense Consistency: Opened in present tense ('when I put on..., I feel like I am a wizard') before switching to past tense ('I first did...'). (2) Capitalization: Lowercase 'when' at start of Sentence 1 and lowercase 'haloween' (proper holiday noun). (3) Preposition: 'take it of' -> 'take it off'. (4) Spelling: 'instaneous' -> 'instantaneous'.",
+                            "detectedGaps": [
+                                          "Opening Tense Shift (when I put on..., I feel -> I first did...)",
+                                          "Lowercase Sentence Start & Proper Noun (when -> When, haloween -> Halloween)",
+                                          "Preposition / Homophone Slip (take it of -> take it off)",
+                                          "Phonetic Spelling & Comma Spacing (instaneous -> instantaneous, space before comma)"
+                            ],
+                            "studentFeedbackSummary": "Great appositive explaining 'Avada Kedavra, the spell of instantaneous death'! Quick fixes: (1) Keep the whole story in past tense ('When I put on..., I felt like a wizard'), (2) Capitalize 'When' and 'Halloween', and (3) Use two f's in 'take it off'."
               }
-            ];
+];
 
             const rawLogs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
             const filtered = Array.isArray(rawLogs) ? rawLogs.filter(entry => {
@@ -2412,17 +2742,6 @@
 
             const finalLogs = filtered.length > 0 ? filtered : defaultCleanLogs;
             safeSetStorage(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(finalLogs));
-
-            // Preserve Milo's genuine 55-word Paragraph 1 for Level 5 so he doesn't have to re-type it!
-            const savedDraftsMap = JSON.parse(safeGetStorage(STORAGE_KEYS.STEP_DRAFTS, '{}')) || {};
-            if (!savedDraftsMap['L05'] || !Array.isArray(savedDraftsMap['L05']) || !savedDraftsMap['L05'][0]) {
-              savedDraftsMap['L05'] = [
-                'One day , I woke up on a sunny morning with wind blowing on my face , I got out of my bunk bed , went out to the living room , and started playing the games on my Ipad , after my brekfast , me , Ollie and my dad set of to the second floor of our building to meet up with our friend called Pase to go running with.',
-                '',
-                ''
-              ];
-              safeSetStorage(STORAGE_KEYS.STEP_DRAFTS, JSON.stringify(savedDraftsMap));
-            }
           } catch (e) {}
         },
 
@@ -2812,12 +3131,64 @@
         /**
          * Context-conscious, varied feedback analyzer (never repeats "vivid, well-explained part"!).
          */
+        detectDraftLearningGaps(fullDraft, genre = '') {
+          const text = String(fullDraft || '').trim();
+          const gaps = [];
+          if (!text) return gaps;
+
+          const sentences = text.split(/(?<=[.!?])\s+|\n+/).filter(Boolean);
+          let hasCommaSplice = false;
+          for (const s of sentences) {
+            const wCount = s.split(/\s+/).length;
+            const commaCount = (s.match(/,/g) || []).length;
+            if ((wCount >= 32 && commaCount >= 3) || /,\s*(I|we|he|she|they|my\s+mom|my\s+dad|then\s+we)\s+[a-z]+/i.test(s)) {
+              hasCommaSplice = true;
+              break;
+            }
+          }
+          if (hasCommaSplice) {
+            gaps.push('Comma Splices / Run-On Chains (joining complete clauses with commas instead of periods)');
+          }
+
+          const nextCount = (text.match(/\b(The next|Next we|Then we)\b/gi) || []).length;
+          if (nextCount >= 3) {
+            gaps.push('Repetitive Sentence Starters ("The next... / Next...")');
+          }
+
+          if (String(genre).includes('Narrative') && !/["“”]/.test(text)) {
+            gaps.push('Punctuation — Direct Speech (no quotation marks "..." used for dialogue)');
+          }
+          if (/\b(Because|When|After|Before|Although|Even though|By the end)\s+[^,.!?\n]{12,}\s+(I|we|he|she|they|my)\b/.test(text)) {
+            gaps.push('Punctuation — Missing Comma After Introductory Clause');
+          }
+          if (/\s+[,.;!?]/.test(text) || /\bbut\s*,/i.test(text)) {
+            gaps.push('Punctuation Mechanics (space before comma/period or comma after "but")');
+          }
+          if (/\b(me and my|me\s*,\s*Ollie|Ollie and me)\b/i.test(text) || /\bourself\b/i.test(text)) {
+            gaps.push('Grammar — Pronouns ("...and I" in subject position or plural "ourselves")');
+          }
+          if (/\b(take it of|set of|go a |went eat|have sneak|was a team with|a egg|took it out gave)\b/i.test(text)) {
+            gaps.push('Grammar — Dropped Small Connectors (to, on, an, and, off)');
+          }
+          if (String(genre).includes('Narrative') && /\b(Today is|I feel like I am|will turn around)\b/i.test(text) && /\b(was|were|went|got|won|did|played|looked)\b/i.test(text)) {
+            gaps.push('Grammar — Tense Consistency (shifting between present/future and past tense)');
+          }
+          if (/\b(dont|cant|didnt|wont|wasnt|im)\b/i.test(text) || /\bi\b/.test(text) || /^[a-z]/.test(text)) {
+            gaps.push('Mechanics — Contractions & Capitalization (don\'t/can\'t or capital "I")');
+          }
+          return gaps;
+        },
+
+        /**
+         * Context-conscious, gap-aware feedback analyzer:
+         * Coaches Milo on his specific ideas + his recurring grammar, sentence-structure,
+         * punctuation, and spelling gaps.
+         */
         analyzeSentenceHeuristically(text, stepIdx = 0) {
           const words = text.split(/\s+/).filter(Boolean);
-          const lower = text.toLowerCase();
           const snippet = this.extractKeyPhrase(text);
 
-          // 1. Check all common misspellings (collect up to 2 so Milo gets specific, helpful feedback)
+          // 1. Check spelling & contraction slips
           const foundSlips = [];
           for (const [wrong, right] of Object.entries(COMMON_MISSPELLINGS)) {
             const regex = new RegExp(`\\b${wrong}\\b`, 'i');
@@ -2825,20 +3196,51 @@
               foundSlips.push({ wrong, right });
             }
           }
-          if (/\btake it of\b/i.test(text)) {
-            foundSlips.push({ wrong: 'take it of', right: 'take it off' });
+          if (/\btake it of\b/i.test(text)) foundSlips.push({ wrong: 'take it of', right: 'take it off' });
+          if (/\bset of\b/i.test(text)) foundSlips.push({ wrong: 'set of', right: 'set off' });
+          if (/\bhave sneak\b/i.test(text)) foundSlips.push({ wrong: 'have sneak', right: 'have to sneak' });
+          if (/\bwent eat\b/i.test(text)) foundSlips.push({ wrong: 'went eat', right: 'went to eat' });
+          if (/\bgo a birthday\b/i.test(text)) foundSlips.push({ wrong: 'go a birthday', right: 'go to a birthday' });
+          if (/\bwas a team with\b/i.test(text)) foundSlips.push({ wrong: 'was a team with', right: 'was on a team with' });
+          if (/\ba egg\b/i.test(text)) foundSlips.push({ wrong: 'a egg', right: 'an egg' });
+          if (/\btook it out gave\b/i.test(text)) foundSlips.push({ wrong: 'took it out gave', right: 'took it out and gave' });
+
+          // 2. Check grammar & sentence-structure gaps
+          const grammarFixes = [];
+          if (/\bme and my brother\b/i.test(text)) {
+            grammarFixes.push('use "my brother and I" instead of "me and my brother"');
+          } else if (/\bme\s*,\s*Ollie and my dad\b/i.test(text) || /\bme and Ollie\b/i.test(text)) {
+            grammarFixes.push('put yourself last as "I" (like "Ollie, my dad, and I" or "Ollie and I")');
+          }
+          if (/\bourself\b/i.test(text)) {
+            grammarFixes.push('change "ourself" to plural "ourselves" (ending in -ves)');
+          }
+          const commaCount = (text.match(/,/g) || []).length;
+          if ((words.length >= 32 && commaCount >= 3) || /,\s*(I|we|he|she|my\s+mom|my\s+dad|then\s+we)\s+(got|went|looked|took|helped|ran|played|started|wanted)\b/i.test(text)) {
+            grammarFixes.push('split this long comma chain into 2 crisp sentences using a period (.)');
+          }
+          if (/\b(Because|When|After|Before|Although|Even though|By the end)\s+[^,.!?\n]{12,}\s+(I|we|he|she|they|my)\b/.test(text)) {
+            grammarFixes.push('add a comma (,) right after your opening clause before the main action starts');
+          }
+          if (/\bbut\s*,/i.test(text)) {
+            grammarFixes.push('put the comma BEFORE "but" (", but") instead of after it');
+          }
+          if (/\bi\b/.test(text)) {
+            grammarFixes.push('always capitalize "I" when talking about yourself');
           }
 
-          // 2. Build content-specific praise based on what Milo actually wrote in this sentence/part!
+          // 3. Build content-specific praise based on what Milo wrote
           let contentPraise = '';
-          if (/because|becuase|since|so that/i.test(text)) {
+          if (/["“”].*["“”]/.test(text)) {
+            contentPraise = `Awesome use of quotation marks ("...") for spoken dialogue in "${snippet}"!`;
+          } else if (/because|becuase|since|so that/i.test(text)) {
             contentPraise = `I love how you explained the reason behind your choice ("${snippet}")!`;
           } else if (/smell|taste|sound|look|feel|dipped|crispy|warm|sweet|savory/i.test(text)) {
-            contentPraise = `Bringing in senses like smell and taste in "${snippet}" makes the reader feel right there at the table!`;
-          } else if (/ollie|brother|mom|mum|dad|family|friend/i.test(text)) {
-            contentPraise = `Including your family in "${snippet}" makes your writing personal and fun to read!`;
-          } else if (/anyways|actually|however|although|first|next|finally/i.test(text)) {
-            contentPraise = `Great conversational voice in "${snippet}"—your transition connects your thoughts smoothly!`;
+            contentPraise = `Bringing in senses like smell and taste in "${snippet}" makes the reader feel right there!`;
+          } else if (/ollie|brother|mom|mum|dad|family|friend|hugo|aiden|mason|pase/i.test(text)) {
+            contentPraise = `Including your family or friends in "${snippet}" makes your writing personal and fun to read!`;
+          } else if (/anyways|actually|however|although|first of all|right after|even though/i.test(text)) {
+            contentPraise = `Great transition in "${snippet}"—it connects your thoughts smoothly!`;
           } else {
             const variedPraises = [
               `Great job naming specific details in "${snippet}"!`,
@@ -2849,18 +3251,21 @@
             contentPraise = variedPraises[(stepIdx + words.length) % variedPraises.length];
           }
 
-          // 3. If there was a spelling slip, combine the warm content praise with the exact spelling fix!
-          if (foundSlips.length > 0) {
-            const slipDesc = foundSlips.slice(0, 2).map(s => `"${s.wrong}" ➔ "${s.right}"`).join(' and ');
+          if (grammarFixes.length > 0 || foundSlips.length > 0) {
+            const tips = [];
+            if (grammarFixes.length > 0) tips.push(grammarFixes[0]);
+            if (foundSlips.length > 0) {
+              const slipDesc = foundSlips.slice(0, 2).map(s => `"${s.wrong}" ➔ "${s.right}"`).join(' and ');
+              tips.push(`fix ${slipDesc}`);
+            }
             return {
               badge: '🔧 Quick Fix',
               badgeClass: 'inaccuracy',
               praise: contentPraise,
-              hint: `Quick spelling check: try fixing ${slipDesc}.`
+              hint: `Coach tip: try to ${tips.join(', and ')}.`
             };
           }
 
-          // 4. Check if sentence starts with a lowercase letter
           if (/^[a-z]/.test(text.trim())) {
             const firstW = words[0];
             const capW = firstW.charAt(0).toUpperCase() + firstW.slice(1);
@@ -2872,7 +3277,6 @@
             };
           }
 
-          // 5. Check weak basic words
           for (const [weak, upgrades] of Object.entries(WEAK_WORDS_MAP)) {
             const regex = new RegExp(`\\b${weak}\\b`, 'i');
             if (regex.test(text)) {
@@ -2890,7 +3294,7 @@
               badge: '💎 Brilliant!!',
               badgeClass: 'brilliant',
               praise: contentPraise,
-              hint: `Spot-on spelling and detail (${words.length} words)!`
+              hint: `Spot-on sentence boundaries, grammar, and detail (${words.length} words)!`
             };
           }
 
@@ -3053,6 +3457,12 @@
           return (fromInput || safeGetStorage(STORAGE_KEYS.GEMINI_KEY, '')).trim();
         },
 
+        getParentEmail() {
+          const inputEl = document.getElementById('input-parent-email');
+          const fromInput = inputEl && inputEl.value ? inputEl.value.trim() : '';
+          return (fromInput || safeGetStorage(STORAGE_KEYS.PARENT_EMAIL, '') || DEFAULT_PARENT_EMAIL).trim();
+        },
+
         setModalStatus(msg, type = 'info') {
           const el = document.getElementById('modal-cloud-status');
           if (!el) return;
@@ -3106,6 +3516,7 @@
         async recordSilentParentAnalytics(fullDraft, brilliantCount, greatCount, inaccuracyCount) {
           const words = this.countRealWords ? this.countRealWords(fullDraft) : fullDraft.split(/\s+/).filter(Boolean).length;
           const goal = this.currentMission.minWords || 45;
+          const detectedGaps = this.detectDraftLearningGaps(fullDraft, this.currentMission.genre || '');
 
           const contentScore = Math.min(9.5, Math.max(5.5, Number((6.5 + Math.min(2.0, (words / goal) * 1.5) + brilliantCount * 0.3).toFixed(1))));
           const languageScore = Math.min(9.5, Math.max(5.5, Number((6.2 + brilliantCount * 0.5 + greatCount * 0.2 - inaccuracyCount * 0.2).toFixed(1))));
@@ -3115,9 +3526,18 @@
                        total30 >= 20 ? 'ISA Level 4 (Proficient Upper Elementary)' :
                                        'ISA Level 3 (Developing Upper Elementary)';
 
+          const defaultNotes = detectedGaps.length > 0
+            ? `Assessed Gaps: ${detectedGaps.join('; ')}. Coach Alex highlighted the top fix on screen and queued natural emphasis for upcoming levels.`
+            : 'Clean sentence boundaries, grammar, and punctuation!';
+
+          const reviewSumEl = document.getElementById('review-coach-summary');
+          if (reviewSumEl && detectedGaps.length > 0) {
+            reviewSumEl.textContent = `Awesome work finishing "${this.currentMission.title}", Milo! You wrote ${words} words at ${this.currentWpm || 18} WPM. Focus tip for next time: ${detectedGaps[0]}.`;
+          }
+
           const entry = {
             child: 'milo',
-            timestamp: new Date().toISOString().slice(0, 16).replace('T', ' '),
+            timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
             missionId: this.currentMission.levelId,
             missionTitle: this.currentMission.title,
             promptScenario: this.currentMission.promptScenario || '',
@@ -3137,7 +3557,10 @@
             isaTotal30: total30,
             isaBand: band,
             compiledDraft: fullDraft,
-            coachNotes: '',
+            detectedGaps,
+            coachNotes: defaultNotes,
+            studentFeedbackSummary: reviewSumEl ? reviewSumEl.textContent : '',
+            parentEmail: this.getParentEmail(),
             gcpProjectId: this.getCloudProjectId(),
             gcpLocation: this.getCloudLocation(),
             apiKey: this.getCloudApiKey()
@@ -3168,7 +3591,6 @@
           }
 
           if (!cloudRes || cloudRes.status !== 'ok') {
-            // Fallback to log_session via JSONP if old script doesn't support game_review on GET
             cloudRes = await this.callActionViaJsonp(webAppUrl, 'log_session', { action: 'log_session', ...entry }, 20000);
             if (!cloudRes) {
               fetch(webAppUrl, {
@@ -3197,10 +3619,16 @@
                   logsNow[0].isaSpelling10 = s.spelling10 ?? logsNow[0].isaSpelling10;
                   logsNow[0].isaTotal30 = s.total30 ?? logsNow[0].isaTotal30;
                   logsNow[0].isaBand = s.isaBand || logsNow[0].isaBand;
-                  logsNow[0].coachNotes = s.parentNotes || '';
+                  if (Array.isArray(s.detectedGaps) && s.detectedGaps.length > 0) {
+                    logsNow[0].detectedGaps = s.detectedGaps;
+                  }
+                  logsNow[0].coachNotes = s.parentNotes || logsNow[0].coachNotes;
                   safeSetStorage(STORAGE_KEYS.PARENT_LOGS, JSON.stringify(logsNow));
                 }
               }
+            }
+            if (cloudRes.emailSent) {
+              this.showToast(`📧 Level report & gap feedback emailed to ${cloudRes.emailRecipient || this.getParentEmail()}!`);
             }
             if (cloudRes.autoGeneratedLevel && cloudRes.autoGeneratedLevel.title) {
               this.mergeNewMissionIntoBank(cloudRes.autoGeneratedLevel, false);
@@ -3209,9 +3637,76 @@
           }
         },
 
-        /**
-         * Uses JSONP fallback on iPad Safari if POST redirect is blocked by WebKit!
-         */
+        async sendLatestReportEmail() {
+          const webAppUrl = this.getActiveWebAppUrl();
+          const recipient = this.getParentEmail();
+          if (!webAppUrl) {
+            this.setModalStatus('⚠️ Please paste your Google Apps Script Web App URL above first.', 'warn');
+            return;
+          }
+          safeSetStorage(STORAGE_KEYS.PARENT_EMAIL, recipient);
+
+          const logs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
+          const latest = logs[0] || {
+            child: 'milo',
+            missionId: 'L08',
+            missionTitle: 'Level 8: A Memorable School Event or Sports Day',
+            genre: 'Narrative/Reflective',
+            wordCount: 135,
+            wpm: 9,
+            isaContent10: 8.7,
+            isaLanguage10: 9.0,
+            isaSpelling10: 8.5,
+            isaTotal30: 26.2,
+            isaBand: 'ISA Level 5 (Advanced Upper Elementary)',
+            compiledDraft: 'Today is sports day , and our class is getting ready to go on a coach bus . We got on the coach bus and headed to the stadium where we were going to have sports day...',
+            detectedGaps: ['Repetitive Sentence Starters', 'Tense Shift at Opening', 'Dropped Small Words (on a team, an egg, went to eat)'],
+            coachNotes: 'Sample report from Parent Settings.'
+          };
+
+          const btn = document.getElementById('btn-send-parent-email');
+          if (btn) {
+            btn.disabled = true;
+            btn.textContent = '⏳ Sending Email...';
+          }
+          this.setModalStatus(`📧 Sending level report & learning gaps assessment for "${latest.missionTitle}" to ${recipient}...`, 'info');
+
+          const reqPayload = {
+            action: 'send_test_email',
+            ...latest,
+            parentEmail: recipient,
+            gcpProjectId: this.getCloudProjectId(),
+            gcpLocation: this.getCloudLocation(),
+            apiKey: this.getCloudApiKey()
+          };
+
+          let res = null;
+          try {
+            const resp = await fetch(webAppUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify(reqPayload)
+            });
+            res = await resp.json();
+          } catch (e) {
+            res = await this.callActionViaJsonp(webAppUrl, 'send_test_email', reqPayload, 15000);
+          }
+
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = '📧 Email Latest Report Now';
+          }
+
+          if (res && res.status === 'ok' && res.emailSent) {
+            this.setModalStatus(`✅ Sent! Check ${res.recipient || recipient} for the full level report and diagnostic learning gaps breakdown.`, 'success');
+            this.showToast(`📧 Report emailed to ${res.recipient || recipient}!`);
+          } else {
+            const errTxt = (res && res.error) ? res.error : 'Make sure you updated GoogleAppsScript_English_v1.gs (v1.6) and appsscript.json (with send_mail scope) and deployed a New Version in script.google.com!';
+            this.setModalStatus(`⚠️ Could not send email yet: ${errTxt}`, 'warn');
+            this.showToast('⚠️ Update Apps Script to v1.6 to enable email sending.');
+          }
+        },
+
         async fetchLiveCoachTurn(studentText, stepObj, nextStepObj) {
           const webAppUrl = this.getActiveWebAppUrl();
           if (!webAppUrl) return null;
@@ -3326,7 +3821,6 @@
             return;
           }
 
-          // Save current inputs before calling Vertex AI
           safeSetStorage(STORAGE_KEYS.WEBAPP_URL, webAppUrl);
           safeSetStorage(STORAGE_KEYS.GCP_PROJECT, proj);
           safeSetStorage(STORAGE_KEYS.GCP_LOCATION, loc);
@@ -3337,8 +3831,8 @@
             btn.disabled = true;
             btn.textContent = '⏳ Generating Level...';
           }
-          this.setModalStatus(`⏳ Connecting to Vertex AI (Project: ${proj}, Region: ${loc}) to generate a brand-new level for Milo... (takes ~5–10 seconds)`, 'info');
-          this.showToast('⏳ Generating new level via Vertex AI...');
+          this.setModalStatus(`⏳ Connecting to Vertex AI (Project: ${proj}, Region: ${loc}) to generate a new level with natural emphasis on Milo's learning gaps...`, 'info');
+          this.showToast('⏳ Generating gap-tailored level via Vertex AI...');
 
           const lastMission = this.missions[this.missions.length - 1] || this.currentMission || {};
           const reqPayload = {
@@ -3375,7 +3869,7 @@
 
           if (res && res.status === 'ok' && res.newLevel && res.newLevel.title) {
             this.mergeNewMissionIntoBank(res.newLevel, true);
-            this.setModalStatus(`✅ Vertex AI generated "${res.newLevel.title}" (${res.newLevel.levelId}) and saved it to Google Drive! It is now selected at the top of the app.`, 'success');
+            this.setModalStatus(`✅ Vertex AI generated "${res.newLevel.title}" (${res.newLevel.levelId}) with natural gap emphasis and saved it to Google Drive!`, 'success');
             this.showToast(`✨ Added ${res.newLevel.title}!`);
           } else {
             const errDetail = (res && res.error) ? res.error : 'No response from generate_new_level (make sure you pasted the updated .gs script in script.google.com and deployed a New Version!).';
@@ -3394,7 +3888,7 @@
             return;
           }
           if (manual) {
-            this.setModalStatus('🔄 Syncing latest questions from Google Drive via Apps Script...', 'info');
+            this.setModalStatus('🔄 Syncing latest questions & gap profile from Google Drive via Apps Script...', 'info');
             this.showToast('🔄 Syncing latest questions from Google Drive...');
           }
           const sep = webAppUrl.includes('?') ? '&' : '?';
@@ -3404,16 +3898,10 @@
             .then(r => r.json())
             .then(res => {
               if (res && res.status === 'ok' && res.data && Array.isArray(res.data.missions)) {
-                if ('milo' === 'ollie' && this.isValidOllieTwoPartBank && !this.isValidOllieTwoPartBank(res.data)) {
-                  if (manual) {
-                    this.setModalStatus('ℹ️ Connected to Milo\'s 4-part script (not yet updated with multi-child v1.5). Using Ollie\'s built-in 12 two-part levels! Update the .gs script in script.google.com to sync Ollie\'s Drive bank.', 'warn');
-                    this.showToast('ℹ️ Using Ollie\'s built-in 12 two-part levels!');
-                  }
-                  return;
-                }
                 const merged = this.mergeCloudAndLocalMissions(res.data.missions);
                 this.data = res.data;
                 this.loadMissions(merged, true);
+                this.renderParentGapsTable();
                 if (manual) {
                   this.setModalStatus(`✅ Apps Script & Drive Connected! Synced ${merged.length} levels for Milo.`, 'success');
                 }
@@ -3443,16 +3931,10 @@
             delete window[cbName];
             script.remove();
             if (res && res.status === 'ok' && res.data && Array.isArray(res.data.missions)) {
-              if ('milo' === 'ollie' && this.isValidOllieTwoPartBank && !this.isValidOllieTwoPartBank(res.data)) {
-                if (manual) {
-                  this.setModalStatus('ℹ️ Connected to Milo\'s 4-part script (not yet updated with multi-child v1.5). Using Ollie\'s built-in 12 two-part levels! Update the .gs script in script.google.com to sync Ollie\'s Drive bank.', 'warn');
-                  this.showToast('ℹ️ Using Ollie\'s built-in 12 two-part levels!');
-                }
-                return;
-              }
               const merged = this.mergeCloudAndLocalMissions(res.data.missions);
               this.data = res.data;
               this.loadMissions(merged, true);
+              this.renderParentGapsTable();
               if (manual) {
                 this.setModalStatus(`✅ Apps Script & Drive Connected! Synced ${merged.length} levels for Milo.`, 'success');
               }
@@ -3529,7 +4011,12 @@
           document.getElementById('input-gcp-project').value = (safeGetStorage(STORAGE_KEYS.GCP_PROJECT, '') || DEFAULT_GCP_PROJECT || 'milo-writing-crafter');
           document.getElementById('input-gcp-location').value = safeGetStorage(STORAGE_KEYS.GCP_LOCATION, 'us-central1');
           document.getElementById('input-gemini-key').value = safeGetStorage(STORAGE_KEYS.GEMINI_KEY, '');
+          const emailInput = document.getElementById('input-parent-email');
+          if (emailInput) {
+            emailInput.value = safeGetStorage(STORAGE_KEYS.PARENT_EMAIL, '') || DEFAULT_PARENT_EMAIL;
+          }
           this.setModalStatus('', 'info');
+          this.renderParentGapsTable();
           this.renderParentLogsTable();
           document.getElementById('settings-modal').classList.add('open');
         },
@@ -3543,16 +4030,20 @@
           const proj = document.getElementById('input-gcp-project').value.trim() || DEFAULT_GCP_PROJECT || 'milo-writing-crafter';
           const loc = document.getElementById('input-gcp-location').value.trim() || 'us-central1';
           const key = document.getElementById('input-gemini-key').value.trim();
+          const emailEl = document.getElementById('input-parent-email');
+          const parentEmail = (emailEl && emailEl.value ? emailEl.value.trim() : '') || DEFAULT_PARENT_EMAIL;
+
           safeSetStorage(STORAGE_KEYS.WEBAPP_URL, url);
           safeSetStorage(STORAGE_KEYS.GCP_PROJECT, proj);
           safeSetStorage(STORAGE_KEYS.GCP_LOCATION, loc);
           safeSetStorage(STORAGE_KEYS.GEMINI_KEY, key);
+          safeSetStorage(STORAGE_KEYS.PARENT_EMAIL, parentEmail);
 
-          this.setModalStatus(`💾 Saving Vertex AI settings (Project: ${proj}, Region: ${loc}) and syncing with Google Drive...`, 'info');
-          this.showToast('☁️ Saving Cloud Settings...');
+          this.setModalStatus(`💾 Saving settings (Project: ${proj}, Notification Email: ${parentEmail}) and syncing with Google Drive...`, 'info');
+          this.showToast('☁️ Saving Cloud & Email Settings...');
 
           if (url) {
-            const cfgPayload = { action: 'save_cloud_config', child: 'milo', gcpProjectId: proj, gcpLocation: loc, apiKey: key };
+            const cfgPayload = { action: 'save_cloud_config', child: 'milo', gcpProjectId: proj, gcpLocation: loc, apiKey: key, parentEmail };
             try {
               await fetch(url, {
                 method: 'POST',
@@ -3566,25 +4057,53 @@
           this.syncCloudMissions(true);
         },
 
+        renderParentGapsTable() {
+          const tbody = document.getElementById('parent-gaps-tbody');
+          if (!tbody) return;
+          const profile = (this.data && Array.isArray(this.data.learningGapsProfile))
+            ? this.data.learningGapsProfile
+            : (window.DEFAULT_BANKS && Array.isArray(window.DEFAULT_BANKS.learningGapsProfile) ? window.DEFAULT_BANKS.learningGapsProfile : []);
+          if (profile.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="color:var(--text-muted);text-align:center;">No learning gaps profile loaded.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = profile.map(g => `
+            <tr>
+              <td><strong>${this.escapeHtml(g.category)}</strong></td>
+              <td>${this.escapeHtml(g.title)}<br/><span style="font-size:0.75rem;color:var(--text-muted);">Seen in: ${this.escapeHtml(g.occurrences)}</span></td>
+              <td><strong>${this.escapeHtml(g.status)}</strong></td>
+              <td>${this.escapeHtml(g.patternObserved)}<br/><em style="color:#475569;font-size:0.78rem;">e.g. ${this.escapeHtml(g.exampleFromMilo)}</em></td>
+              <td>${this.escapeHtml(g.naturalPromptEmphasis)}</td>
+            </tr>
+          `).join('');
+        },
+
         renderParentLogsTable() {
           const tbody = document.getElementById('parent-log-tbody');
           const logs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
           if (logs.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" style="color:var(--text-muted);text-align:center;">No completed sessions recorded on this device yet.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="9" style="color:var(--text-muted);text-align:center;">No completed sessions recorded on this device yet.</td></tr>`;
             return;
           }
-          tbody.innerHTML = logs.map(l => `
+          tbody.innerHTML = logs.map(l => {
+            const gapsArr = Array.isArray(l.detectedGaps) ? l.detectedGaps : [];
+            const gapsCell = gapsArr.length > 0
+              ? gapsArr.map(g => `• ${this.escapeHtml(g)}`).join('<br/>')
+              : (l.coachNotes ? this.escapeHtml(l.coachNotes) : '—');
+            return `
             <tr>
-              <td>${l.timestamp}</td>
+              <td>${this.escapeHtml(l.timestamp)}</td>
               <td>${this.escapeHtml(l.missionTitle)}</td>
               <td>${l.wordCount}w / ${l.wpm} WPM</td>
               <td>${l.isaContent10}</td>
               <td>${l.isaLanguage10}</td>
               <td>${l.isaSpelling10}</td>
               <td><strong>${l.isaTotal30} / 30</strong></td>
-              <td>${l.isaBand}</td>
+              <td>${this.escapeHtml(l.isaBand)}</td>
+              <td style="font-size:0.78rem;line-height:1.35;max-width:280px;">${gapsCell}</td>
             </tr>
-          `).join('');
+          `;
+          }).join('');
         },
 
         resetAllProgress() {
@@ -3609,11 +4128,14 @@
 
         exportParentCsv() {
           const logs = JSON.parse(safeGetStorage(STORAGE_KEYS.PARENT_LOGS, '[]'));
-          const headers = ['Timestamp','Level_ID','Title','Genre','Word_Count','WPM','Content_10','Language_10','Spelling_10','ISA_Total_30','ISA_Band','Compiled_Draft'];
+          const headers = ['Timestamp','Level_ID','Title','Genre','Word_Count','WPM','Content_10','Language_10','Spelling_10','ISA_Total_30','ISA_Band','Detected_Gaps','Coach_Notes','Compiled_Draft'];
           const rows = logs.map(l => [
             l.timestamp, l.missionId, `"${(l.missionTitle||'').replace(/"/g,'""')}"`, l.genre,
             l.wordCount, l.wpm, l.isaContent10, l.isaLanguage10, l.isaSpelling10, l.isaTotal30,
-            `"${l.isaBand}"`, `"${(l.compiledDraft||'').replace(/"/g,'""')}"`
+            `"${l.isaBand}"`,
+            `"${(Array.isArray(l.detectedGaps) ? l.detectedGaps.join('; ') : '').replace(/"/g,'""')}"`,
+            `"${(l.coachNotes||'').replace(/"/g,'""')}"`,
+            `"${(l.compiledDraft||'').replace(/"/g,'""')}"`
           ].join(','));
           const csv = [headers.join(','), ...rows].join('\n');
           const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
